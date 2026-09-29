@@ -1,0 +1,143 @@
+### =========================================================
+### StockFlow (PA-06) · Pruebas HTTP (IntelliJ HTTP Client)
+### Ejecuta en orden. Requiere V1 + V2 cargados en PostgreSQL.
+### =========================================================
+
+### ---------- Cap. 03 ----------
+### Health
+GET http://localhost:8080/api/health
+Accept: application/json
+
+### Demo de la entidad padre
+GET http://localhost:8080/api/categorias/demo
+Accept: application/json
+
+### ---------- Cap. 04 / 05 / 06 · CATEGORIA (padre) ----------
+### [201] Crear categoría válida
+POST http://localhost:8080/api/categorias
+Content-Type: application/json
+
+{
+  "codigo": "cat-ele",
+  "nombre": "Material eléctrico",
+  "descripcion": "Cables, tomas y accesorios"
+}
+
+### [400] Campos obligatorios vacíos
+POST http://localhost:8080/api/categorias
+Content-Type: application/json
+
+{
+  "codigo": "",
+  "nombre": ""
+}
+
+### [400] Código con formato inválido
+POST http://localhost:8080/api/categorias
+Content-Type: application/json
+
+{
+  "codigo": "CAT 01 #",
+  "nombre": "Código inválido"
+}
+
+### [409] Código UNIQUE repetido (existe en la semilla)
+POST http://localhost:8080/api/categorias
+Content-Type: application/json
+
+{
+  "codigo": "CAT-OFI",
+  "nombre": "Oficina duplicada"
+}
+
+### [200] Listar
+GET http://localhost:8080/api/categorias
+
+### [200] Listar con filtro opcional (@RequestParam)
+GET http://localhost:8080/api/categorias?nombre=limpieza
+
+### [200] Buscar por id existente (@PathVariable)
+GET http://localhost:8080/api/categorias/1
+
+### [404] Buscar por id inexistente
+GET http://localhost:8080/api/categorias/999
+
+### [400] Id con tipo inválido
+GET http://localhost:8080/api/categorias/abc
+
+### ---------- Cap. 07 · PRODUCTO (dependiente) ----------
+### [201] Registrar producto con categoría existente
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+  "categoriaId": 1,
+  "codigo": "PRD-OFI-010",
+  "nombre": "Cuaderno anillado A4",
+  "descripcion": "100 hojas cuadriculadas",
+  "unidadMedida": "UNIDAD",
+  "stockMinimoDefault": 25,
+  "precioReferencial": 18.90
+}
+
+### [200] Consultar producto por id
+GET http://localhost:8080/api/productos/1
+
+### [200] Listar productos de la misma categoría
+GET http://localhost:8080/api/productos/categoria/1
+
+### [404] Registrar con categoría (padre) inexistente
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+  "categoriaId": 9999,
+  "codigo": "PRD-FANTASMA-01",
+  "nombre": "Producto sin categoría"
+}
+
+### [409] Código de producto duplicado (RN-06)
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+  "categoriaId": 1,
+  "codigo": "PRD-OFI-001",
+  "nombre": "Papel duplicado"
+}
+
+### [400] Unidad de medida fuera del enum/CHECK
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+  "categoriaId": 1,
+  "codigo": "PRD-OFI-011",
+  "nombre": "Unidad inválida",
+  "unidadMedida": "BARRIL"
+}
+
+### [400] Stock mínimo negativo (RN-07)
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+  "categoriaId": 1,
+  "codigo": "PRD-OFI-012",
+  "nombre": "Mínimo negativo",
+  "stockMinimoDefault": -5
+}
+
+### [400] Precio negativo
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+  "categoriaId": 1,
+  "codigo": "PRD-OFI-013",
+  "nombre": "Precio negativo",
+  "precioReferencial": -1
+}
+
+### [404] Productos de una categoría inexistente
+GET http://localhost:8080/api/productos/categoria/9999
