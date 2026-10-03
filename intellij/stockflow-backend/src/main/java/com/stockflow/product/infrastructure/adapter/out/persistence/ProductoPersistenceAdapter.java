@@ -1,10 +1,13 @@
 package com.stockflow.product.infrastructure.adapter.out.persistence;
 
 import com.stockflow.category.infrastructure.adapter.out.persistence.repository.SpringDataCategoriaRepository;
+import com.stockflow.product.domain.exception.ProductoEnUsoException;
+import com.stockflow.product.domain.exception.ProductoNoEncontradoException;
 import com.stockflow.product.domain.model.Producto;
 import com.stockflow.product.domain.port.out.ProductoRepositoryPort;
 import com.stockflow.product.infrastructure.adapter.out.persistence.mapper.ProductoPersistenceMapper;
 import com.stockflow.product.infrastructure.adapter.out.persistence.repository.SpringDataProductoRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,6 +39,32 @@ public class ProductoPersistenceAdapter implements ProductoRepositoryPort {
     }
 
     @Override
+    public Producto actualizar(Producto producto) {
+        // findById deja la entidad managed; al cambiarla, Hibernate genera el UPDATE (dirty checking)
+        var entity = repository.findById(producto.getId())
+                .orElseThrow(() -> new ProductoNoEncontradoException(producto.getId()));
+        var categoriaRef = categoriaRepository.getReferenceById(producto.getCategoriaId());
+        entity.actualizar(categoriaRef, producto.getCodigo(), producto.getNombre(),
+                producto.getDescripcion(), producto.getUnidadMedida(), producto.getStockMinimoDefault(),
+                producto.getPrecioReferencial(), producto.isActivo());
+        // flush: si la base rechaza el UPDATE (UNIQUE, CHECK), el error ocurre aquí y no al hacer commit
+        repository.flush();
+        return ProductoPersistenceMapper.toDomain(entity);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        try {
+            repository.deleteById(id);
+            // flush: fuerza el DELETE ahora para que las FK respondan dentro de este método
+            repository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            // FK desde stock, movimiento_inventario, item_solicitud, transferencia_detalle o alerta_stock
+            throw new ProductoEnUsoException(id);
+        }
+    }
+
+    @Override
     public Optional<Producto> buscarPorId(Long id) {
         return repository.findById(id).map(ProductoPersistenceMapper::toDomain);
     }
@@ -50,5 +79,10 @@ public class ProductoPersistenceAdapter implements ProductoRepositoryPort {
     @Override
     public boolean existePorCodigo(String codigo) {
         return repository.existsByCodigo(Producto.normalizarCodigo(codigo));
+    }
+
+    @Override
+    public boolean existePorCodigoEnOtro(String codigo, Long id) {
+        return repository.existsByCodigoAndIdNot(Producto.normalizarCodigo(codigo), id);
     }
 }

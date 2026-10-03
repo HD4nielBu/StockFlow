@@ -10,6 +10,12 @@ public interface CategoriaRepositoryPort {
 
     Categoria guardar(Categoria categoria);
 
+    /** Modifica una categoría que ya existe; nunca crea una nueva. */
+    Categoria actualizar(Categoria categoria);
+
+    /** Lanza CategoriaConProductosException si la FK de producto lo impide. */
+    void eliminar(Long id);
+
     Optional<Categoria> buscarPorId(Long id);
 
     List<Categoria> listar(String nombre);
@@ -17,4 +23,9 @@ public interface CategoriaRepositoryPort {
     boolean existePorCodigo(String codigo);
 
     boolean existePorNombre(String nombre);
+
+    /** Unicidad en un PUT: ignora a la propia categoría para no dar un 409 falso. */
+    boolean existePorCodigoEnOtra(String codigo, Long id);
+
+    boolean existePorNombreEnOtra(String nombre, Long id);
 }

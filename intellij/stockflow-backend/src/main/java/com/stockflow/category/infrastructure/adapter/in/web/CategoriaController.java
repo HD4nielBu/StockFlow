@@ -1,16 +1,21 @@
 package com.stockflow.category.infrastructure.adapter.in.web;
 
 import com.stockflow.category.domain.exception.CategoriaNoEncontradaException;
+import com.stockflow.category.domain.port.in.ActualizarCategoriaUseCase;
 import com.stockflow.category.domain.port.in.ConsultarCategoriaUseCase;
+import com.stockflow.category.domain.port.in.EliminarCategoriaUseCase;
 import com.stockflow.category.domain.port.in.RegistrarCategoriaUseCase;
+import com.stockflow.category.infrastructure.adapter.in.web.dto.ActualizarCategoriaRequest;
 import com.stockflow.category.infrastructure.adapter.in.web.dto.CategoriaResponse;
 import com.stockflow.category.infrastructure.adapter.in.web.dto.CrearCategoriaRequest;
 import com.stockflow.category.infrastructure.adapter.in.web.mapper.CategoriaWebMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +32,15 @@ public class CategoriaController {
 
     private final RegistrarCategoriaUseCase registrar;
     private final ConsultarCategoriaUseCase consultar;
+    private final ActualizarCategoriaUseCase actualizar;
+    private final EliminarCategoriaUseCase eliminar;
 
-    public CategoriaController(RegistrarCategoriaUseCase registrar, ConsultarCategoriaUseCase consultar) {
+    public CategoriaController(RegistrarCategoriaUseCase registrar, ConsultarCategoriaUseCase consultar,
+                               ActualizarCategoriaUseCase actualizar, EliminarCategoriaUseCase eliminar) {
         this.registrar = registrar;
         this.consultar = consultar;
+        this.actualizar = actualizar;
+        this.eliminar = eliminar;
     }
 
     @PostMapping
@@ -53,5 +63,20 @@ public class CategoriaController {
         var categoria = consultar.buscarPorId(id)
                 .orElseThrow(() -> new CategoriaNoEncontradaException(id));
         return ResponseEntity.ok(CategoriaWebMapper.toResponse(categoria));
+    }
+
+    /** PUT idempotente: repetir la misma petición deja el mismo estado. 200 / 400 / 404 / 409. */
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaResponse> actualizar(@PathVariable Long id,
+                                                        @Valid @RequestBody ActualizarCategoriaRequest request) {
+        var actualizada = actualizar.actualizar(id, CategoriaWebMapper.toDomain(request));
+        return ResponseEntity.ok(CategoriaWebMapper.toResponse(actualizada));
+    }
+
+    /** 204 sin cuerpo; 404 si no existe; 409 si tiene productos (FK sin CASCADE). */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        eliminar.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }
