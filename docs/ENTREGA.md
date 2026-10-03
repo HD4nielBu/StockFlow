@@ -60,7 +60,7 @@ StockFlow/
 - Las 18 pruebas negativas SQL fallan con la constraint, trigger o índice esperado.
 - El flujo crítico (solicitud → aprobación → movimiento → stock → kardex → alerta) se ejecuta completo en una transacción.
 - Laboratorio Java compilado y ejecutado con Java 21.
-- Backend compilado y 55 pruebas pasando: dominio, casos de uso, controller (`@WebMvcTest`) e integración con PostgreSQL 16 (Testcontainers: Flyway V1-V3, consultas nativas, FK, triggers).
+- Backend compilado y 57 pruebas pasando: dominio, casos de uso, controller (`@WebMvcTest`) e integración con PostgreSQL 16 (Testcontainers: Flyway V1-V3, `mappedBy` y LAZY, consultas nativas, FK, triggers).
 
 ## Importante para la defensa
 Revisa "Respuestas de defensa rápidas" en `intellij/stockflow-backend/README.md` y los documentos de `docs/04-model`. No subas la contraseña real a GitHub.

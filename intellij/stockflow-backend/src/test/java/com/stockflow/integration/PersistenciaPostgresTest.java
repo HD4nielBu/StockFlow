@@ -2,9 +2,11 @@ package com.stockflow.integration;
 
 import com.stockflow.category.domain.exception.CategoriaConProductosException;
 import com.stockflow.category.infrastructure.adapter.out.persistence.CategoriaPersistenceAdapter;
+import com.stockflow.category.infrastructure.adapter.out.persistence.repository.SpringDataCategoriaRepository;
 import com.stockflow.inventory.infrastructure.adapter.out.persistence.InventarioConsultaAdapter;
 import com.stockflow.product.domain.exception.ProductoEnUsoException;
 import com.stockflow.product.infrastructure.adapter.out.persistence.ProductoPersistenceAdapter;
+import com.stockflow.product.infrastructure.adapter.out.persistence.entity.ProductoJpaEntity;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,11 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,7 +52,38 @@ class PersistenciaPostgresTest {
     @Autowired
     ProductoPersistenceAdapter productos;
     @Autowired
+    SpringDataCategoriaRepository categoriaRepository;
+    @Autowired
     EntityManager em;
+
+    // ---------- Relación 1:N: lado propietario y lado inverso (preguntas 29, 30, 33 y 49) ----------
+
+    /**
+     * Si mappedBy estuviera mal escrito (por ejemplo "categoria_id", el nombre de la COLUMNA),
+     * Hibernate fallaría al construir el EntityManagerFactory y esta clase no llegaría a ejecutarse:
+     * es la prueba que detecta un error en mappedBy que una prueba unitaria del service nunca vería.
+     */
+    @Test
+    void ladoInversoMappedByLeeLosProductosATravesDeLaFkYEsLazy() {
+        var oficina = categoriaRepository.findById(1L).orElseThrow();   // CAT-OFI de la semilla
+        var util = em.getEntityManagerFactory().getPersistenceUnitUtil();
+
+        // @OneToMany es LAZY por defecto: cargar la categoría no trae sus productos
+        assertFalse(util.isLoaded(oficina, "productos"));
+
+        // Al recorrer la colección, Hibernate ejecuta: SELECT ... FROM producto WHERE categoria_id = ?
+        Set<String> codigos = oficina.getProductos().stream()
+                .map(ProductoJpaEntity::getCodigo)
+                .collect(Collectors.toSet());
+        assertEquals(Set.of("PRD-OFI-001", "PRD-OFI-002"), codigos);
+        assertTrue(util.isLoaded(oficina, "productos"));
+    }
+
+    @Test
+    void ladoInversoEsDeSoloLectura() {
+        var oficina = categoriaRepository.findById(1L).orElseThrow();
+        assertThrows(UnsupportedOperationException.class, () -> oficina.getProductos().clear());
+    }
 
     // ---------- @Query nativo y paginación (preguntas 17 y 47) ----------
 

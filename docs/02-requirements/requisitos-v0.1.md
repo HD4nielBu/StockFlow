@@ -47,7 +47,7 @@ Los quince RNF son comunes a los diez proyectos del banco. La columna "En StockF
 | RNF-02 | Seguridad | Autenticación y autorización por roles; contraseñas nunca en texto plano; el backend valida permisos. | `usuario.password_hash` (hash, nunca texto plano). Sin login ni autorización todavía. | ❌ |
 | RNF-03 | Integridad | PK, FK, UNIQUE, NOT NULL, CHECK e índices; reglas críticas no dependen de la UI. | 17 tablas con constraints nombradas, triggers de histórico, índices justificados (V1, V3). | ✅ |
 | RNF-04 | Mantenibilidad | Monolito modular hexagonal; código por módulos y casos de uso. | Módulos `category`, `product`, `location`, `inventory`, `shared`; Ports IN/OUT. Ver ADR-001. | ✅ |
-| RNF-05 | Calidad | Pruebas unitarias de reglas críticas y de integración para repositorios/endpoints. | 55 pruebas: dominio, casos de uso, `@WebMvcTest` y Testcontainers con PostgreSQL. Faltan las reglas de movimientos (aún no implementadas). | ⚠️ |
+| RNF-05 | Calidad | Pruebas unitarias de reglas críticas y de integración para repositorios/endpoints. | 57 pruebas: dominio, casos de uso, `@WebMvcTest` y Testcontainers con PostgreSQL. Faltan las reglas de movimientos (aún no implementadas). | ⚠️ |
 | RNF-06 | Trazabilidad | Registrar usuario, fecha y cambio de estado. | Columnas de auditoría e historial en la base; falta el usuario autenticado en el backend. | ⚠️ |
 | RNF-07 | API | API prefijada o versionada; códigos HTTP correctos; DTO de entrada/salida; errores consistentes. | Prefijo `/api`; `record` DTO; `ApiErrorResponse` único (400/404/409/422/500). Ver ADR-006. | ✅ |
 | RNF-08 | Web | React + TypeScript, sin `any`, componentes reutilizables, formularios tipados, API centralizada. | Pendiente (CORS ya preparado para Vite :5173). | ❌ |

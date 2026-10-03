@@ -6,7 +6,7 @@ Cada decisión importante queda en un archivo corto con su **contexto**, la **de
 |---|---|---|
 | [001](ADR-001-monolito-modular-hexagonal.md) | Monolito modular con arquitectura hexagonal simplificada | Aceptada |
 | [002](ADR-002-migraciones-flyway-y-validate.md) | Esquema versionado con Flyway; Hibernate sólo valida | Aceptada |
-| [003](ADR-003-relacion-1n-unidireccional.md) | Relación Categoría 1:N Producto unidireccional (`@ManyToOne`, sin `@OneToMany`) | Aceptada |
+| [003](ADR-003-relacion-1n-y-lado-inverso.md) | Relación Categoría 1:N Producto: `@ManyToOne` propietario + `@OneToMany(mappedBy)` inverso de sólo lectura | Aceptada (revisada 2026-10-03) |
 | [004](ADR-004-delete-protegido-por-fk.md) | DELETE físico protegido por las FK, sin `CascadeType`; retirar con `activo = false` | Aceptada |
 | [005](ADR-005-stock-solo-por-movimientos.md) | El stock es de sólo lectura y cambia sólo por movimientos (RN-01) | Aceptada |
 | [006](ADR-006-contrato-de-errores.md) | Contrato único de errores y códigos 400/404/409/422/500 | Aceptada |

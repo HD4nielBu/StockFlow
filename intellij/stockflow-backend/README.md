@@ -144,13 +144,13 @@ com.stockflow
 | `ProductoTest` | Dominio | Invariantes de `Producto`: RN-07, precio (escala, negativo), código y categoría obligatorios |
 | `CategoriaServiceTest`, `ProductoServiceTest`, `UbicacionServiceTest` | Caso de uso (Ports OUT falsos) | Reglas de registrar, PUT, DELETE, unicidad, categoría inactiva, almacén central único |
 | `ProductoControllerTest` | Web (`@WebMvcTest`, casos de uso con `@MockitoBean`) | Contrato HTTP: 201 + `Location`, 400 por campo, 404, 409, 422, 204 y **500 sin filtrar detalles internos** |
-| `PersistenciaPostgresTest` | Integración (`@DataJpaTest` + **Testcontainers** con PostgreSQL 16) | Flyway V1-V3 + `validate`, SQL nativo, paginación, FK → 409, triggers e índices de V3 |
+| `PersistenciaPostgresTest` | Integración (`@DataJpaTest` + **Testcontainers** con PostgreSQL 16) | Flyway V1-V3 + `validate`, `mappedBy` y LAZY del lado inverso, SQL nativo, paginación, FK → 409, triggers e índices de V3 |
 
 ```bash
 mvn test
 ```
 `PersistenciaPostgresTest` necesita Docker en ejecución (Docker Engine o Docker Desktop; Testcontainers detecta
-ambos sin configurar nada). **Si Docker no está disponible, sus 8 pruebas se omiten** (`Skipped`) y el build no falla.
+ambos sin configurar nada). **Si Docker no está disponible, sus 10 pruebas se omiten** (`Skipped`) y el build no falla.
 La primera ejecución descarga la imagen `postgres:16`.
 
 ## Recorrido POST /api/productos → PostgreSQL
@@ -168,7 +168,8 @@ La primera ejecución descarga la imagen `postgres:16`.
 - **¿Qué restricción existe también en base de datos y por qué no basta con React?** `uq_producto_codigo` (RN-06). El navegador se puede saltar; cualquier cliente (móvil, Postman, script) escribe contra la misma base.
 - **¿Por qué el dominio no tiene @Entity?** Para que las reglas no dependan de JPA; si cambia la persistencia sólo cambia `infrastructure`.
 - **¿Qué clase conoce el nombre de la tabla?** Sólo las entidades JPA (`CategoriaJpaEntity`, `ProductoJpaEntity`, `UbicacionJpaEntity`, `StockJpaEntity`) y las consultas nativas de `SpringDataStockRepository`.
-- **¿Por qué @ManyToOne y no @OneToMany?** La FK vive en `producto`; muchos productos apuntan a una categoría. No se agrega la colección `@OneToMany` en `Categoria` porque ningún caso de uso necesita navegar de la categoría a todos sus productos (para eso existe `GET /api/productos/categoria/{id}`), y crearía un ciclo de imports entre módulos. El Capítulo 05 lo indica: *"No agregues una colección @OneToMany sólo porque JPA permite hacerlo"*.
+- **¿@ManyToOne o @OneToMany?** Ambos (ADR-003). La FK vive en `producto`, así que el **lado propietario** es `ProductoJpaEntity.categoria` (`@ManyToOne(LAZY)` + `@JoinColumn(name = "categoria_id")`): es el único que escribe la FK. `CategoriaJpaEntity.productos` es el **lado inverso**, `@OneToMany(mappedBy = "categoria")`, de sólo lectura: sin cascade, sin orphanRemoval y sin uso en los mappers, así que la API no cambia.
+- **¿Qué es `mappedBy = "categoria"`?** El nombre del **atributo Java** del lado propietario, no de la columna. Con `mappedBy = "categoria_id"` la aplicación no arranca (`AnnotationException: ... 'mappedBy' a property named 'categoria_id' which does not exist`); sin `mappedBy`, Hibernate busca una tabla intermedia (`missing table [categoria_productos]`); sin `@JoinColumn`, busca la columna `categoria_categoria_id`. Los tres errores están comprobados en este proyecto (ADR-003).
 - **¿Qué significa LAZY?** La categoría no se carga con SELECT hasta que se usa; para leer su id basta el proxy.
 - **¿Por qué validate?** El esquema lo define el DDL del grupo; Java se adapta, no al revés.
 - **¿Cómo evita el sistema un estado inválido?** Hoy, en la base: `ck_solicitud_estado` limita los valores y `historial_estado_solicitud` deja la traza. El enum Java y la validación de transiciones en el caso de uso todavía **no están implementados** (llegan con el módulo de solicitudes).
