@@ -9,6 +9,9 @@ public interface SpringDataProductoRepository extends JpaRepository<ProductoJpaE
 
     boolean existsByCodigo(String codigo);
 
+    // ... AND producto_id <> ? : excluye a la fila que se está editando
+    boolean existsByCodigoAndIdNot(String codigo, Long id);
+
     // categoria.id -> navega la FK: WHERE categoria_id = ?
     List<ProductoJpaEntity> findByCategoria_IdOrderByCodigoAsc(Long categoriaId);
 }

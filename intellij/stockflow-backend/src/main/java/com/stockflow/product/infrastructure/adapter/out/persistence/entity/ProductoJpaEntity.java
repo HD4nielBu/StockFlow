@@ -81,6 +81,20 @@ public class ProductoJpaEntity {
         this.activo = activo;
     }
 
+    /** Usado por el PUT sobre una entidad managed: Hibernate detecta el cambio (dirty checking). */
+    public void actualizar(CategoriaJpaEntity categoria, String codigo, String nombre, String descripcion,
+                           UnidadMedida unidadMedida, int stockMinimoDefault,
+                           BigDecimal precioReferencial, boolean activo) {
+        this.categoria = categoria;
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.unidadMedida = unidadMedida;
+        this.stockMinimoDefault = stockMinimoDefault;
+        this.precioReferencial = precioReferencial;
+        this.activo = activo;
+    }
+
     public Long getId() { return id; }
     public CategoriaJpaEntity getCategoria() { return categoria; }
     public String getCodigo() { return codigo; }

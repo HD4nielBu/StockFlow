@@ -52,6 +52,14 @@ public class CategoriaJpaEntity {
         this.activo = activo;
     }
 
+    /** Usado por el PUT sobre una entidad managed: Hibernate detecta el cambio (dirty checking). */
+    public void actualizar(String codigo, String nombre, String descripcion, boolean activo) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.activo = activo;
+    }
+
     public Long getId() { return id; }
     public String getCodigo() { return codigo; }
     public String getNombre() { return nombre; }

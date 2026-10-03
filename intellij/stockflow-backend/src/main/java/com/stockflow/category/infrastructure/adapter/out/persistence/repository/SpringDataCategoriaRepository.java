@@ -11,6 +11,11 @@ public interface SpringDataCategoriaRepository extends JpaRepository<CategoriaJp
 
     boolean existsByNombreIgnoreCase(String nombre);
 
+    // ... AND categoria_id <> ? : excluye a la fila que se está editando
+    boolean existsByCodigoAndIdNot(String codigo, Long id);
+
+    boolean existsByNombreIgnoreCaseAndIdNot(String nombre, Long id);
+
     List<CategoriaJpaEntity> findAllByOrderByCodigoAsc();
 
     List<CategoriaJpaEntity> findByNombreContainingIgnoreCaseOrderByCodigoAsc(String nombre);
