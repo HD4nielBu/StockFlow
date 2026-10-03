@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: stockflow-backend
+  datasource:
+    # Credenciales por variables de entorno. Los valores por defecto son SOLO de laboratorio.
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/stockflow}
+    username: ${DB_USERNAME:stockflow_admin}
+    password: ${DB_PASSWORD:Cambia_Esta_Clave_2026!}
+  flyway:
+    # Flyway aplica db/migration/V*.sql al arrancar y registra cada versión en
+    # stockflow.flyway_schema_history. Una migración aplicada NO se edita: se agrega otra nueva.
+    schemas: stockflow
+    default-schema: stockflow
+  jpa:
+    hibernate:
+      ddl-auto: validate          # Flyway crea el esquema; Hibernate sólo verifica que Java coincida
+    properties:
+      hibernate:
+        default_schema: stockflow
+        format_sql: true
+    open-in-view: false
+
+server:
+  port: 8080
+
+stockflow:
+  cors:
+    # Lista separada por comas. En producción: el dominio real del frontend.
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+logging:
+  level:
+    org.hibernate.SQL: debug
