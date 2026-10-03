@@ -149,12 +149,9 @@ com.stockflow
 ```bash
 mvn test
 ```
-`PersistenciaPostgresTest` necesita Docker; **si no hay Docker se omite** (no falla). Con **Docker Desktop en Linux**,
-Testcontainers necesita saber dónde está el socket (en IntelliJ: Run Configuration → Environment variables):
-```
-DOCKER_HOST=unix:///home/<usuario>/.docker/desktop/docker.sock
-TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
-```
+`PersistenciaPostgresTest` necesita Docker en ejecución (Docker Engine o Docker Desktop; Testcontainers detecta
+ambos sin configurar nada). **Si Docker no está disponible, sus 8 pruebas se omiten** (`Skipped`) y el build no falla.
+La primera ejecución descarga la imagen `postgres:16`.
 
 ## Recorrido POST /api/productos → PostgreSQL
 1. `ProductoController` recibe JSON y `@Valid` revisa formato (400 si falla).
