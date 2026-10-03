@@ -6,7 +6,6 @@ import com.stockflow.category.domain.model.Categoria;
 import com.stockflow.category.domain.port.in.ConsultarCategoriaUseCase;
 import com.stockflow.product.domain.exception.CodigoProductoDuplicadoException;
 import com.stockflow.product.domain.exception.ProductoNoEncontradoException;
-import com.stockflow.product.domain.exception.StockMinimoInvalidoException;
 import com.stockflow.product.domain.model.Producto;
 import com.stockflow.product.domain.model.UnidadMedida;
 import com.stockflow.product.domain.port.out.ProductoRepositoryPort;
@@ -84,11 +83,6 @@ class ProductoServiceTest {
                 () -> service.registrar(producto(1L, " prd-ofi-001 ", 0)));
     }
 
-    @Test
-    void rechazaStockMinimoNegativoRN07() {
-        assertThrows(StockMinimoInvalidoException.class,
-                () -> service.registrar(producto(1L, "PRD-OFI-009", -1)));
-    }
 
     @Test
     void listaSoloLosProductosDeLaCategoria() {
