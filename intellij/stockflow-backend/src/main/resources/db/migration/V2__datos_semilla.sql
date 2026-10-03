@@ -1,12 +1,11 @@
 -- =====================================================================
 -- StockFlow (PA-06) · V2 · Datos semilla mínimos
--- Ejecutar DESPUÉS de V1, conectado como stockflow_admin / stockflow
+-- Lo aplica Flyway después de V1. Flyway ya envuelve cada migración en una transacción,
+-- por eso aquí no hay BEGIN/COMMIT: si un INSERT falla, toda la V2 se revierte.
 -- Los password_hash son de EJEMPLO (no son contraseñas reales).
 -- Incluye el flujo crítico: solicitud -> aprobación -> movimiento -> stock.
 -- =====================================================================
 SET search_path TO stockflow, public;
-
-BEGIN;
 
 -- Parámetros (RN-03: stock negativo deshabilitado por defecto)
 INSERT INTO parametro_sistema (clave, valor, descripcion) VALUES
@@ -101,13 +100,3 @@ INSERT INTO historial_estado_solicitud (solicitud_id, estado_anterior, estado_nu
 INSERT INTO auditoria (usuario_id, entidad, entidad_id, accion, detalle) VALUES
  ((SELECT usuario_id FROM usuario WHERE username='supervisor'), 'solicitud',
   (SELECT solicitud_id FROM solicitud WHERE codigo='SOL-2026-0001'), 'APROBAR', '{"origen":"semilla"}');
-
-COMMIT;
-
--- Resumen
-SELECT 'categoria' AS tabla, COUNT(*) FROM categoria
-UNION ALL SELECT 'producto', COUNT(*) FROM producto
-UNION ALL SELECT 'ubicacion', COUNT(*) FROM ubicacion
-UNION ALL SELECT 'stock', COUNT(*) FROM stock
-UNION ALL SELECT 'movimiento_inventario', COUNT(*) FROM movimiento_inventario
-UNION ALL SELECT 'solicitud', COUNT(*) FROM solicitud;
