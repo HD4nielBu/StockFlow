@@ -290,3 +290,85 @@ Access-Control-Request-Method: PUT
 OPTIONS http://localhost:8080/api/categorias
 Origin: http://sitio-no-autorizado.com
 Access-Control-Request-Method: GET
+
+### ---------- UBICACIONES (módulo location, RF-07) ----------
+### [200] Listar (almacén central + 2 depósitos de la semilla)
+GET http://localhost:8080/api/ubicaciones
+
+### [200] Filtrar por tipo (@RequestParam con enum)
+GET http://localhost:8080/api/ubicaciones?tipo=DEPOSITO
+
+### [400] Tipo inexistente
+GET http://localhost:8080/api/ubicaciones?tipo=BODEGA
+
+### [200] Buscar por id
+GET http://localhost:8080/api/ubicaciones/1
+
+### [404] Buscar inexistente
+GET http://localhost:8080/api/ubicaciones/999
+
+### [201] Registrar un depósito
+POST http://localhost:8080/api/ubicaciones
+Content-Type: application/json
+
+{
+  "codigo": "ub-dep-este",
+  "nombre": "Depósito Este",
+  "tipo": "DEPOSITO",
+  "direccion": "Av. Ejemplo 123"
+}
+
+### [409] Código de ubicación repetido
+POST http://localhost:8080/api/ubicaciones
+Content-Type: application/json
+
+{
+  "codigo": "UB-DEP-ESTE",
+  "nombre": "Otro depósito"
+}
+
+### [409] Regla del cliente: un único almacén central activo
+POST http://localhost:8080/api/ubicaciones
+Content-Type: application/json
+
+{
+  "codigo": "UB-CENTRAL-2",
+  "nombre": "Segundo almacén central",
+  "tipo": "ALMACEN_CENTRAL"
+}
+
+### ---------- INVENTARIO (esqueleto del flujo crítico, sólo lectura) ----------
+### [200] Existencias de todos los productos en todas las ubicaciones (RF-08)
+GET http://localhost:8080/api/inventario/stock
+
+### [200] Existencias de un producto
+GET http://localhost:8080/api/inventario/stock?productoId=1
+
+### [200] Existencias de una ubicación
+GET http://localhost:8080/api/inventario/stock?ubicacionId=2
+
+### [200] Alertas de mínimo (RF-20): existencias en o bajo su stock mínimo
+GET http://localhost:8080/api/inventario/stock?soloBajoMinimo=true
+
+### [404] Filtro con un producto inexistente (no devuelve una lista vacía engañosa)
+GET http://localhost:8080/api/inventario/stock?productoId=9999
+
+### [200] Kardex paginado de un producto (RF-19, @Query nativo sobre vw_kardex)
+GET http://localhost:8080/api/inventario/kardex/1?pagina=0&tamano=20
+
+### [200] Misma consulta de a 1 movimiento por página: ver totalElementos y totalPaginas
+GET http://localhost:8080/api/inventario/kardex/1?pagina=1&tamano=1
+
+### [404] Kardex de un producto inexistente
+GET http://localhost:8080/api/inventario/kardex/9999
+
+### [422] Tamaño de página fuera de rango (1 a 100)
+GET http://localhost:8080/api/inventario/kardex/1?tamano=500
+
+### [400] Página no numérica
+GET http://localhost:8080/api/inventario/kardex/1?pagina=abc
+
+### ---------- SWAGGER / OpenAPI (pregunta 14) ----------
+### Especificación OpenAPI generada desde los controllers.
+### La interfaz para probar se abre en el navegador: http://localhost:8080/swagger-ui.html
+GET http://localhost:8080/v3/api-docs

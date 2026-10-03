@@ -1,4 +1,4 @@
-# stockflow-backend (Capítulos 03 al 07)
+# stockflow-backend (Capítulos 03 al 08)
 
 Spring Boot 3.5 · Java 21 · Maven · PostgreSQL · Arquitectura hexagonal · Monolito modular
 
@@ -19,10 +19,12 @@ Spring Boot 3.5 · Java 21 · Maven · PostgreSQL · Arquitectura hexagonal · M
 2. IntelliJ: File > Open > `stockflow-backend` (Maven). SDK Java 21.
 3. Si cambiaste la contraseña, crea variables de entorno en Run Configuration:
    `DB_USERNAME=stockflow_admin; DB_PASSWORD=tu_clave`
-4. Ejecuta `StockFlowApplication`. **Flyway** aplica `db/migration/V1` (esquema) y `V2` (semilla) la primera vez
-   y las registra en `stockflow.flyway_schema_history`; después Hibernate valida el esquema (`ddl-auto: validate`).
-5. Abre `requests.http` y ejecuta las peticiones en orden (los POST guardan `{{categoriaId}}` y `{{productoId}}` para los PUT/DELETE).
-6. Pruebas unitarias: `ProductoServiceTest` y `CategoriaServiceTest` (no necesitan base de datos).
+4. Ejecuta `StockFlowApplication`. **Flyway** aplica las migraciones pendientes de `db/migration`
+   (V1 esquema, V2 semilla, V3 protección del histórico y alertas) y las registra en `stockflow.flyway_schema_history`;
+   después Hibernate valida el esquema (`ddl-auto: validate`).
+5. Abre `requests.http` y ejecuta las peticiones en orden (los POST guardan `{{categoriaId}}` y `{{productoId}}` para los PUT/DELETE),
+   o usa **Swagger UI** en el navegador: http://localhost:8080/swagger-ui.html
+6. Pruebas: ver la sección **Pruebas automáticas**.
 
 > **Si tu base ya tenía las tablas creadas a mano en DataGrip**, Flyway se niega a migrar un esquema no vacío
 > sin historial. Empieza de cero: `docker compose down -v`, o en tu PostgreSQL local `DROP SCHEMA stockflow CASCADE;`.
@@ -38,8 +40,8 @@ com.stockflow
 ├── StockFlowApplication.java
 ├── shared
 │   ├── application/ProjectInfoService            (Cap. 03 Bean)
-│   ├── domain/exception/ (bases 404 / 409 / 422)
-│   └── web/ HealthController, ApiErrorResponse, GlobalExceptionHandler, CorsConfig
+│   ├── domain/exception/ (bases 404 / 409 / 422, DatoInvalido)
+│   └── web/ HealthController, ApiErrorResponse, GlobalExceptionHandler, CorsConfig, OpenApiConfig
 ├── category                                      (PADRE)
 │   ├── domain
 │   │   ├── model/Categoria
@@ -53,12 +55,26 @@ com.stockflow
 │   └── infrastructure/adapter
 │       ├── in/web/  CategoriaController, CategoriaDemoController, dto/, mapper/
 │       └── out/persistence/ CategoriaPersistenceAdapter, entity/, mapper/, repository/
-└── product                                       (DEPENDIENTE)
-    ├── domain/model/ Producto, UnidadMedida
-    ├── domain/exception/ ProductoNoEncontrado, CodigoProductoDuplicado, StockMinimoInvalido, ProductoEnUso
-    ├── domain/port/in, out
-    ├── application/service/ProductoService
-    └── infrastructure/adapter/in/web, out/persistence (@ManyToOne)
+├── product                                       (DEPENDIENTE)
+│   ├── domain/model/ Producto, UnidadMedida
+│   ├── domain/exception/ ProductoNoEncontrado, CodigoProductoDuplicado, StockMinimoInvalido, ProductoEnUso
+│   ├── domain/port/in, out
+│   ├── application/service/ProductoService
+│   └── infrastructure/adapter/in/web, out/persistence (@ManyToOne)
+├── location                                      (Ubicación: almacén central y depósitos)
+│   ├── domain/model/ Ubicacion, TipoUbicacion
+│   ├── domain/exception/ UbicacionNoEncontrada, CodigoUbicacionDuplicado, AlmacenCentralDuplicado
+│   ├── domain/port/in/ Registrar/ConsultarUbicacionUseCase · out/ UbicacionRepositoryPort
+│   ├── application/service/UbicacionService
+│   └── infrastructure/adapter/in/web, out/persistence
+└── inventory                                     (lectura del flujo crítico: stock, alertas, kardex)
+    ├── domain/model/ Existencia, MovimientoKardex, Pagina (records de lectura)
+    ├── domain/port/in/ ConsultarInventarioUseCase · out/ InventarioConsultaPort
+    ├── application/service/InventarioConsultaService   (valida con Ports IN de product y location)
+    └── infrastructure/adapter
+        ├── in/web/  InventarioController, dto/ (PaginaResponse), mapper/
+        └── out/persistence/ InventarioConsultaAdapter, entity/StockJpaEntity (@Immutable),
+                             repository/SpringDataStockRepository (@Query nativo + Pageable)
 ```
 
 ## Recorrido por capítulo
@@ -71,6 +87,7 @@ com.stockflow
 | 07 | Módulo `product` hexagonal, `@ManyToOne` + `@JoinColumn(categoria_id)`, validación del padre vía `ConsultarCategoriaUseCase`, `findByCategoria_Id` |
 | 08 | `GlobalExceptionHandler` con 400/404/409/422 y `@Transactional` |
 | Defensa parcial 1 | PUT y DELETE de categoría y producto, CORS (`CorsConfig`), migraciones Flyway, Docker Compose |
+| Ficha PA-06, Parcial 1 | Módulo `location`; esqueleto del flujo crítico (`inventory`: stock, alertas y kardex paginado con `@Query`); Swagger; V3; pruebas web e integración |
 
 ## Contrato HTTP
 | Verbo | Ruta | Entrada | Salida | Status |
@@ -87,6 +104,15 @@ com.stockflow
 | GET | /api/productos/categoria/{categoriaId} | path variable | List<ProductoResponse> | 200 / 404 |
 | PUT | /api/productos/{id} | ActualizarProductoRequest | ProductoResponse | 200 / 400 / 404 / 409 / 422 |
 | DELETE | /api/productos/{id} | path variable | sin cuerpo | 204 / 404 / 409 (tiene stock o movimientos) |
+| POST | /api/ubicaciones | CrearUbicacionRequest | UbicacionResponse | 201 / 400 / 409 (código repetido o segundo almacén central) |
+| GET | /api/ubicaciones?tipo= | query opcional (enum) | List<UbicacionResponse> | 200 / 400 |
+| GET | /api/ubicaciones/{id} | path variable | UbicacionResponse | 200 / 404 |
+| GET | /api/inventario/stock?productoId=&ubicacionId=&soloBajoMinimo= | filtros opcionales | List<ExistenciaResponse> | 200 / 400 / 404 |
+| GET | /api/inventario/kardex/{productoId}?pagina=&tamano= | path + paginación | PaginaResponse<MovimientoKardexResponse> | 200 / 400 / 404 / 422 |
+| GET | /swagger-ui.html · /v3/api-docs | — | Swagger UI · especificación OpenAPI | 200 |
+
+> No existe PUT ni POST de stock a propósito: **RN-01**, el stock sólo cambiará mediante el caso de uso de
+> movimientos (Parte II). `StockJpaEntity` es `@Immutable`: Hibernate nunca genera un UPDATE sobre `stock`.
 
 ### Decisiones de PUT y DELETE
 - **PUT es un reemplazo completo e idempotente.** El `id` viaja en la ruta, nunca en el cuerpo. Si no existe responde 404: PUT no crea.
@@ -101,6 +127,35 @@ com.stockflow
 - **CORS** (`shared/web/CorsConfig`): sólo los orígenes de `stockflow.cors.allowed-origins`
   (por defecto `http://localhost:5173`, el puerto de Vite). Se cambia con la variable `CORS_ALLOWED_ORIGINS`.
 
+### Decisiones de los módulos location e inventory
+- **Un único almacén central activo** (409): regla del cliente (ficha PA-06, sección A), no sólo un CRUD.
+- **Kardex con `@Query` nativo y paginado**: lee la vista `vw_kardex` (une 4 tablas); un método derivado no puede
+  expresarlo. Con `Pageable`, Spring agrega `LIMIT/OFFSET` y ejecuta el `countQuery` para el total (RNF-13).
+  El dominio usa su propio `Pagina<T>`: el núcleo no depende de `Page` de Spring Data.
+- **`StockJpaEntity` mapea las FK como `Long`**, no con `@ManyToOne`: `inventory` no importa entidades JPA de
+  otros módulos (menos acoplamiento entre módulos, pregunta 50). Sí valida producto y ubicación con sus Ports IN.
+- **Datos inválidos que llegan al dominio** sin pasar por el DTO lanzan `DatoInvalidoException` (422), no
+  `IllegalArgumentException` (que terminaba en 500).
+- **El precio se normaliza a 2 decimales** en el dominio (`NUMERIC(12,2)`): el POST y el GET devuelven lo mismo.
+
+## Pruebas automáticas
+| Clase | Nivel | Qué protege |
+|---|---|---|
+| `ProductoTest` | Dominio | Invariantes de `Producto`: RN-07, precio (escala, negativo), código y categoría obligatorios |
+| `CategoriaServiceTest`, `ProductoServiceTest`, `UbicacionServiceTest` | Caso de uso (Ports OUT falsos) | Reglas de registrar, PUT, DELETE, unicidad, categoría inactiva, almacén central único |
+| `ProductoControllerTest` | Web (`@WebMvcTest`, casos de uso con `@MockitoBean`) | Contrato HTTP: 201 + `Location`, 400 por campo, 404, 409, 422, 204 y **500 sin filtrar detalles internos** |
+| `PersistenciaPostgresTest` | Integración (`@DataJpaTest` + **Testcontainers** con PostgreSQL 16) | Flyway V1-V3 + `validate`, SQL nativo, paginación, FK → 409, triggers e índices de V3 |
+
+```bash
+mvn test
+```
+`PersistenciaPostgresTest` necesita Docker; **si no hay Docker se omite** (no falla). Con **Docker Desktop en Linux**,
+Testcontainers necesita saber dónde está el socket (en IntelliJ: Run Configuration → Environment variables):
+```
+DOCKER_HOST=unix:///home/<usuario>/.docker/desktop/docker.sock
+TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
+```
+
 ## Recorrido POST /api/productos → PostgreSQL
 1. `ProductoController` recibe JSON y `@Valid` revisa formato (400 si falla).
 2. `ProductoWebMapper` crea el dominio `Producto` (normaliza el código a mayúsculas).
@@ -112,11 +167,11 @@ com.stockflow
 8. Se devuelve `201 Created` con `Location` y el JSON.
 
 ## Respuestas de defensa rápidas
-- **¿Qué regla considera más crítica?** RN-01: el stock sólo cambia por movimientos. En la base está protegida por el trigger que impide borrar movimientos y por los CHECK de cantidad y saldo; en el backend, por la transacción que inserta el movimiento y actualiza el stock juntos.
+- **¿Qué regla considera más crítica?** RN-01: el stock sólo cambia por movimientos. En la base está protegida por los triggers que impiden borrar o modificar movimientos (V1 y V3) y por los CHECK de cantidad y saldo; en el backend, el stock es de sólo lectura (`StockJpaEntity` `@Immutable`, sin PUT de stock). El caso de uso que insertará el movimiento y actualizará el stock en una misma transacción llega en la Parte II; hoy ese flujo está demostrado en `datagrip/03_verificacion_y_pruebas.sql` (sección 8).
 - **¿Qué restricción existe también en base de datos y por qué no basta con React?** `uq_producto_codigo` (RN-06). El navegador se puede saltar; cualquier cliente (móvil, Postman, script) escribe contra la misma base.
 - **¿Por qué el dominio no tiene @Entity?** Para que las reglas no dependan de JPA; si cambia la persistencia sólo cambia `infrastructure`.
-- **¿Qué clase conoce el nombre de la tabla?** Sólo `CategoriaJpaEntity` y `ProductoJpaEntity`.
-- **¿Por qué @ManyToOne y no @OneToMany?** La FK vive en `producto`; muchos productos apuntan a una categoría.
+- **¿Qué clase conoce el nombre de la tabla?** Sólo las entidades JPA (`CategoriaJpaEntity`, `ProductoJpaEntity`, `UbicacionJpaEntity`, `StockJpaEntity`) y las consultas nativas de `SpringDataStockRepository`.
+- **¿Por qué @ManyToOne y no @OneToMany?** La FK vive en `producto`; muchos productos apuntan a una categoría. No se agrega la colección `@OneToMany` en `Categoria` porque ningún caso de uso necesita navegar de la categoría a todos sus productos (para eso existe `GET /api/productos/categoria/{id}`), y crearía un ciclo de imports entre módulos. El Capítulo 05 lo indica: *"No agregues una colección @OneToMany sólo porque JPA permite hacerlo"*.
 - **¿Qué significa LAZY?** La categoría no se carga con SELECT hasta que se usa; para leer su id basta el proxy.
 - **¿Por qué validate?** El esquema lo define el DDL del grupo; Java se adapta, no al revés.
 - **¿Cómo evita el sistema un estado inválido?** Hoy, en la base: `ck_solicitud_estado` limita los valores y `historial_estado_solicitud` deja la traza. El enum Java y la validación de transiciones en el caso de uso todavía **no están implementados** (llegan con el módulo de solicitudes).
@@ -129,4 +184,5 @@ git commit -m "feat: conectar backend con PostgreSQL y mapear entidad principal 
 git commit -m "feat: aplicar arquitectura hexagonal a categoria"
 git commit -m "feat: implement product relation with category"
 git commit -m "feat: agregar PUT y DELETE, CORS, Flyway y Docker Compose"
+git commit -m "feat: modulo de ubicaciones y consultas de inventario"
 ```
