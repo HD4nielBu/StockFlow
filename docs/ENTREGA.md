@@ -1,12 +1,15 @@
 # StockFlow — Proyecto PA-06 · Programación Aplicada 2026-2
 
-Inventario, compras internas y movimientos de almacén. Entrega acumulada hasta el Capítulo 07 (Clases 02-05 + Capítulos 01-07).
+Inventario, compras internas y movimientos de almacén. Entrega acumulada hasta el Capítulo 08 (Clases 02-08 + Capítulos 01-08) y ficha PA-06, Parte I.
 
 Par 1:N del backend: **Categoria (padre) → Producto (dependiente)**, FK `producto.categoria_id`.
 
 ## Contenido
 ```
 StockFlow/
+├── docs/01-vision/                 Clase 01: visión y glosario
+├── docs/02-requirements/           backlog con criterios de aceptación, requisitos RF/RNF, mapa de historias
+├── docs/03-decisions/              decisiones de arquitectura (ADR-001 a ADR-008)
 ├── docs/04-model/                  Clases 02 a 05 (documentación del modelo)
 │   ├── model-conceptual-v0.1.md        Clase 02
 │   ├── model-relational-v0.1.md        Clase 03
@@ -19,13 +22,14 @@ StockFlow/
 ├── docker-compose.yml              PostgreSQL 16 (base stockflow, usuario stockflow_admin)
 ├── datagrip/
 │   ├── 00_admin_crear_usuario_y_base.sql   (sólo si NO usas Docker; como postgres)
-│   └── 03_verificacion_y_pruebas.sql       (JOIN Cap. 07, 15 pruebas negativas, flujo crítico, kardex y alertas)
+│   └── 03_verificacion_y_pruebas.sql       (JOIN Cap. 07, 18 pruebas negativas, flujo crítico idempotente, kardex y alertas)
 └── intellij/
     ├── stockflow-backend-lab/      Capítulos 01 y 02 (Java 21 puro)
     └── stockflow-backend/          Capítulos 03 a 08 (Spring Boot)
         └── src/main/resources/db/migration/   (las aplica Flyway al arrancar)
             ├── V1__creacion_completa_stockflow.sql (17 tablas + vista kardex)
-            └── V2__datos_semilla.sql
+            ├── V2__datos_semilla.sql
+            └── V3__proteger_historico_y_alertas.sql
 ```
 
 ## Orden de trabajo
@@ -53,10 +57,10 @@ StockFlow/
 
 ## Verificado antes de entregar
 - V1 + V2 aplicados por Flyway en PostgreSQL 16: 17 tablas, vista kardex y semilla cargada.
-- Las 15 pruebas negativas SQL fallan con la constraint esperada.
+- Las 18 pruebas negativas SQL fallan con la constraint, trigger o índice esperado.
 - El flujo crítico (solicitud → aprobación → movimiento → stock → kardex → alerta) se ejecuta completo en una transacción.
 - Laboratorio Java compilado y ejecutado con Java 21.
-- Backend compilado y 24 pruebas unitarias de los casos de uso pasando (registrar, consultar, PUT y DELETE).
+- Backend compilado y 55 pruebas pasando: dominio, casos de uso, controller (`@WebMvcTest`) e integración con PostgreSQL 16 (Testcontainers: Flyway V1-V3, consultas nativas, FK, triggers).
 
 ## Importante para la defensa
 Revisa "Respuestas de defensa rápidas" en `intellij/stockflow-backend/README.md` y los documentos de `docs/04-model`. No subas la contraseña real a GitHub.
