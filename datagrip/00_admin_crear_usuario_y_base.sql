@@ -40,9 +40,11 @@ JOIN pg_roles r ON r.oid = d.datdba
 WHERE d.datname = 'stockflow';
 
 -- ---------------------------------------------------------------------
--- SIGUIENTE PASO: crear en DataGrip una NUEVA conexión
+-- SIGUIENTE PASO: arrancar el backend (StockFlowApplication). Flyway aplica
+-- db/migration/V1 (esquema) y V2 (semilla) sobre esta base.
+-- Después, crear en DataGrip una NUEVA conexión para verificar:
 --   Host localhost · Port 5432 · Database stockflow · User stockflow_admin
--- y ejecutar allí V1__creacion_completa_stockflow.sql
+-- (Con Docker este script no hace falta: docker compose up -d crea usuario y base.)
 -- ---------------------------------------------------------------------
 
 -- SOLO SI NECESITAS EMPEZAR DE CERO (conectado a postgres, sin sesiones

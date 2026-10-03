@@ -52,4 +52,4 @@ Propósito: agrupación del catálogo.
 | referencia_tipo | VARCHAR(20) | NO | CK dominio + CK condicional | RN-02 |
 | ocurrido_at | TIMESTAMPTZ | NO | DEFAULT now() | RF-04 |
 
-Las 17 tablas y la vista `vw_kardex` están en `datagrip/V1__creacion_completa_stockflow.sql`.
+Las 17 tablas y la vista `vw_kardex` están en `intellij/stockflow-backend/src/main/resources/db/migration/V1__creacion_completa_stockflow.sql` (la aplica Flyway).
