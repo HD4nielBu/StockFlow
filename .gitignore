@@ -3,3 +3,6 @@ target/
 *.iml
 .env
 application-local.yml
+credenciales.env
+falta-mejora-proyecto.md
+
