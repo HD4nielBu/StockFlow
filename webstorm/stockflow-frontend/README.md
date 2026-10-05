@@ -20,7 +20,8 @@ npm run dev          # http://localhost:5173
 ```
 
 El backend debe estar encendido antes (ver `guia-ejecucion-stockflow.pdf` en la raíz del repositorio).
-Su `CorsConfig` sólo permite el origen `http://localhost:5173`.
+Su `CorsConfig` sólo permite el origen `http://localhost:5173`; por eso `vite.config.ts` fija ese puerto con
+`strictPort` (si está ocupado, Vite se detiene en vez de pasarse a 5174, donde todo fallaría por CORS).
 
 ## Scripts
 
@@ -28,7 +29,7 @@ Su `CorsConfig` sólo permite el origen `http://localhost:5173`.
 |---|---|
 | `npm run dev` | Servidor de desarrollo con recarga automática |
 | `npm run build` | Revisa tipos (`tsc -b`) y genera `dist/` para producción |
-| `npm run preview` | Sirve `dist/` para probar el build (puerto 4173, que el CORS **no** permite) |
+| `npm run preview` | Sirve `dist/` en el puerto 4173. Usa la URL de `.env.production`, así que no sirve para probar contra el backend local |
 | `npm run lint` | Análisis estático con oxlint |
 | `npm test` | Vitest en modo observación |
 | `npm run test:run` | Vitest una sola vez (28 pruebas) |
