@@ -1,0 +1,12 @@
+$kind: collection
+description: "Todas las pruebas HTTP de StockFlow (las mismas de requests.http), con pruebas automáticas del código esperado. Requisitos: base de datos encendida (docker compose up -d) y backend corriendo (StockFlowApplication). Uso: clic derecho en la colección -> Run collection. Ejecútala completa y en orden: las carpetas 05 usan los ids que crean las carpetas 01 y 02. Los códigos creados llevan una marca de tiempo, así que se puede ejecutar muchas veces seguidas. Nota: cada ejecución deja un depósito de prueba (no existe DELETE de ubicaciones)."
+variables:
+  baseUrl: "http://localhost:8080"
+  categoriaId: ""
+  categoriaCodigo: ""
+  categoriaNombre: ""
+  productoId: ""
+  productoCodigo: ""
+  ubicacionId: ""
+  ubicacionCodigo: ""
+  putCategoria: ""

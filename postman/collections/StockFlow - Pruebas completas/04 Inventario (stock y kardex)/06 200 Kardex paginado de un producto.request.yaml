@@ -1,0 +1,18 @@
+$kind: http-request
+name: "[200] Kardex paginado de un producto"
+url: "{{baseUrl}}/api/inventario/kardex/1?pagina=0&tamano=20"
+method: GET
+headers:
+  Accept: "application/json"
+queryParams:
+  pagina: "0"
+  tamano: "20"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      const k = pm.response.json();
+      pm.test("Trae datos de paginación", () => { pm.expect(k).to.have.property("totalElementos"); pm.expect(k).to.have.property("totalPaginas"); });
+      pm.test("Tiene movimientos", () => pm.expect(k.contenido.length).to.be.at.least(1));
+    language: text/javascript
+order: 6000

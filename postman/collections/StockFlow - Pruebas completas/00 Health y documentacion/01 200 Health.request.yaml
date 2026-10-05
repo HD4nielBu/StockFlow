@@ -1,0 +1,13 @@
+$kind: http-request
+name: "[200] Health"
+url: "{{baseUrl}}/api/health"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("status OK", () => pm.expect(pm.response.json().status).to.eql("OK"));
+    language: text/javascript
+order: 1000

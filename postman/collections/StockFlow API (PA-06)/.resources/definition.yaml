@@ -1,0 +1,6 @@
+$kind: collection
+description: "Inventario, solicitudes internas y movimientos de almacén. Errores con formato ApiErrorResponse: 400 validación, 404 no existe, 409 conflicto, 422 regla de negocio, 500 error interno."
+variables:
+  baseUrl: http://localhost:8080
+  categoriaId: ""
+  categoria: ""

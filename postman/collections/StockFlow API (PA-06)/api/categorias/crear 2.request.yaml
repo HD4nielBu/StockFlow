@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/api/categorias"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: "*/*"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "3arRtcx",
+      "nombre": "string",
+      "descripcion": "string"
+    }
+settings: {}
+examples: ./.resources/crear 2.resources/examples
+order: 4000

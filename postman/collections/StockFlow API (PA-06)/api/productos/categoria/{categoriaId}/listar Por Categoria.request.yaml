@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos/categoria/:categoriaId"
+method: GET
+headers:
+  Accept: "*/*"
+pathVariables:
+  categoriaId: "7389"
+settings: {}
+examples: ./.resources/listar Por Categoria.resources/examples
+order: 1000

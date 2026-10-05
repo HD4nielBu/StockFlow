@@ -1,0 +1,28 @@
+$kind: http-request
+name: "[409] Un único almacén central activo"
+url: "{{baseUrl}}/api/ubicaciones"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "UB-CENTRAL-2",
+      "nombre": "Segundo almacén central",
+      "tipo": "ALMACEN_CENTRAL"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 409", () => pm.response.to.have.status(409));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(409);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+      pm.test("Mensaje de almacén central", () => pm.expect(pm.response.json().message).to.include("almacén central"));
+    language: text/javascript
+order: 8000

@@ -1,0 +1,13 @@
+$kind: http-request
+name: "[200] Especificación OpenAPI (Swagger)"
+url: "{{baseUrl}}/v3/api-docs"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Documenta /api/productos", () => pm.expect(pm.response.json().paths).to.have.property("/api/productos"));
+    language: text/javascript
+order: 3000
