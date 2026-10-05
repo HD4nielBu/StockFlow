@@ -84,6 +84,9 @@ Content-Type: application/json
 
 > {% client.global.set("productoId", response.body.id); %}
 
+### [200] Listar todos los productos (ordenados por código)
+GET http://localhost:8080/api/productos
+
 ### [200] Consultar producto por id
 GET http://localhost:8080/api/productos/1
 

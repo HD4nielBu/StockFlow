@@ -107,6 +107,15 @@ class ProductoControllerTest {
     }
 
     @Test
+    void getListadoCompleto200() throws Exception {
+        when(consultar.listarTodos()).thenReturn(java.util.List.of(producto(7), producto(8)));
+        mvc.perform(get("/api/productos"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].categoriaId").value(1));
+    }
+
+    @Test
     void get404SiNoExiste() throws Exception {
         when(consultar.buscarPorId(99L)).thenReturn(Optional.empty());
         mvc.perform(get("/api/productos/99"))

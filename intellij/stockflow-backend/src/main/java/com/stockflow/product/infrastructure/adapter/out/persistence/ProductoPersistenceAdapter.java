@@ -70,6 +70,14 @@ public class ProductoPersistenceAdapter implements ProductoRepositoryPort {
     }
 
     @Override
+    public List<Producto> listarTodos() {
+        // Un solo SELECT: el mapper sólo lee categoria.getId(), que el proxy LAZY ya conoce (sin N+1)
+        return repository.findAllByOrderByCodigoAsc().stream()
+                .map(ProductoPersistenceMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public List<Producto> listarPorCategoriaId(Long categoriaId) {
         return repository.findByCategoria_IdOrderByCodigoAsc(categoriaId).stream()
                 .map(ProductoPersistenceMapper::toDomain)

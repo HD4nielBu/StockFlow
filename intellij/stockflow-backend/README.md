@@ -100,6 +100,7 @@ com.stockflow
 | PUT | /api/categorias/{id} | ActualizarCategoriaRequest | CategoriaResponse | 200 / 400 / 404 / 409 |
 | DELETE | /api/categorias/{id} | path variable | sin cuerpo | 204 / 404 / 409 (tiene productos) |
 | POST | /api/productos | CrearProductoRequest | ProductoResponse | 201 / 400 / 404 / 409 / 422 |
+| GET | /api/productos | — | List<ProductoResponse> (ordenada por código) | 200 |
 | GET | /api/productos/{id} | path variable | ProductoResponse | 200 / 404 |
 | GET | /api/productos/categoria/{categoriaId} | path variable | List<ProductoResponse> | 200 / 404 |
 | PUT | /api/productos/{id} | ActualizarProductoRequest | ProductoResponse | 200 / 400 / 404 / 409 / 422 |

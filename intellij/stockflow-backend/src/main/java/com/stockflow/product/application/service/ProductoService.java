@@ -88,6 +88,12 @@ public class ProductoService implements RegistrarProductoUseCase, ConsultarProdu
 
     @Override
     @Transactional(readOnly = true)
+    public List<Producto> listarTodos() {
+        return repositoryPort.listarTodos();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Producto> listarPorCategoria(Long categoriaId) {
         if (consultarCategoriaUseCase.buscarPorId(categoriaId).isEmpty()) {
             throw new CategoriaNoEncontradaException(categoriaId);

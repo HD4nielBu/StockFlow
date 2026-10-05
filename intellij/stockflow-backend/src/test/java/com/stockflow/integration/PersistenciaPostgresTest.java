@@ -80,6 +80,14 @@ class PersistenciaPostgresTest {
     }
 
     @Test
+    void listarTodosLosProductosOrdenadosPorCodigo() {
+        var todos = productos.listarTodos();
+        assertEquals(5, todos.size());
+        assertEquals("PRD-EPP-001", todos.get(0).getCodigo());
+        assertEquals("PRD-TEC-001", todos.get(4).getCodigo());
+    }
+
+    @Test
     void ladoInversoEsDeSoloLectura() {
         var oficina = categoriaRepository.findById(1L).orElseThrow();
         assertThrows(UnsupportedOperationException.class, () -> oficina.getProductos().clear());

@@ -97,6 +97,13 @@ class ProductoServiceTest {
                 UnidadMedida.CAJA, 7, new BigDecimal("12.00"), activo);
     }
 
+    @Test
+    void listarTodosDevuelveLosProductosDeTodasLasCategorias() {
+        service.registrar(producto(1L, "PRD-OFI-001", 0));
+        service.registrar(producto(3L, "PRD-LIM-001", 0));
+        assertEquals(2, service.listarTodos().size());
+    }
+
     // ---------- PUT ----------
 
     @Test
@@ -204,6 +211,11 @@ class ProductoServiceTest {
         @Override
         public Optional<Producto> buscarPorId(Long id) {
             return datos.stream().filter(p -> p.getId().equals(id)).findFirst();
+        }
+
+        @Override
+        public List<Producto> listarTodos() {
+            return List.copyOf(datos);
         }
 
         @Override
