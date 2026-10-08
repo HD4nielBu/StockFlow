@@ -1,0 +1,15 @@
+$kind: http-request
+name: "[200] Preflight desde React (localhost:5173)"
+url: "{{baseUrl}}/api/categorias"
+method: OPTIONS
+headers:
+  Origin: "http://localhost:5173"
+  Access-Control-Request-Method: "PUT"
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Permite el origen de Vite", () => pm.expect(pm.response.headers.get("Access-Control-Allow-Origin")).to.eql("http://localhost:5173"));
+    language: text/javascript
+order: 1000

@@ -1,0 +1,15 @@
+$kind: http-request
+name: "[403] Preflight desde un origen no permitido"
+url: "{{baseUrl}}/api/categorias"
+method: OPTIONS
+headers:
+  Origin: "http://sitio-no-autorizado.com"
+  Access-Control-Request-Method: "GET"
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 403", () => pm.response.to.have.status(403));
+      pm.test("Sin header de permiso", () => pm.expect(pm.response.headers.has("Access-Control-Allow-Origin")).to.eql(false));
+    language: text/javascript
+order: 2000

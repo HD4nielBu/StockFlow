@@ -1,0 +1,30 @@
+# StockFlow (PA-06) · Entorno local reproducible
+#
+#   docker compose up -d        levanta PostgreSQL 16 en localhost:5432
+#   docker compose down         lo detiene (los datos quedan en el volumen)
+#   docker compose down -v      lo detiene y BORRA los datos (base nueva al volver a levantar)
+#
+# La imagen crea el usuario y la base (reemplaza a datagrip/00_admin_crear_usuario_y_base.sql).
+# Las tablas y la semilla NO se cargan aquí: las aplica Flyway cuando arranca el backend.
+# La clave real va en un archivo .env (ignorado por git): DB_PASSWORD=tu_clave
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: stockflow-postgres
+    environment:
+      POSTGRES_DB: stockflow
+      POSTGRES_USER: stockflow_admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-Cambia_Esta_Clave_2026!}
+    ports:
+      - "5432:5432"
+    volumes:
+      - stockflow-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stockflow_admin -d stockflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  stockflow-data:

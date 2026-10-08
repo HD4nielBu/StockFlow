@@ -1,0 +1,28 @@
+$kind: http-request
+name: "[409] Código de producto duplicado (RN-06)"
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 1,
+      "codigo": "PRD-OFI-001",
+      "nombre": "Duplicado"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 409", () => pm.response.to.have.status(409));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(409);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+      pm.test("Mensaje de RN-06", () => pm.expect(pm.response.json().message).to.include("RN-06"));
+    language: text/javascript
+order: 5000

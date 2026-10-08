@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/api/categorias/demo"
+method: GET
+headers:
+  Accept: "*/*"
+settings: {}
+examples: ./.resources/demo.resources/examples
+order: 1000

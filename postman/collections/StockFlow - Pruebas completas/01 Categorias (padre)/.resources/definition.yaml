@@ -1,0 +1,3 @@
+$kind: collection
+description: "Capítulos 04-06: POST con @Valid, GET por id y listado con @RequestParam."
+order: 2000

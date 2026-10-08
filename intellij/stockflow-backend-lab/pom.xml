@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.stockflow</groupId>
+    <artifactId>stockflow-backend-lab</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>stockflow-backend-lab</name>
+    <description>Laboratorio Java 21 puro (Capítulos 01 y 02) - StockFlow PA-06</description>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <exec.mainClass>com.stockflow.Main</exec.mainClass>
+    </properties>
+    <!-- Sin dependencias: en los capítulos 01-02 NO hay Spring, JPA ni PostgreSQL. -->
+</project>

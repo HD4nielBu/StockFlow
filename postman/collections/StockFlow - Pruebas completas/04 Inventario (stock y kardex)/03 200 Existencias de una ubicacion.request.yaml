@@ -1,0 +1,17 @@
+$kind: http-request
+name: "[200] Existencias de una ubicación"
+url: "{{baseUrl}}/api/inventario/stock?ubicacionId=2"
+method: GET
+headers:
+  Accept: "application/json"
+queryParams:
+  ubicacionId: "2"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve una lista", () => pm.expect(pm.response.json()).to.be.an("array"));
+      pm.test("Al menos 1 elementos", () => pm.expect(pm.response.json().length).to.be.at.least(1));
+      pm.test("Sólo de la ubicación 2", () => pm.response.json().forEach(e => pm.expect(e.ubicacionId).to.eql(2)));
+    language: text/javascript
+order: 3000

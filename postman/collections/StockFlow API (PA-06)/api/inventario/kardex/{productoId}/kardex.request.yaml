@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/api/inventario/kardex/:productoId?pagina=0&tamano=20"
+method: GET
+headers:
+  Accept: "*/*"
+queryParams:
+  pagina: "0"
+  tamano: "20"
+pathVariables:
+  productoId: "7389"
+settings: {}
+examples: ./.resources/kardex.resources/examples
+order: 1000

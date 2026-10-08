@@ -1,0 +1,27 @@
+$kind: http-request
+name: "[400] PUT sin el campo activo"
+url: "{{baseUrl}}/api/categorias/{{categoriaId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "{{categoriaCodigo}}",
+      "nombre": "{{categoriaNombre}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 400", () => pm.response.to.have.status(400));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(400);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+      pm.test("Error en el campo activo", () => pm.expect(pm.response.json().fieldErrors).to.have.property("activo"));
+    language: text/javascript
+order: 3000

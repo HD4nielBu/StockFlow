@@ -1,0 +1,24 @@
+$kind: http-request
+name: "[200] PUT categoría conservando su código y nombre"
+url: "{{baseUrl}}/api/categorias/{{categoriaId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "{{categoriaCodigo}}",
+      "nombre": "{{categoriaNombre}}",
+      "descripcion": "Editada desde Postman",
+      "activo": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Conserva el id", () => pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get("categoriaId"))));
+      pm.collectionVariables.set("putCategoria", pm.response.text());
+    language: text/javascript
+order: 1000

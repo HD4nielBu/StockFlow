@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/api/health"
+method: GET
+headers:
+  Accept: "*/*"
+settings: {}
+examples: ./.resources/health.resources/examples
+order: 1000
