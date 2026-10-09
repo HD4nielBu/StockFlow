@@ -1,0 +1,13 @@
+$kind: http-request
+name: "[200] Demo de la entidad padre (Cap. 03)"
+url: "{{baseUrl}}/api/categorias/demo"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve CAT-OFI", () => pm.expect(pm.response.json().codigo).to.eql("CAT-OFI"));
+    language: text/javascript
+order: 2000

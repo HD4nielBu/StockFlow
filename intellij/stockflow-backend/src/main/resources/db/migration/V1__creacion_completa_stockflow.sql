@@ -1,12 +1,11 @@
 -- =====================================================================
 -- StockFlow (PA-06) · V1 · Creación completa del esquema PostgreSQL
 -- Programación Aplicada 2026-2
--- Ejecutar conectado como: stockflow_admin / base stockflow
+-- Lo aplica Flyway al arrancar el backend (no se ejecuta a mano en DataGrip).
+-- Una vez aplicada, esta migración NO se edita: los cambios van en V3, V4...
 -- Crea el schema "stockflow" con 17 tablas + 1 vista (kardex).
 -- Orden de creación respetando dependencias.
 -- =====================================================================
-
-SELECT current_user AS usuario_actual, current_database() AS base_actual;
 
 CREATE SCHEMA IF NOT EXISTS stockflow;
 SET search_path TO stockflow, public;
@@ -393,8 +392,4 @@ CREATE INDEX idx_item_solicitud_producto   ON item_solicitud (producto_id);
 CREATE INDEX idx_alerta_estado             ON alerta_stock (estado, producto_id);
 CREATE INDEX idx_auditoria_entidad         ON auditoria (entidad, entidad_id);
 
--- Verificación rápida: debe devolver 17
-SELECT COUNT(*) AS cantidad_tablas
-FROM information_schema.tables
-WHERE table_schema = 'stockflow'
-  AND table_type = 'BASE TABLE';
+-- Verificación: ver datagrip/03_verificacion_y_pruebas.sql (sección 2, debe listar 17 tablas)

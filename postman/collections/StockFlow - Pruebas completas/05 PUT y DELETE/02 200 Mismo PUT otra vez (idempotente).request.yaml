@@ -1,0 +1,23 @@
+$kind: http-request
+name: "[200] Mismo PUT otra vez (idempotente)"
+url: "{{baseUrl}}/api/categorias/{{categoriaId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "{{categoriaCodigo}}",
+      "nombre": "{{categoriaNombre}}",
+      "descripcion": "Editada desde Postman",
+      "activo": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Mismo resultado que el primer PUT", () => pm.expect(pm.response.text()).to.eql(pm.collectionVariables.get("putCategoria")));
+    language: text/javascript
+order: 2000

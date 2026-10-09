@@ -1,0 +1,17 @@
+$kind: http-request
+name: "[200] Existencias de un producto"
+url: "{{baseUrl}}/api/inventario/stock?productoId=1"
+method: GET
+headers:
+  Accept: "application/json"
+queryParams:
+  productoId: "1"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve una lista", () => pm.expect(pm.response.json()).to.be.an("array"));
+      pm.test("Al menos 1 elementos", () => pm.expect(pm.response.json().length).to.be.at.least(1));
+      pm.test("Sólo del producto 1", () => pm.response.json().forEach(e => pm.expect(e.productoId).to.eql(1)));
+    language: text/javascript
+order: 2000

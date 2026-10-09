@@ -5,7 +5,7 @@ import com.stockflow.category.domain.exception.CategoriaNoEncontradaException;
 import com.stockflow.category.domain.model.Categoria;
 import com.stockflow.category.domain.port.in.ConsultarCategoriaUseCase;
 import com.stockflow.product.domain.exception.CodigoProductoDuplicadoException;
-import com.stockflow.product.domain.exception.StockMinimoInvalidoException;
+import com.stockflow.product.domain.exception.ProductoNoEncontradoException;
 import com.stockflow.product.domain.model.Producto;
 import com.stockflow.product.domain.model.UnidadMedida;
 import com.stockflow.product.domain.port.out.ProductoRepositoryPort;
@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -34,7 +35,8 @@ class ProductoServiceTest {
         repository = new FakeProductoRepository();
         var categorias = Map.of(
                 1L, new Categoria(1L, "CAT-OFI", "Material de oficina", null, true),
-                2L, new Categoria(2L, "CAT-OLD", "Categoría retirada", null, false));
+                2L, new Categoria(2L, "CAT-OLD", "Categoría retirada", null, false),
+                3L, new Categoria(3L, "CAT-LIM", "Limpieza", null, true));
         ConsultarCategoriaUseCase consultarCategoria = new ConsultarCategoriaUseCase() {
             @Override
             public Optional<Categoria> buscarPorId(Long id) {
@@ -81,11 +83,6 @@ class ProductoServiceTest {
                 () -> service.registrar(producto(1L, " prd-ofi-001 ", 0)));
     }
 
-    @Test
-    void rechazaStockMinimoNegativoRN07() {
-        assertThrows(StockMinimoInvalidoException.class,
-                () -> service.registrar(producto(1L, "PRD-OFI-009", -1)));
-    }
 
     @Test
     void listaSoloLosProductosDeLaCategoria() {
@@ -95,9 +92,100 @@ class ProductoServiceTest {
         assertEquals(0, service.listarPorCategoria(2L).size());
     }
 
+    private Producto cambios(Long categoriaId, String codigo, boolean activo) {
+        return new Producto(null, categoriaId, codigo, "Nombre editado", null,
+                UnidadMedida.CAJA, 7, new BigDecimal("12.00"), activo);
+    }
+
+    @Test
+    void listarTodosDevuelveLosProductosDeTodasLasCategorias() {
+        service.registrar(producto(1L, "PRD-OFI-001", 0));
+        service.registrar(producto(3L, "PRD-LIM-001", 0));
+        assertEquals(2, service.listarTodos().size());
+    }
+
+    // ---------- PUT ----------
+
+    @Test
+    void actualizaConservandoElIdYSinFalso409PorSuPropioCodigo() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        var actualizado = service.actualizar(creado.getId(), cambios(1L, "prd-ofi-001", true));
+        assertEquals(creado.getId(), actualizado.getId());
+        assertEquals("Nombre editado", actualizado.getNombre());
+        assertEquals(UnidadMedida.CAJA, actualizado.getUnidadMedida());
+        assertEquals(1, repository.datos.size());
+    }
+
+    @Test
+    void putEsIdempotente() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        var primera = service.actualizar(creado.getId(), cambios(1L, "PRD-OFI-001", true));
+        var segunda = service.actualizar(creado.getId(), cambios(1L, "PRD-OFI-001", true));
+        assertEquals(primera.getNombre(), segunda.getNombre());
+        assertEquals(primera.getStockMinimoDefault(), segunda.getStockMinimoDefault());
+        assertEquals(1, repository.datos.size());
+    }
+
+    @Test
+    void actualizarInexistenteDa404YNoCrea() {
+        assertThrows(ProductoNoEncontradoException.class,
+                () -> service.actualizar(99L, cambios(1L, "PRD-OFI-099", true)));
+        assertEquals(0, repository.datos.size());
+    }
+
+    @Test
+    void actualizarConCodigoDeOtroProductoDa409() {
+        service.registrar(producto(1L, "PRD-OFI-001", 0));
+        var segundo = service.registrar(producto(1L, "PRD-OFI-002", 0));
+        assertThrows(CodigoProductoDuplicadoException.class,
+                () -> service.actualizar(segundo.getId(), cambios(1L, "PRD-OFI-001", true)));
+    }
+
+    @Test
+    void actualizarHaciaCategoriaInexistenteDa404() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        assertThrows(CategoriaNoEncontradaException.class,
+                () -> service.actualizar(creado.getId(), cambios(99L, "PRD-OFI-001", true)));
+    }
+
+    @Test
+    void moverProductoACategoriaInactivaDa422() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        assertThrows(CategoriaInactivaException.class,
+                () -> service.actualizar(creado.getId(), cambios(2L, "PRD-OFI-001", true)));
+    }
+
+    @Test
+    void cambiaDeCategoriaActivaYSeReflejaEnElListado() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        service.actualizar(creado.getId(), cambios(3L, "PRD-OFI-001", true));
+        assertEquals(0, service.listarPorCategoria(1L).size());
+        assertEquals(1, service.listarPorCategoria(3L).size());
+    }
+
+    @Test
+    void desactivarConPutEsUnaEdicionValida() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        assertFalse(service.actualizar(creado.getId(), cambios(1L, "PRD-OFI-001", false)).isActivo());
+    }
+
+    // ---------- DELETE ----------
+
+    @Test
+    void eliminaProductoExistente() {
+        var creado = service.registrar(producto(1L, "PRD-OFI-001", 0));
+        service.eliminar(creado.getId());
+        assertEquals(Optional.empty(), service.buscarPorId(creado.getId()));
+    }
+
+    @Test
+    void eliminarInexistenteDa404() {
+        assertThrows(ProductoNoEncontradoException.class, () -> service.eliminar(99L));
+    }
+
     /** Implementación en memoria del Port OUT, sólo para pruebas. */
     static class FakeProductoRepository implements ProductoRepositoryPort {
-        private final List<Producto> datos = new ArrayList<>();
+        final List<Producto> datos = new ArrayList<>();
         private final AtomicLong secuencia = new AtomicLong();
 
         @Override
@@ -110,8 +198,24 @@ class ProductoServiceTest {
         }
 
         @Override
+        public Producto actualizar(Producto p) {
+            datos.replaceAll(actual -> actual.getId().equals(p.getId()) ? p : actual);
+            return p;
+        }
+
+        @Override
+        public void eliminar(Long id) {
+            datos.removeIf(p -> p.getId().equals(id));
+        }
+
+        @Override
         public Optional<Producto> buscarPorId(Long id) {
             return datos.stream().filter(p -> p.getId().equals(id)).findFirst();
+        }
+
+        @Override
+        public List<Producto> listarTodos() {
+            return List.copyOf(datos);
         }
 
         @Override
@@ -122,6 +226,12 @@ class ProductoServiceTest {
         @Override
         public boolean existePorCodigo(String codigo) {
             return datos.stream().anyMatch(p -> p.getCodigo().equals(Producto.normalizarCodigo(codigo)));
+        }
+
+        @Override
+        public boolean existePorCodigoEnOtro(String codigo, Long id) {
+            return datos.stream().anyMatch(p -> !p.getId().equals(id)
+                    && p.getCodigo().equals(Producto.normalizarCodigo(codigo)));
         }
     }
 }

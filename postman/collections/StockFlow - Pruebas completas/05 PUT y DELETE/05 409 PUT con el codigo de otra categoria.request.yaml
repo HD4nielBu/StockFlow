@@ -1,0 +1,27 @@
+$kind: http-request
+name: "[409] PUT con el código de otra categoría"
+url: "{{baseUrl}}/api/categorias/{{categoriaId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "CAT-OFI",
+      "nombre": "{{categoriaNombre}}",
+      "activo": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 409", () => pm.response.to.have.status(409));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(409);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+    language: text/javascript
+order: 5000

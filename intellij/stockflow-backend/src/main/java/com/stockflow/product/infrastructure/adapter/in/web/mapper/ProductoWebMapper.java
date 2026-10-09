@@ -1,6 +1,7 @@
 package com.stockflow.product.infrastructure.adapter.in.web.mapper;
 
 import com.stockflow.product.domain.model.Producto;
+import com.stockflow.product.infrastructure.adapter.in.web.dto.ActualizarProductoRequest;
 import com.stockflow.product.infrastructure.adapter.in.web.dto.CrearProductoRequest;
 import com.stockflow.product.infrastructure.adapter.in.web.dto.ProductoResponse;
 
@@ -18,6 +19,21 @@ public final class ProductoWebMapper {
                 request.unidadMedida(),
                 request.stockMinimoDefault(),
                 request.precioReferencial()
+        );
+    }
+
+    /** Sin id: el caso de uso lo toma de la ruta. */
+    public static Producto toDomain(ActualizarProductoRequest request) {
+        return new Producto(
+                null,
+                request.categoriaId(),
+                request.codigo(),
+                request.nombre(),
+                request.descripcion(),
+                request.unidadMedida(),
+                request.stockMinimoDefault(),
+                request.precioReferencial(),
+                request.activo()
         );
     }
 

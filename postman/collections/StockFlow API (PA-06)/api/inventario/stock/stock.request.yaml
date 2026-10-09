@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/inventario/stock?productoId=7389&ubicacionId=7389&soloBajoMinimo=false"
+method: GET
+headers:
+  Accept: "*/*"
+queryParams:
+  productoId: "7389"
+  ubicacionId: "7389"
+  soloBajoMinimo: "false"
+settings: {}
+examples: ./.resources/stock.resources/examples
+order: 1000

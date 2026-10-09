@@ -1,0 +1,27 @@
+$kind: http-request
+name: "[201] Crear categoría válida"
+url: "{{baseUrl}}/api/categorias"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "cat-pm{{$timestamp}}",
+      "nombre": "Categoría Postman {{$timestamp}}",
+      "descripcion": "Creada desde la colección de Postman"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201));
+      pm.test("Trae el header Location", () => pm.response.to.have.header("Location"));
+      const r = pm.response.json();
+      pm.collectionVariables.set("categoriaId", r.id);
+      pm.collectionVariables.set("categoriaCodigo", r.codigo);
+      pm.collectionVariables.set("categoriaNombre", r.nombre);
+      pm.test("Código normalizado a mayúsculas", () => pm.expect(r.codigo).to.eql(r.codigo.toUpperCase()));
+    language: text/javascript
+order: 1000

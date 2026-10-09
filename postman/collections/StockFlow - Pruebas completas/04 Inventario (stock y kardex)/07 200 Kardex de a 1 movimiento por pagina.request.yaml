@@ -1,0 +1,18 @@
+$kind: http-request
+name: "[200] Kardex de a 1 movimiento por página"
+url: "{{baseUrl}}/api/inventario/kardex/1?pagina=0&tamano=1"
+method: GET
+headers:
+  Accept: "application/json"
+queryParams:
+  pagina: "0"
+  tamano: "1"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      const k = pm.response.json();
+      pm.test("Una fila por página", () => pm.expect(k.contenido.length).to.eql(1));
+      pm.test("Varias páginas en total", () => pm.expect(k.totalPaginas).to.be.at.least(2));
+    language: text/javascript
+order: 7000

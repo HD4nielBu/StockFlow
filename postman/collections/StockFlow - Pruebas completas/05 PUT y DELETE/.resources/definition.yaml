@@ -1,0 +1,3 @@
+$kind: collection
+description: "Preguntas 18, 19 y 20: actualización completa e idempotente, borrado protegido por FK. Usa los ids creados en las carpetas 01 y 02."
+order: 6000

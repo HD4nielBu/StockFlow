@@ -1,0 +1,26 @@
+$kind: http-request
+name: "[201] Registrar un depósito"
+url: "{{baseUrl}}/api/ubicaciones"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "ub-pm{{$timestamp}}",
+      "nombre": "Depósito Postman",
+      "tipo": "DEPOSITO",
+      "direccion": "Av. Ejemplo 123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201));
+      pm.test("Trae el header Location", () => pm.response.to.have.header("Location"));
+      const r = pm.response.json();
+      pm.collectionVariables.set("ubicacionId", r.id);
+      pm.collectionVariables.set("ubicacionCodigo", r.codigo);
+    language: text/javascript
+order: 6000

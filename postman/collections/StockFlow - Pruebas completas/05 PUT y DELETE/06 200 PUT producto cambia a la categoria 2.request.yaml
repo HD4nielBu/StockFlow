@@ -1,0 +1,27 @@
+$kind: http-request
+name: "[200] PUT producto: cambia a la categoría 2"
+url: "{{baseUrl}}/api/productos/{{productoId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 2,
+      "codigo": "{{productoCodigo}}",
+      "nombre": "Cuaderno anillado A4 (tapa dura)",
+      "descripcion": "100 hojas cuadriculadas",
+      "unidadMedida": "PAQUETE",
+      "stockMinimoDefault": 30,
+      "precioReferencial": 21.50,
+      "activo": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Ahora está en la categoría 2", () => pm.expect(pm.response.json().categoriaId).to.eql(2));
+    language: text/javascript
+order: 6000

@@ -1,5 +1,7 @@
 package com.stockflow.category.domain.model;
 
+import com.stockflow.shared.domain.exception.DatoInvalidoException;
+
 /**
  * Modelo de dominio de la CATEGORÍA del catálogo.
  * Sin @Entity: no sabe nada de JPA ni de PostgreSQL.
@@ -14,10 +16,10 @@ public class Categoria {
 
     public Categoria(Long id, String codigo, String nombre, String descripcion, boolean activo) {
         if (codigo == null || codigo.isBlank()) {
-            throw new IllegalArgumentException("El código de la categoría es obligatorio");
+            throw new DatoInvalidoException("El código de la categoría es obligatorio");
         }
         if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre de la categoría es obligatorio");
+            throw new DatoInvalidoException("El nombre de la categoría es obligatorio");
         }
         this.id = id;
         this.codigo = normalizarCodigo(codigo);

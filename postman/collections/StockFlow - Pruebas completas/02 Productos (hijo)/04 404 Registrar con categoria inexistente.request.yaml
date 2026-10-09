@@ -1,0 +1,27 @@
+$kind: http-request
+name: "[404] Registrar con categoría inexistente"
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 9999,
+      "codigo": "PRD-X-404",
+      "nombre": "Sin padre"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 404", () => pm.response.to.have.status(404));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(404);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+    language: text/javascript
+order: 4000

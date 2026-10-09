@@ -1,0 +1,18 @@
+$kind: http-request
+name: "[409] DELETE de una categoría con productos (CAT-OFI)"
+url: "{{baseUrl}}/api/categorias/1"
+method: DELETE
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 409", () => pm.response.to.have.status(409));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(409);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+    language: text/javascript
+order: 12000
