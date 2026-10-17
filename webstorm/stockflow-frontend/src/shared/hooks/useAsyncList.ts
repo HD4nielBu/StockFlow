@@ -24,9 +24,11 @@ export function useAsyncList<T>(loader: Loader<T>) {
       try {
         setLoading(true);
         setError('');
-        setData(await loader(controller.signal));
+        const resultado = await loader(controller.signal);
+        // Si se abortó mientras la respuesta ya venía en camino, es una respuesta vieja: no pisa a la actual
+        if (!controller.signal.aborted) setData(resultado);
       } catch (err) {
-        if (!isAbortError(err)) setError(mensajeDeError(err, 'Error de carga'));
+        if (!controller.signal.aborted && !isAbortError(err)) setError(mensajeDeError(err, 'Error de carga'));
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }

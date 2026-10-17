@@ -149,10 +149,10 @@
   <div class="proyecto"><strong>StockFlow</strong> — Inventario, compras internas y movimientos de almacén (PA-06)</div>
   <div class="stack">Programación Aplicada 2026-2 · React 19 · TypeScript 6 · Vite 8 · React Router 8</div>
   <table>
-    <tr><td>Código analizado</td><td>Rama <code>Hector</code>, commit <code>dee15e2</code></td></tr>
+    <tr><td>Código analizado</td><td>Rama <code>Hector</code>, commit <code>a8a11e2</code></td></tr>
     <tr><td>Fecha</td><td>17 de octubre de 2026</td></tr>
     <tr><td>Contenido</td><td>50 preguntas con explicación del concepto, respuesta, ubicación en el código, demostración y repregunta · 5 desafíos prácticos · checklist · pendientes conocidos · glosario</td></tr>
-    <tr><td>Pruebas del frontend</td><td>27 archivos de prueba, 96 pruebas, todas en verde (<code>npm run test:run</code>)</td></tr>
+    <tr><td>Pruebas del frontend</td><td>30 archivos de prueba, 107 pruebas, todas en verde (<code>npm run test:run</code>)</td></tr>
   </table>
   <p class="nota">Las rutas de archivos cuelgan de <code>webstorm/stockflow-frontend/</code> salvo que se indique otra. Los números de línea corresponden al commit indicado; si el código cambia, busca el archivo o la función por su nombre (Ctrl+Shift+N y Ctrl+F12 en WebStorm).</p>
 </section>
@@ -162,66 +162,66 @@
   <h2 class="seccion">Índice</h2>
   <div class="indice">
     <div class="b"><a href="#como-usar">Cómo usar esta guía</a><span class="pg">4</span></div>
-    <div class="b"><a href="#mapa">Mapa del proyecto, flujo y preparación de la demo</a><span class="pg">6</span></div>
-    <div class="b"><a href="#bloque-a">Bloque A — Arquitectura frontend, Vite, TypeScript y Router</a><span class="pg">8</span></div>
-    <div class="q"><a href="#p01">01 (C) — Arquitectura real del frontend y recorrido entre carpetas</a><span class="pg">8</span></div>
-    <div class="q"><a href="#p02">02 — Qué resuelve Vite: npm install, npm run dev y npm run build</a><span class="pg">9</span></div>
-    <div class="q"><a href="#p03">03 — Arranque: index.html → main.tsx → App → Router → pantalla</a><span class="pg">10</span></div>
-    <div class="q"><a href="#p04">04 — interface, type y tipos en tiempo de ejecución</a><span class="pg">11</span></div>
-    <div class="q"><a href="#p05">05 (C) — Por qué no copiar las @Entity JPA: contratos TypeScript</a><span class="pg">12</span></div>
-    <div class="q"><a href="#p06">06 (C) — Recorrido de una URL dentro de React Router</a><span class="pg">13</span></div>
-    <div class="q"><a href="#p07">07 — Link, NavLink, navegación declarativa y menú activo</a><span class="pg">14</span></div>
-    <div class="q"><a href="#p08">08 — Layout, Page, Feature y componente UI reutilizable</a><span class="pg">15</span></div>
-    <div class="q"><a href="#p09">09 — import.meta.env, variables VITE_* y secretos</a><span class="pg">16</span></div>
-    <div class="q"><a href="#p10">10 — Flujo unidireccional: props hacia abajo, callbacks hacia arriba</a><span class="pg">17</span></div>
-    <div class="b"><a href="#bloque-b">Bloque B — Componentes, estado, formularios y UI</a><span class="pg">18</span></div>
-    <div class="q"><a href="#p11">11 (C) — Input controlado con useState, value y onChange</a><span class="pg">18</span></div>
-    <div class="q"><a href="#p12">12 — Por qué el formulario guarda números como string</a><span class="pg">19</span></div>
-    <div class="q"><a href="#p13">13 — Eventos tipados y preventDefault()</a><span class="pg">20</span></div>
-    <div class="q"><a href="#p14">14 — Validación de UI, del backend y constraints de la base</a><span class="pg">20</span></div>
-    <div class="q"><a href="#p15">15 (C) — El hijo comunica acciones al padre con props callback</a><span class="pg">21</span></div>
-    <div class="q"><a href="#p16">16 — map(), filter(), find() y key</a><span class="pg">22</span></div>
-    <div class="q"><a href="#p17">17 — Estado fuente y estado derivado</a><span class="pg">23</span></div>
-    <div class="q"><a href="#p18">18 — Pantalla con loading, error, empty y success</a><span class="pg">24</span></div>
-    <div class="q"><a href="#p19">19 — Orden: datos → búsqueda/filtros → paginación → tabla</a><span class="pg">25</span></div>
-    <div class="q"><a href="#p20">20 — Modal/ConfirmDialog en lugar de window.confirm</a><span class="pg">26</span></div>
-    <div class="b"><a href="#bloque-c">Bloque C — HTTP, services y CRUD fullstack</a><span class="pg">27</span></div>
-    <div class="q"><a href="#p21">21 (C) — Flujo completo de un GET de React a Spring Boot y de vuelta</a><span class="pg">27</span></div>
-    <div class="q"><a href="#p22">22 — Por qué fetch() no rechaza ante un 404 o un 500</a><span class="pg">28</span></div>
-    <div class="q"><a href="#p23">23 (C) — CORS: por qué Postman funciona y React falla</a><span class="pg">29</span></div>
-    <div class="q"><a href="#p24">24 — Separación entre apiClient, services, hooks y componentes</a><span class="pg">30</span></div>
-    <div class="q"><a href="#p25">25 (C) — POST línea por línea: de Guardar a la fila nueva</a><span class="pg">31</span></div>
-    <div class="q"><a href="#p26">26 — GET/{id}: seleccionar para editar y volver a consultar</a><span class="pg">32</span></div>
-    <div class="q"><a href="#p27">27 (C) — PUT completo y un formulario para crear y editar</a><span class="pg">33</span></div>
-    <div class="q"><a href="#p28">28 (C) — DELETE: confirmación, 204 y sincronización de la tabla</a><span class="pg">34</span></div>
-    <div class="q"><a href="#p29">29 — Cómo interpreta el frontend 400, 404, 409 y 500</a><span class="pg">35</span></div>
-    <div class="q"><a href="#p30">30 — Actualizar estado local o hacer refetch</a><span class="pg">36</span></div>
-    <div class="q"><a href="#p31">31 — Promise, async/await, try/catch/finally</a><span class="pg">36</span></div>
-    <div class="q"><a href="#p32">32 — Diagnóstico ordenado: Swagger funciona y React no</a><span class="pg">37</span></div>
-    <div class="b"><a href="#bloque-d">Bloque D — Relación 1:N, asincronía, hooks y UI avanzada</a><span class="pg">39</span></div>
-    <div class="q"><a href="#p33">33 (C) — Categoría 1:N Producto en el frontend y el papel de categoriaId</a><span class="pg">39</span></div>
-    <div class="q"><a href="#p34">34 — Select controlado de categoría y conversión string → number</a><span class="pg">40</span></div>
-    <div class="q"><a href="#p35">35 (C) — Cambiar la categoría de un producto con PUT</a><span class="pg">41</span></div>
-    <div class="q"><a href="#p36">36 — Mostrar el nombre de la categoría sin duplicarlo</a><span class="pg">42</span></div>
-    <div class="q"><a href="#p37">37 — Filtrar productos por categoría: frontend o backend</a><span class="pg">43</span></div>
-    <div class="q"><a href="#p38">38 (C) — useEffect como sincronización con sistemas externos</a><span class="pg">43</span></div>
-    <div class="q"><a href="#p39">39 (C) — Cleanup, AbortController y respuestas obsoletas</a><span class="pg">44</span></div>
-    <div class="q"><a href="#p40">40 — Effects que corren dos veces con StrictMode</a><span class="pg">45</span></div>
-    <div class="q"><a href="#p41">41 — Qué resuelven useAsyncList&lt;T&gt;, useCategorias y useProductos</a><span class="pg">46</span></div>
-    <div class="q"><a href="#p42">42 — Componentes UI compartidos, useMemo, tokens y accesibilidad</a><span class="pg">47</span></div>
-    <div class="b"><a href="#bloque-e">Bloque E — Testing, build, producción y defensa integral</a><span class="pg">49</span></div>
-    <div class="q"><a href="#p43">43 (C) — Estrategia de testing por niveles</a><span class="pg">49</span></div>
-    <div class="q"><a href="#p44">44 — Vitest, React Testing Library y userEvent</a><span class="pg">50</span></div>
-    <div class="q"><a href="#p45">45 — Cuándo mockear la API y cuándo integrar de verdad</a><span class="pg">51</span></div>
-    <div class="q"><a href="#p46">46 — ErrorBoundary vs manejo de errores de fetch</a><span class="pg">52</span></div>
-    <div class="q"><a href="#p47">47 (C) — npm run build, dist, npm run preview y .env por modo</a><span class="pg">53</span></div>
-    <div class="q"><a href="#p48">48 — BrowserRouter en producción: fallback SPA y CORS productivo</a><span class="pg">54</span></div>
-    <div class="q"><a href="#p49">49 — El Dashboard y por qué sus métricas son estado derivado</a><span class="pg">55</span></div>
-    <div class="q"><a href="#p50">50 (C) — Flujo fullstack completo sin saltos</a><span class="pg">56</span></div>
-    <div class="b"><a href="#desafios">Los 5 desafíos prácticos</a><span class="pg">58</span></div>
-    <div class="b"><a href="#checklist">Señales de alerta y checklist final</a><span class="pg">60</span></div>
-    <div class="b"><a href="#pendientes">Pendientes conocidos del frontend (lo que el docente podría señalar)</a><span class="pg">61</span></div>
-    <div class="b"><a href="#glosario">Glosario de términos técnicos</a><span class="pg">62</span></div>
+    <div class="b"><a href="#mapa">Mapa del proyecto, flujo y preparación de la demo</a><span class="pg">7</span></div>
+    <div class="b"><a href="#bloque-a">Bloque A — Arquitectura frontend, Vite, TypeScript y Router</a><span class="pg">9</span></div>
+    <div class="q"><a href="#p01">01 (C) — Arquitectura real del frontend y recorrido entre carpetas</a><span class="pg">9</span></div>
+    <div class="q"><a href="#p02">02 — Qué resuelve Vite: npm install, npm run dev y npm run build</a><span class="pg">10</span></div>
+    <div class="q"><a href="#p03">03 — Arranque: index.html → main.tsx → App → Router → pantalla</a><span class="pg">11</span></div>
+    <div class="q"><a href="#p04">04 — interface, type y tipos en tiempo de ejecución</a><span class="pg">12</span></div>
+    <div class="q"><a href="#p05">05 (C) — Por qué no copiar las @Entity JPA: contratos TypeScript</a><span class="pg">13</span></div>
+    <div class="q"><a href="#p06">06 (C) — Recorrido de una URL dentro de React Router</a><span class="pg">14</span></div>
+    <div class="q"><a href="#p07">07 — Link, NavLink, navegación declarativa y menú activo</a><span class="pg">15</span></div>
+    <div class="q"><a href="#p08">08 — Layout, Page, Feature y componente UI reutilizable</a><span class="pg">16</span></div>
+    <div class="q"><a href="#p09">09 — import.meta.env, variables VITE_* y secretos</a><span class="pg">17</span></div>
+    <div class="q"><a href="#p10">10 — Flujo unidireccional: props hacia abajo, callbacks hacia arriba</a><span class="pg">18</span></div>
+    <div class="b"><a href="#bloque-b">Bloque B — Componentes, estado, formularios y UI</a><span class="pg">19</span></div>
+    <div class="q"><a href="#p11">11 (C) — Input controlado con useState, value y onChange</a><span class="pg">19</span></div>
+    <div class="q"><a href="#p12">12 — Por qué el formulario guarda números como string</a><span class="pg">20</span></div>
+    <div class="q"><a href="#p13">13 — Eventos tipados y preventDefault()</a><span class="pg">21</span></div>
+    <div class="q"><a href="#p14">14 — Validación de UI, del backend y constraints de la base</a><span class="pg">21</span></div>
+    <div class="q"><a href="#p15">15 (C) — El hijo comunica acciones al padre con props callback</a><span class="pg">22</span></div>
+    <div class="q"><a href="#p16">16 — map(), filter(), find() y key</a><span class="pg">23</span></div>
+    <div class="q"><a href="#p17">17 — Estado fuente y estado derivado</a><span class="pg">24</span></div>
+    <div class="q"><a href="#p18">18 — Pantalla con loading, error, empty y success</a><span class="pg">25</span></div>
+    <div class="q"><a href="#p19">19 — Orden: datos → búsqueda/filtros → paginación → tabla</a><span class="pg">26</span></div>
+    <div class="q"><a href="#p20">20 — Modal/ConfirmDialog en lugar de window.confirm</a><span class="pg">27</span></div>
+    <div class="b"><a href="#bloque-c">Bloque C — HTTP, services y CRUD fullstack</a><span class="pg">28</span></div>
+    <div class="q"><a href="#p21">21 (C) — Flujo completo de un GET de React a Spring Boot y de vuelta</a><span class="pg">28</span></div>
+    <div class="q"><a href="#p22">22 — Por qué fetch() no rechaza ante un 404 o un 500</a><span class="pg">29</span></div>
+    <div class="q"><a href="#p23">23 (C) — CORS: por qué Postman funciona y React falla</a><span class="pg">30</span></div>
+    <div class="q"><a href="#p24">24 — Separación entre apiClient, services, hooks y componentes</a><span class="pg">31</span></div>
+    <div class="q"><a href="#p25">25 (C) — POST línea por línea: de Guardar a la fila nueva</a><span class="pg">32</span></div>
+    <div class="q"><a href="#p26">26 — GET/{id}: seleccionar para editar y volver a consultar</a><span class="pg">33</span></div>
+    <div class="q"><a href="#p27">27 (C) — PUT completo y un formulario para crear y editar</a><span class="pg">34</span></div>
+    <div class="q"><a href="#p28">28 (C) — DELETE: confirmación, 204 y sincronización de la tabla</a><span class="pg">35</span></div>
+    <div class="q"><a href="#p29">29 — Cómo interpreta el frontend 400, 404, 409 y 500</a><span class="pg">36</span></div>
+    <div class="q"><a href="#p30">30 — Actualizar estado local o hacer refetch</a><span class="pg">37</span></div>
+    <div class="q"><a href="#p31">31 — Promise, async/await, try/catch/finally</a><span class="pg">37</span></div>
+    <div class="q"><a href="#p32">32 — Diagnóstico ordenado: Swagger funciona y React no</a><span class="pg">38</span></div>
+    <div class="b"><a href="#bloque-d">Bloque D — Relación 1:N, asincronía, hooks y UI avanzada</a><span class="pg">40</span></div>
+    <div class="q"><a href="#p33">33 (C) — Categoría 1:N Producto en el frontend y el papel de categoriaId</a><span class="pg">40</span></div>
+    <div class="q"><a href="#p34">34 — Select controlado de categoría y conversión string → number</a><span class="pg">41</span></div>
+    <div class="q"><a href="#p35">35 (C) — Cambiar la categoría de un producto con PUT</a><span class="pg">42</span></div>
+    <div class="q"><a href="#p36">36 — Mostrar el nombre de la categoría sin duplicarlo</a><span class="pg">43</span></div>
+    <div class="q"><a href="#p37">37 — Filtrar productos por categoría: frontend o backend</a><span class="pg">44</span></div>
+    <div class="q"><a href="#p38">38 (C) — useEffect como sincronización con sistemas externos</a><span class="pg">44</span></div>
+    <div class="q"><a href="#p39">39 (C) — Cleanup, AbortController y respuestas obsoletas</a><span class="pg">45</span></div>
+    <div class="q"><a href="#p40">40 — Effects que corren dos veces con StrictMode</a><span class="pg">47</span></div>
+    <div class="q"><a href="#p41">41 — Qué resuelven useAsyncList&lt;T&gt;, useCategorias y useProductos</a><span class="pg">47</span></div>
+    <div class="q"><a href="#p42">42 — Componentes UI compartidos, useMemo, tokens y accesibilidad</a><span class="pg">48</span></div>
+    <div class="b"><a href="#bloque-e">Bloque E — Testing, build, producción y defensa integral</a><span class="pg">50</span></div>
+    <div class="q"><a href="#p43">43 (C) — Estrategia de testing por niveles</a><span class="pg">50</span></div>
+    <div class="q"><a href="#p44">44 — Vitest, React Testing Library y userEvent</a><span class="pg">51</span></div>
+    <div class="q"><a href="#p45">45 — Cuándo mockear la API y cuándo integrar de verdad</a><span class="pg">52</span></div>
+    <div class="q"><a href="#p46">46 — ErrorBoundary vs manejo de errores de fetch</a><span class="pg">53</span></div>
+    <div class="q"><a href="#p47">47 (C) — npm run build, dist, npm run preview y .env por modo</a><span class="pg">54</span></div>
+    <div class="q"><a href="#p48">48 — BrowserRouter en producción: fallback SPA y CORS productivo</a><span class="pg">55</span></div>
+    <div class="q"><a href="#p49">49 — El Dashboard y por qué sus métricas son estado derivado</a><span class="pg">56</span></div>
+    <div class="q"><a href="#p50">50 (C) — Flujo fullstack completo sin saltos</a><span class="pg">57</span></div>
+    <div class="b"><a href="#desafios">Los 5 desafíos prácticos</a><span class="pg">59</span></div>
+    <div class="b"><a href="#checklist">Señales de alerta y checklist final</a><span class="pg">61</span></div>
+    <div class="b"><a href="#pendientes">Pendientes conocidos del frontend (lo que el docente podría señalar)</a><span class="pg">62</span></div>
+    <div class="b"><a href="#glosario">Glosario de términos técnicos</a><span class="pg">63</span></div>
   </div>
 </section>
 
@@ -293,6 +293,18 @@
     <tr><td><code>VITE_API_BASE_URL</code></td><td><code>VITE_API_URL</code></td></tr>
     <tr><td><code>/clientes</code>, <code>/vehiculos</code> (rutas del navegador)</td><td><code>/categorias</code>, <code>/productos</code></td></tr>
   </table>
+
+  <h3>Si el docente cambia la entidad</h3>
+  <p>El banco dice que el docente puede cambiar los nombres "para impedir respuestas memorizadas". Si pregunta con otra pantalla de StockFlow, estos son los equivalentes:</p>
+  <table>
+    <tr><th style="width:22%">Tema (preguntas)</th><th style="width:39%">Con Ubicación (pantalla Almacenes)</th><th>Con Kardex (pantalla Movimientos)</th></tr>
+    <tr><td>Formulario y select (11, 12, 34)</td><td><code>UbicacionForm.tsx:85</code>: <code>&lt;Select name="tipo"&gt;</code> con <code>TIPOS_UBICACION</code>. El tipo es un enum de texto, así que no se convierte a número; se valida con <code>ubicacionValidation</code>.</td><td>El producto se elige en un select (<code>MovimientosPage.tsx:126-128</code>) y viaja en la URL (<code>?producto=ID</code>); se convierte con <code>Number(params.get('producto'))</code> (<code>:39</code>).</td></tr>
+    <tr><td>POST (25)</td><td><code>UbicacionForm.tsx:39-51</code>: <code>handleSubmit</code> → <code>preventDefault</code> → validar → <code>ubicacionService.crear</code> → <code>onSaved</code>. 409 si el código existe o si ya hay un almacén central (<code>AlmacenesPage.test.tsx:54</code>).</td><td>No aplica: la pantalla es de sólo lectura.</td></tr>
+    <tr><td>GET, loading, error (18, 21)</td><td><code>AlmacenesPage.tsx:26-27</code>: <code>useAsyncList(ubicacionService.listar)</code> y las existencias.</td><td><code>useKardex</code> (<code>MovimientosPage.tsx:42</code>): paginado en el servidor.</td></tr>
+    <tr><td>PUT y DELETE (26-28)</td><td><strong>No existen</strong> en la API (RF-07); la pantalla lo dice (<code>AlmacenesPage.tsx:49</code>). Responde con Categoría/Producto y explica que es un pendiente del backend.</td><td>No aplica: el kardex es un histórico que no se edita ni se borra (RN-01, trigger de la migración V3).</td></tr>
+    <tr><td>Paginación (19, 37)</td><td>En el cliente, con <code>paginar()</code>, como Productos.</td><td>En el servidor: <code>PaginaResponse</code> trae <code>contenido</code>, <code>pagina</code>, <code>tamano</code>, <code>totalElementos</code> y <code>totalPaginas</code>, y <code>Pagination</code> usa esos totales (<code>MovimientosPage.tsx:191-194</code>). Se envía <code>pagina - 1</code> porque la API cuenta desde 0 (<code>:42</code>).</td></tr>
+    <tr><td>Race conditions (39)</td><td>—</td><td><code>useKardex</code> y su prueba (<code>useKardex.test.ts:27</code>).</td></tr>
+  </table>
 </section>
 
 <!-- ============================== MAPA ============================== -->
@@ -313,7 +325,7 @@
     <tr><td>UI compartida</td><td><code>components/ui/</code> (Button, Field, SearchInput, SelectFilter, Pagination, Modal, ConfirmDialog, DataTable, StatusBadge, EmptyState, Alert, toast…) · <code>components/common/</code> (Sidebar, Header, Breadcrumbs…)</td></tr>
     <tr><td>Utilidades y hooks genéricos</td><td><code>shared/hooks/useAsyncList.ts</code> · <code>shared/utils/paginar.ts</code>, <code>isAbortError.ts</code>, <code>formato.ts</code></td></tr>
     <tr><td>Estilos</td><td><code>styles/tokens.css</code> (design tokens), <code>base.css</code>, <code>layout.css</code>, <code>components.css</code>, <code>pages.css</code></td></tr>
-    <tr><td>Pruebas</td><td><code>*.test.ts(x)</code> junto a cada archivo · <code>test/setup.ts</code>, <code>test/renderWithProviders.tsx</code>, <code>test/fixtures.ts</code> · 27 archivos, 96 pruebas</td></tr>
+    <tr><td>Pruebas</td><td><code>*.test.ts(x)</code> junto a cada archivo · <code>test/setup.ts</code>, <code>test/renderWithProviders.tsx</code>, <code>test/fixtures.ts</code> · 30 archivos, 107 pruebas</td></tr>
   </table>
 
   <h3>Flujo que debes poder dibujar</h3>
@@ -327,7 +339,7 @@
     <li><strong>Backend:</strong> en IntelliJ ejecuta <code>StockFlowApplication</code> (o <code>mvn spring-boot:run</code> en <code>intellij/stockflow-backend</code>). Comprueba <code>http://localhost:8080/api/health</code>.</li>
     <li><strong>Frontend:</strong> en <code>webstorm/stockflow-frontend</code>, <code>npm install</code> (sólo la primera vez) y <code>npm run dev</code> → <code>http://localhost:5173</code>.</li>
     <li><strong>DevTools:</strong> abre F12 → pestaña <strong>Network</strong> (filtro <em>Fetch/XHR</em>) y <strong>Console</strong>. Ahí demuestras cada petición real.</li>
-    <li><strong>Pruebas:</strong> <code>npm run test:run</code> (96 pruebas en verde) o <code>npm test</code> en modo observación.</li>
+    <li><strong>Pruebas:</strong> <code>npm run test:run</code> (107 pruebas en verde) o <code>npm test</code> en modo observación.</li>
     <li><strong>Build:</strong> <code>npm run build</code> genera <code>dist/</code>; <code>npm run preview</code> lo sirve en local (puerto 4173) y reenvía <code>/api</code> al backend, así se puede navegar el build con datos reales.</li>
   </ol>
 
@@ -1145,7 +1157,7 @@ Al cancelar sólo se ejecuta <code>setConfirmOpen(false)</code>. <strong>No debe
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
-  <li><code>src/features/productos/pages/ProductosPage.tsx:42</code> → <code>features/productos/hooks/useProductos.ts:5-7</code> → <code>src/shared/hooks/useAsyncList.ts:21-36</code> → <code>features/productos/services/productoService.ts:7-9</code> → <code>src/api/apiClient.ts:52-68</code>.</li>
+  <li><code>src/features/productos/pages/ProductosPage.tsx:42</code> → <code>features/productos/hooks/useProductos.ts:5-7</code> → <code>src/shared/hooks/useAsyncList.ts:21-38</code> → <code>features/productos/services/productoService.ts:7-9</code> → <code>src/api/apiClient.ts:52-68</code>.</li>
   <li>Backend: <code>ProductoController</code> (<code>@GetMapping</code> en <code>/api/productos</code>).</li>
 </ul>
 </div>
@@ -1156,7 +1168,7 @@ F12 → Network → filtro Fetch/XHR → entra a Productos. Abre la petición <c
 
 <div class="repregunta">
 <div class="rp">¿En qué punto exacto se convierte la respuesta HTTP en un objeto JavaScript y en qué punto React decide volver a renderizar?</div>
-La conversión ocurre en <code>await response.json()</code> (<code>apiClient.ts:67</code>): lee el body como texto y lo parsea a objetos. El re-render se decide cuando se llama al setter de estado: <code>setData(await loader(...))</code> en <code>useAsyncList.ts:27</code>. React compara el valor nuevo con el anterior (es un array nuevo), agenda el render de <code>ProductosPage</code> y, como <code>setLoading(false)</code> ocurre en el mismo ciclo, los agrupa en un solo render (batching).
+La conversión ocurre en <code>await response.json()</code> (<code>apiClient.ts:67</code>): lee el body como texto y lo parsea a objetos. El re-render se decide cuando se llama al setter de estado: <code>setData(resultado)</code> en <code>useAsyncList.ts:29</code>, justo después de <code>await loader(...)</code> (<code>:27</code>). React compara el valor nuevo con el anterior (es un array nuevo), agenda el render de <code>ProductosPage</code> y, como <code>setLoading(false)</code> ocurre en el mismo ciclo, los agrupa en un solo render (batching).
 </div>
 </div>
 
@@ -1263,7 +1275,7 @@ No. Con un 500, <code>fetch</code> <strong>resuelve</strong> igual que con un 20
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
-  <li><code>src/api/apiClient.ts:47-68</code> · <code>features/productos/services/productoService.ts:5-24</code> · <code>src/shared/hooks/useAsyncList.ts:7-38</code> · <code>features/productos/hooks/useProductos.ts</code>.</li>
+  <li><code>src/api/apiClient.ts:47-68</code> · <code>features/productos/services/productoService.ts:5-24</code> · <code>src/shared/hooks/useAsyncList.ts:7-40</code> · <code>features/productos/hooks/useProductos.ts</code>.</li>
   <li>Pruebas por capa: <code>src/api/apiClient.test.ts</code> (<code>vi.stubGlobal('fetch', ...)</code>) y <code>features/productos/pages/ProductosPage.test.tsx:14-16</code> (<code>vi.mock</code> de los services).</li>
 </ul>
 </div>
@@ -1498,7 +1510,7 @@ Crear un producto con el código <code>PRD-OFI-001</code>, que ya existe. La pet
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
   <li><code>src/features/productos/pages/ProductosPage.tsx:122-126</code> (local con <code>saved</code>), <code>:134</code> (filter tras DELETE), <code>:116</code> y <code>:139</code> (<code>reload()</code> ante 404).</li>
-  <li><code>src/shared/hooks/useAsyncList.ts:19</code> (<code>reload</code> cambia <code>reloadToken</code> y vuelve a correr el Effect) y <code>:38</code> (expone <code>setData</code>).</li>
+  <li><code>src/shared/hooks/useAsyncList.ts:19</code> (<code>reload</code> cambia <code>reloadToken</code> y vuelve a correr el Effect) y <code>:40</code> (expone <code>setData</code>).</li>
 </ul>
 </div>
 
@@ -1538,7 +1550,7 @@ Que el campo calculado (un <code>id</code> generado, un valor normalizado, una f
 <ul>
   <li><code>src/api/apiClient.ts:52</code> (<code>async function apiFetch&lt;T&gt;(): Promise&lt;T&gt;</code>) y <code>:36-43</code>.</li>
   <li><code>src/features/productos/components/ProductoForm.tsx:107-124</code> (<code>try/catch/finally</code>).</li>
-  <li><code>src/shared/hooks/useAsyncList.ts:24-32</code>.</li>
+  <li><code>src/shared/hooks/useAsyncList.ts:24-34</code>.</li>
 </ul>
 </div>
 
@@ -1797,7 +1809,7 @@ Porque se transferirían megas de JSON en cada carga, el navegador tardaría en 
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
-  <li><code>src/shared/hooks/useAsyncList.ts:21-36</code>.</li>
+  <li><code>src/shared/hooks/useAsyncList.ts:21-38</code>.</li>
   <li><code>src/components/ui/Modal.tsx:32-37</code>.</li>
   <li><code>src/features/productos/components/ProductoForm.tsx:82-85</code>.</li>
   <li><code>src/layouts/MainLayout.tsx:62-64</code>.</li>
@@ -1826,26 +1838,29 @@ Un bug de <strong>datos desactualizados</strong> (stale closure): el Effect sigu
   <li><strong>Crear y pasar la señal</strong>: <code>useAsyncList</code> crea <code>new AbortController()</code> en cada ejecución del Effect y pasa <code>controller.signal</code> al loader → service → <code>apiFetch</code> → <code>fetch</code>.</li>
   <li><strong>Abortar en el cleanup</strong>: <code>return () =&gt; controller.abort()</code>. Se ejecuta al desmontar la pantalla o antes de repetir el Effect (por ejemplo, con <code>reload()</code>).</li>
   <li><strong>AbortError no es un error funcional</strong>: <code>isAbortError(err)</code> lo reconoce (<code>DOMException</code> con <code>name === 'AbortError'</code>) y no se muestra mensaje. Además <code>setLoading(false)</code> sólo se ejecuta si la señal no fue abortada, para no apagar el indicador de una petición más nueva.</li>
-  <li><strong>El mejor ejemplo es <code>useKardex</code></strong>: cada combinación producto/página/tamaño genera una <code>key</code>; el Effect aborta la petición anterior y además guarda cada resultado junto con la key que lo produjo. Sólo se muestra el resultado cuya key coincide con la actual; "cargando" se <strong>deriva</strong> (la key actual todavía no tiene resultado). Así una respuesta lenta de la página 1 nunca pisa a la de la página 2.</li>
+  <li><strong>Descartar lo que llega tarde</strong>: abortar no alcanza siempre. Si la respuesta ya venía en camino cuando se abortó (el servidor ya había respondido), la Promise puede resolverse igual. Por eso, antes de guardar, los dos hooks preguntan <code>if (!controller.signal.aborted)</code>: si la petición fue abortada, el resultado se descarta y no pisa al actual. Es la misma idea que la bandera <code>ignore</code> de la documentación de React.</li>
+  <li><strong>El mejor ejemplo es <code>useKardex</code></strong>: cada combinación producto/página/tamaño genera una <code>key</code>; el Effect aborta la petición anterior, descarta su respuesta si llega igual y guarda cada resultado junto con la key que lo produjo. "Cargando" se <strong>deriva</strong> (la key actual todavía no tiene resultado) y, mientras llega la página nueva, se sigue mostrando la anterior atenuada.</li>
+  <li><strong>Está probado</strong>: <code>useKardex.test.ts</code> resuelve primero la página 1 y <em>después</em> la página 0, y comprueba que la pantalla muestra la 1. Esa prueba encontró un error real: antes de agregar el <code>if (controller.signal.aborted)</code>, la página 0 pisaba a la 1 y la pantalla quedaba en "cargando".</li>
 </ul>
 
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
-  <li><code>src/shared/hooks/useAsyncList.ts:22</code> (controller), <code>:27</code> (signal al loader), <code>:29</code> (ignora AbortError), <code>:31</code> (loading sólo si no abortó), <code>:35</code> (cleanup).</li>
+  <li><code>src/shared/hooks/useAsyncList.ts:22</code> (controller), <code>:27</code> (signal al loader), <code>:29</code> (descarta si se abortó), <code>:31</code> (ignora AbortError), <code>:33</code> (loading sólo si no abortó), <code>:37</code> (cleanup).</li>
   <li><code>src/shared/utils/isAbortError.ts:2-4</code>.</li>
-  <li><code>src/features/inventario/hooks/useKardex.ts:9-48</code> (comentario y lógica con <code>key</code>).</li>
+  <li><code>src/features/inventario/hooks/useKardex.ts:9-51</code> (comentario y lógica con <code>key</code>) y <code>:31</code> (descarta la respuesta abortada).</li>
+  <li>Pruebas: <code>src/features/inventario/hooks/useKardex.test.ts:27</code> y <code>src/shared/hooks/useAsyncList.test.ts:62</code> (respuesta vieja que llega tarde).</li>
   <li><code>features/productos/services/productoService.ts:7-9</code> (el service recibe y pasa <code>signal</code>).</li>
 </ul>
 </div>
 <div class="demo">
 <div class="etiqueta">Demuéstralo</div>
-En Network activa "Slow 3G", entra a Productos y cambia rápido a Categorías: la petición de productos aparece como <em>(canceled)</em> y no hay mensajes de error en pantalla. En Movimientos, cambia de página varias veces rápido: las anteriores se cancelan y sólo se muestra la última.
+En Network activa "Slow 3G", entra a Productos y cambia rápido a Categorías: la petición de productos aparece como <em>(canceled)</em> y no hay mensajes de error en pantalla. En Movimientos, cambia de página varias veces rápido: las anteriores se cancelan y sólo se muestra la última. Para demostrar que la prueba protege la regla: borra la línea 31 de <code>useKardex.ts</code> y corre <code>npx vitest run src/features/inventario/hooks</code>: falla "descarta la respuesta de la página anterior aunque llegue después". Deshaz el cambio.
 </div>
 
 <div class="repregunta">
 <div class="rp">Si buscas A y enseguida B, pero la respuesta de A llega después, ¿cómo evitas mostrar A como si fuera el resultado actual?</div>
-De dos formas que StockFlow combina en <code>useKardex</code>: 1) <strong>cancelar</strong> la petición de A en el cleanup cuando cambia el parámetro a B (<code>controller.abort()</code>), así su respuesta nunca se procesa; 2) <strong>etiquetar</strong> cada resultado con la key de la petición que lo produjo y mostrar sólo el que coincide con la key actual. Aunque A llegara igual (por ejemplo, porque el servidor ya había respondido), se descarta porque su key no es la de B.
+Con dos defensas que StockFlow combina: 1) <strong>cancelar</strong> la petición de A en el cleanup cuando el parámetro cambia a B (<code>controller.abort()</code>); normalmente su Promise se rechaza con <code>AbortError</code> y se ignora. 2) <strong>Descartar</strong> lo que llegue igual: si A ya venía en camino y se resuelve, el <code>.then</code> ve <code>controller.signal.aborted === true</code> y no guarda nada (<code>useKardex.ts:31</code>). Además <code>useKardex</code> etiqueta cada resultado con su key para derivar "cargando". <code>useKardex.test.ts:27</code> lo demuestra con A llegando después de B.
 </div>
 </div>
 
@@ -1870,7 +1885,7 @@ De dos formas que StockFlow combina en <code>useKardex</code>: 1) <strong>cancel
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
   <li><code>src/main.tsx:13-16</code> (comentario y <code>&lt;StrictMode&gt;</code>).</li>
-  <li><code>src/shared/hooks/useAsyncList.ts:35</code> y <code>src/components/ui/Modal.tsx:35-36</code>.</li>
+  <li><code>src/shared/hooks/useAsyncList.ts:37</code> y <code>src/components/ui/Modal.tsx:35-36</code>.</li>
 </ul>
 </div>
 
@@ -1903,7 +1918,7 @@ Quedan <strong>dos suscripciones activas</strong> a la vez: el mismo evento se p
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
-  <li><code>src/shared/hooks/useAsyncList.ts:7-38</code> (comentario y hook).</li>
+  <li><code>src/shared/hooks/useAsyncList.ts:7-40</code> (comentario y hook).</li>
   <li><code>src/features/productos/hooks/useProductos.ts</code> y <code>features/categorias/hooks/useCategorias.ts</code>.</li>
   <li><code>src/features/inventario/hooks/useResumenInventario.ts:7-24</code>.</li>
 </ul>
@@ -1980,27 +1995,28 @@ Sin tocar el mouse: Tab hasta "Nuevo producto" y Enter → el modal abre y el fo
 
 <div class="etiqueta">Qué responder</div>
 <table>
-  <tr><th style="width:22%">Nivel</th><th style="width:30%">En StockFlow (27 archivos, 96 pruebas)</th><th>Qué riesgo detecta</th></tr>
+  <tr><th style="width:22%">Nivel</th><th style="width:30%">En StockFlow (30 archivos, 107 pruebas)</th><th>Qué riesgo detecta</th></tr>
   <tr><td>1. Lógica pura</td><td>8 archivos: <code>productoValidation</code>, <code>categoriaValidation</code>, <code>ubicacionValidation</code>, <code>loginValidation</code>, <code>paginar</code>, <code>csv</code>, <code>indicadores</code>, <code>stockPorProducto</code></td><td>Reglas mal programadas: una validación que deja pasar un stock negativo, una paginación que se sale de rango, un cálculo de indicador incorrecto</td></tr>
   <tr><td>2. Componentes UI</td><td>8 archivos: <code>Modal</code>, <code>Pagination</code>, <code>SearchInput</code>, <code>StatusBadge</code>, <code>Tabs</code>, <code>Dropdown</code>, <code>ToastProvider</code>, <code>HeaderSearch</code></td><td>Accesibilidad e interacción: un botón que no se deshabilita, un modal sin nombre accesible, un callback que no se emite</td></tr>
   <tr><td>3. Páginas con interacción (services simulados)</td><td>10 archivos: <code>CategoriasPage</code>, <code>ProductosPage</code>, <code>InventarioPages</code>, <code>AlmacenesPage</code>, <code>ReportesPage</code>, <code>LoginPage</code>, etc.</td><td>Flujos de usuario y manejo de errores: que un 409 no borre la fila, que el 422 se muestre, que el filtro de la URL se aplique</td></tr>
-  <tr><td>4. Cliente HTTP (<code>fetch</code> simulado)</td><td><code>apiClient.test.ts</code></td><td>Contrato de errores: que un 204 no intente leer JSON, que un error del backend se convierta en <code>ApiError</code> con status y <code>fieldErrors</code></td></tr>
-  <tr><td>5. Integración real con el backend</td><td><strong>No automatizada todavía</strong>: se cubre con la colección Postman, las pruebas Testcontainers del backend y la verificación manual con Network</td><td>Contrato real: nombres de campos, CORS, rutas, comportamiento del backend</td></tr>
+  <tr><td>4. Hooks y services</td><td>3 archivos: <code>useAsyncList.test.ts</code>, <code>useKardex.test.ts</code> (con <code>renderHook</code>) e <code>inventarioService.test.ts</code> (con <code>fetch</code> simulado)</td><td>Asincronía y contrato de rutas: una respuesta vieja que pisa a la nueva, un <code>AbortError</code> mostrado como error, un cleanup que no aborta, una URL o query mal armada (<code>?pagina=&amp;tamano=</code>)</td></tr>
+  <tr><td>5. Cliente HTTP (<code>fetch</code> simulado)</td><td><code>apiClient.test.ts</code></td><td>Contrato de errores: que un 204 no intente leer JSON, que un error del backend se convierta en <code>ApiError</code> con status y <code>fieldErrors</code></td></tr>
+  <tr><td>6. Integración real con el backend</td><td><strong>No automatizada todavía</strong>: se cubre con la colección Postman, las pruebas Testcontainers del backend y la verificación manual con Network</td><td>Contrato real: nombres de campos, CORS, rutas, comportamiento del backend</td></tr>
 </table>
 <ul>
-  <li><strong>No todo se prueba mockeando ni todo requiere backend real</strong>: los mocks dan rapidez y determinismo en los niveles 2-4; la integración real es necesaria para detectar que el contrato cambió.</li>
+  <li><strong>No todo se prueba mockeando ni todo requiere backend real</strong>: los mocks dan rapidez y determinismo en los niveles 2-5; la integración real es necesaria para detectar que el contrato cambió.</li>
 </ul>
 
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
-  <li><code>src/features/productos/utils/productoValidation.test.ts</code>, <code>src/components/ui/Pagination.test.tsx</code>, <code>src/features/categorias/pages/CategoriasPage.test.tsx</code>, <code>src/api/apiClient.test.ts</code>.</li>
+  <li><code>src/features/productos/utils/productoValidation.test.ts</code>, <code>src/components/ui/Pagination.test.tsx</code>, <code>src/features/categorias/pages/CategoriasPage.test.tsx</code>, <code>src/shared/hooks/useAsyncList.test.ts</code>, <code>src/features/inventario/hooks/useKardex.test.ts</code>, <code>src/api/apiClient.test.ts</code>.</li>
   <li>Configuración: <code>vite.config.ts:23-29</code> (jsdom + setup) y <code>src/test/setup.ts</code>.</li>
 </ul>
 </div>
 <div class="demo">
 <div class="etiqueta">Demuéstralo</div>
-<code>npm run test:run</code> → "Test Files 27 passed · Tests 96 passed". Para mostrar que una prueba protege una regla: en <code>productoValidation.ts</code> cambia <code>/^\d+$/</code> por <code>/^-?\d+$/</code> (aceptar negativos) y vuelve a correr: falla "RN-07: el stock mínimo debe ser un entero no negativo". Deshaz el cambio.
+<code>npm run test:run</code> → "Test Files 30 passed · Tests 107 passed". Para mostrar que una prueba protege una regla: en <code>productoValidation.ts</code> cambia <code>/^\d+$/</code> por <code>/^-?\d+$/</code> (aceptar negativos) y vuelve a correr: falla "RN-07: el stock mínimo debe ser un entero no negativo". Deshaz el cambio.
 </div>
 
 <div class="repregunta">
@@ -2103,7 +2119,7 @@ Todo queda en verde mientras la app real está rota: los tests prueban contra un
 <ul>
   <li><code>src/app/AppErrorBoundary.tsx:6-31</code> (el comentario aclara: "NO captura errores de fetch ni de event handlers").</li>
   <li><code>src/main.tsx:17</code> (dónde envuelve).</li>
-  <li>Errores de fetch como estado: <code>src/shared/hooks/useAsyncList.ts:28-29</code> y <code>features/productos/components/ProductoForm.tsx:114-121</code>.</li>
+  <li>Errores de fetch como estado: <code>src/shared/hooks/useAsyncList.ts:30-31</code> y <code>features/productos/components/ProductoForm.tsx:114-121</code>.</li>
 </ul>
 </div>
 
@@ -2385,6 +2401,9 @@ El backend y la base cumplieron: el problema está <strong>en el frontend, despu
   <tr><td>4</td><td><code>NotificationsMenu</code> (en <code>components/common</code>) consulta <code>inventarioService</code></td><td>01, 08</td><td>Es una pieza del marco que funciona como mini-feature (alertas de stock en el Header). Si crece, conviene moverla a <code>features/inventario/components</code>.</td></tr>
   <tr><td>5</td><td>Login, Perfil, Usuarios y Configuración son demostración (no hay autenticación en el backend)</td><td>—</td><td>Están rotuladas como DEMO en el menú y no hay protección de rutas a propósito, para no aparentar una seguridad que no existe (comentario en <code>AppRouter.tsx:21-23</code>).</td></tr>
   <tr><td>6</td><td>No hay validación del JSON en tiempo de ejecución</td><td>04, 50</td><td><code>apiFetch</code> confía en el contrato (<code>as T</code>). Mejora posible: validar respuestas críticas con un esquema (por ejemplo Zod).</td></tr>
+  <tr><td>7</td><td>Sin control de concurrencia optimista (<code>@Version</code>)</td><td>26, 27</td><td>Si dos usuarios editan el mismo registro, el último PUT pisa al primero (actualización perdida). Pedir <code>GET /{id}</code> al abrir el formulario lo reduce; la solución es un <code>@Version</code> en el backend que responda 409 si el registro cambió.</td></tr>
+  <tr><td>8</td><td>Ubicaciones sin PUT ni DELETE</td><td>26-28</td><td>La API sólo lista, busca y crea (RF-07). La pantalla Almacenes lo avisa. Si el docente pide editar o borrar una ubicación, responder con Categoría/Producto y explicarlo como pendiente del backend.</td></tr>
+  <tr><td>9</td><td>El Dashboard calcula sus métricas en el navegador con las colecciones completas</td><td>37, 49</td><td>Sirve con pocos datos. Con volumen, lo correcto es un endpoint agregado (<code>GROUP BY</code> en PostgreSQL); el comentario de <code>DashboardPage</code> lo anticipa.</td></tr>
 </table>
 </section>
 
@@ -2626,7 +2645,7 @@ El backend y la base cumplieron: el problema está <strong>en el frontend, despu
 <div class="entrada"><dt>Query params / search params</dt>
 <dd>La parte de la URL después de <code>?</code> (<code>/productos?categoria=2</code>). Sirven para filtros. React Router los lee y escribe con <code>useSearchParams</code>. <span class="ver">[37]</span></dd></div>
 <div class="entrada"><dt>Race condition (condición de carrera)</dt>
-<dd>Error que depende del orden en que terminan operaciones simultáneas: por ejemplo, una respuesta vieja que llega tarde y pisa a una más nueva. Se evita cancelando (AbortController) o etiquetando cada respuesta. <span class="ver">[39]</span></dd></div>
+<dd>Error que depende del orden en que terminan operaciones simultáneas: por ejemplo, una respuesta vieja que llega tarde y pisa a una más nueva. Se evita cancelando (AbortController) y descartando la respuesta si su petición ya fue abortada; en StockFlow lo prueban <code>useAsyncList.test.ts</code> y <code>useKardex.test.ts</code>. <span class="ver">[39, 43]</span></dd></div>
 <div class="entrada"><dt>React</dt>
 <dd>Librería para construir interfaces con componentes. Tú describes cómo debe verse la pantalla según el estado y React se encarga de actualizar el DOM cuando el estado cambia. <span class="ver">[todas]</span></dd></div>
 <div class="entrada"><dt>React DevTools</dt>
@@ -2641,6 +2660,8 @@ El backend y la base cumplieron: el problema está <strong>en el frontend, despu
 <dd>Un error nuevo en algo que antes funcionaba, causado por un cambio. Las pruebas automáticas sirven para detectarlas. <span class="ver">[43]</span></dd></div>
 <div class="entrada"><dt>Render / re-render</dt>
 <dd>Cuando React ejecuta un componente para calcular cómo debe verse. Hay un nuevo render cada vez que cambian su estado o sus props. <span class="ver">[11, 21]</span></dd></div>
+<div class="entrada"><dt>renderHook</dt>
+<dd>Función de Testing Library que monta un custom hook dentro de un componente de prueba para comprobar su estado (<code>result.current</code>) sin una pantalla real. La usan <code>useAsyncList.test.ts</code> y <code>useKardex.test.ts</code>. <span class="ver">[43, 44]</span></dd></div>
 <div class="entrada"><dt>response.ok</dt>
 <dd>Propiedad del <code>Response</code> de <code>fetch</code>: es <code>true</code> si el status está entre 200 y 299. Hay que revisarla porque <code>fetch</code> no rechaza ante un 404 o un 500. <span class="ver">[22]</span></dd></div>
 <div class="entrada"><dt>Route / Routes</dt>

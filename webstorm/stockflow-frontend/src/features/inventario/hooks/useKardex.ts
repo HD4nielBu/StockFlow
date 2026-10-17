@@ -27,12 +27,14 @@ export function useKardex(productoId: number | null, pagina: number, tamano: num
     inventarioService
       .kardex(productoId, pagina, tamano, controller.signal)
       .then((data) => {
+        // Si la respuesta ya estaba en camino cuando se abortó, llega igual: se descarta para no pisar a la actual
+        if (controller.signal.aborted) return;
         const r = { key, data, error: null };
         setResultado(r);
         setAnterior(r);
       })
       .catch((error) => {
-        if (!isAbortError(error)) setResultado({ key, data: null, error });
+        if (!controller.signal.aborted && !isAbortError(error)) setResultado({ key, data: null, error });
       });
     return () => controller.abort();
   }, [productoId, pagina, tamano, key]);
