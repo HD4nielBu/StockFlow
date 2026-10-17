@@ -149,8 +149,8 @@
   <div class="proyecto"><strong>StockFlow</strong> — Inventario, compras internas y movimientos de almacén (PA-06)</div>
   <div class="stack">Programación Aplicada 2026-2 · React 19 · TypeScript 6 · Vite 8 · React Router 8</div>
   <table>
-    <tr><td>Código analizado</td><td>Rama <code>Bruno</code>, commit <code>94587b6</code></td></tr>
-    <tr><td>Fecha</td><td>9 de octubre de 2026</td></tr>
+    <tr><td>Código analizado</td><td>Rama <code>Hector</code>, commit <code>dee15e2</code></td></tr>
+    <tr><td>Fecha</td><td>17 de octubre de 2026</td></tr>
     <tr><td>Contenido</td><td>50 preguntas con explicación del concepto, respuesta, ubicación en el código, demostración y repregunta · 5 desafíos prácticos · checklist · pendientes conocidos · glosario</td></tr>
     <tr><td>Pruebas del frontend</td><td>27 archivos de prueba, 96 pruebas, todas en verde (<code>npm run test:run</code>)</td></tr>
   </table>
@@ -304,7 +304,7 @@
     <tr><td>Composición global</td><td><code>app/App.tsx</code> (providers: tema, sesión demo, toasts) · <code>app/navigation.ts</code> (menú) · <code>app/AppErrorBoundary.tsx</code></td></tr>
     <tr><td>Rutas</td><td><code>routes/AppRouter.tsx</code> (rutas lazy, 404)</td></tr>
     <tr><td>Estructura persistente</td><td><code>layouts/MainLayout.tsx</code> (Sidebar + Header + <code>&lt;Outlet&gt;</code>)</td></tr>
-    <tr><td>Configuración</td><td><code>config/env.ts</code> (lee <code>VITE_API_URL</code>) · <code>vite-env.d.ts</code> (tipo de la variable) · <code>../.env.development</code>, <code>../.env.production</code>, <code>../.env.example</code></td></tr>
+    <tr><td>Configuración</td><td><code>config/env.ts</code> (lee <code>VITE_API_URL</code>) · <code>vite-env.d.ts</code> (tipo de la variable) · <code>../.env.development</code>, <code>../.env.production</code> (<code>/api</code>), <code>../.env.example</code> · <code>../nginx.conf</code> (producción: fallback SPA y proxy de <code>/api/</code>)</td></tr>
     <tr><td>Capa HTTP</td><td><code>api/apiClient.ts</code> (<code>apiFetch</code>, <code>ApiError</code>, <code>mensajeDeError</code>) · <code>api/describirError.ts</code> (400/404/409/422/500 → mensaje)</td></tr>
     <tr><td>Módulo padre: categorías</td><td><code>features/categorias/</code> → <code>models/</code>, <code>types/</code>, <code>services/categoriaService.ts</code>, <code>hooks/useCategorias.ts</code>, <code>components/CategoriaForm.tsx</code>, <code>CategoriaTable.tsx</code>, <code>pages/CategoriasPage.tsx</code>, <code>utils/categoriaValidation.ts</code></td></tr>
     <tr><td>Módulo hijo: productos</td><td><code>features/productos/</code> → misma estructura: <code>Producto.ts</code>, <code>ProductoFormData.ts</code>, <code>ProductoRequests.ts</code>, <code>productoService.ts</code>, <code>useProductos.ts</code>, <code>ProductoForm.tsx</code>, <code>ProductoTable.tsx</code>, <code>ProductosPage.tsx</code></td></tr>
@@ -328,7 +328,7 @@
     <li><strong>Frontend:</strong> en <code>webstorm/stockflow-frontend</code>, <code>npm install</code> (sólo la primera vez) y <code>npm run dev</code> → <code>http://localhost:5173</code>.</li>
     <li><strong>DevTools:</strong> abre F12 → pestaña <strong>Network</strong> (filtro <em>Fetch/XHR</em>) y <strong>Console</strong>. Ahí demuestras cada petición real.</li>
     <li><strong>Pruebas:</strong> <code>npm run test:run</code> (96 pruebas en verde) o <code>npm test</code> en modo observación.</li>
-    <li><strong>Build:</strong> <code>npm run build</code> genera <code>dist/</code>; <code>npm run preview</code> lo sirve en local para inspeccionarlo.</li>
+    <li><strong>Build:</strong> <code>npm run build</code> genera <code>dist/</code>; <code>npm run preview</code> lo sirve en local (puerto 4173) y reenvía <code>/api</code> al backend, así se puede navegar el build con datos reales.</li>
   </ol>
 
   <h3>Códigos HTTP vistos desde el frontend</h3>
@@ -677,7 +677,7 @@ Cada clic sería una <strong>recarga completa</strong>: el navegador vuelve a pe
 <ul>
   <li>StockFlow usa <code>VITE_API_URL</code> (el equivalente de <code>VITE_API_BASE_URL</code> del examen). Se lee en <strong>un solo lugar</strong>, <code>config/env.ts</code>, y si falta se lanza un error claro al arrancar en vez de fallar en cada petición.</li>
   <li>Su tipo está declarado en <code>vite-env.d.ts</code> (<code>interface ImportMetaEnv { readonly VITE_API_URL: string }</code>), así TypeScript la conoce.</li>
-  <li><strong>Un archivo por modo:</strong> <code>.env.development</code> (lo usa <code>npm run dev</code>: <code>http://localhost:8080/api</code>), <code>.env.production</code> (lo usa <code>npm run build</code>: el dominio real del backend), <code>.env.example</code> (plantilla documentada) y <code>.env.local</code> para valores personales que no se suben a Git. En las pruebas, la URL se define en <code>vite.config.ts</code> (<code>test.env</code>).</li>
+  <li><strong>Un archivo por modo:</strong> <code>.env.development</code> (lo usa <code>npm run dev</code>: <code>http://localhost:8080/api</code>), <code>.env.production</code> (lo usa <code>npm run build</code>: <code>/api</code>, relativa, porque en producción nginx reenvía <code>/api/</code> al backend), <code>.env.example</code> (plantilla documentada) y <code>.env.local</code> para valores personales que no se suben a Git. En las pruebas, la URL se define en <code>vite.config.ts</code> (<code>test.env</code>).</li>
   <li><strong>Nunca secretos:</strong> el valor queda incrustado en el bundle y cualquiera lo ve en DevTools → Sources. Una URL pública está bien; una contraseña o un token privado, jamás.</li>
 </ul>
 
@@ -687,7 +687,7 @@ Cada clic sería una <strong>recarga completa</strong>: el navegador vuelve a pe
   <li><code>src/config/env.ts:2-6</code>: <code>export const API_URL = import.meta.env.VITE_API_URL</code> + el <code>throw</code> si falta.</li>
   <li><code>src/vite-env.d.ts:4-6</code>: tipado de la variable.</li>
   <li><code>.env.development</code>, <code>.env.production</code>, <code>.env.example</code> (cada uno con un comentario: "NUNCA pongas contraseñas ni tokens aquí").</li>
-  <li><code>vite.config.ts:18</code>: <code>env: { VITE_API_URL: ... }</code> para Vitest.</li>
+  <li><code>vite.config.ts:28</code>: <code>env: { VITE_API_URL: ... }</code> para Vitest.</li>
 </ul>
 </div>
 
@@ -1995,7 +1995,7 @@ Sin tocar el mouse: Tab hasta "Nuevo producto" y Enter → el modal abre y el fo
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
   <li><code>src/features/productos/utils/productoValidation.test.ts</code>, <code>src/components/ui/Pagination.test.tsx</code>, <code>src/features/categorias/pages/CategoriasPage.test.tsx</code>, <code>src/api/apiClient.test.ts</code>.</li>
-  <li>Configuración: <code>vite.config.ts:13-19</code> (jsdom + setup) y <code>src/test/setup.ts</code>.</li>
+  <li>Configuración: <code>vite.config.ts:23-29</code> (jsdom + setup) y <code>src/test/setup.ts</code>.</li>
 </ul>
 </div>
 <div class="demo">
@@ -2127,27 +2127,28 @@ Porque el error ocurre en código asíncrono (dentro de un Effect o de un handle
 <ul>
   <li><code>npm run build</code> = <code>tsc -b &amp;&amp; vite build</code>: verifica tipos, empaqueta, minifica y divide en trozos (cada página lazy es un <code>.js</code> aparte). Usa el <strong>modo production</strong>, que lee <code>.env.production</code>.</li>
   <li><code>dist/</code> contiene <code>index.html</code> y <code>assets/</code> con nombres que llevan un hash (<code>apiClient-VTyo5whh.js</code>) para que el navegador no use una versión vieja en caché. Es un build estático: no necesita Node para funcionar, cualquier servidor de archivos lo sirve.</li>
-  <li><code>npm run preview</code> sirve <code>dist/</code> en local para <strong>inspeccionar</strong> el resultado antes de publicarlo. No es un servidor de producción.</li>
+  <li><code>npm run preview</code> sirve <code>dist/</code> en local para <strong>inspeccionar</strong> el resultado antes de publicarlo. No es un servidor de producción. En StockFlow reenvía <code>/api</code> al backend local (<code>vite.config.ts:13-22</code>), así el build se prueba con datos reales.</li>
   <li><strong>Variables por modo</strong>: <code>npm run dev</code> → <code>.env.development</code> (<code>http://localhost:8080/api</code>); <code>npm run build</code> → <code>.env.production</code>. Antes de compilar hay que verificar que <code>VITE_API_URL</code> de producción apunte al backend correcto.</li>
+  <li><strong>En StockFlow</strong>, <code>.env.production</code> tiene <code>VITE_API_URL=/api</code>: una URL <strong>relativa</strong>. El navegador la completa con el dominio desde donde se cargó la página, y el servidor que sirve <code>dist/</code> (<code>nginx.conf</code>) reenvía <code>/api/</code> al backend. Así frontend y API comparten origen y no hace falta inventar un dominio para la API. Si la API se publicara en otro dominio, habría que poner su URL completa y reconstruir.</li>
 </ul>
-<div class="aviso"><strong>Ojo en StockFlow:</strong> <code>.env.production</code> tiene un valor de ejemplo (<code>https://api.stockflow.example.com/api</code>) y el <code>dist/</code> que existe hoy en tu máquina lo tiene incrustado (<code>dist/assets/apiClient-*.js</code>). Ese build no funcionaría publicado: hay que poner la URL real y volver a compilar.</div>
 
 <div class="codigo">
 <div class="etiqueta">Muéstralo en el código</div>
 <ul>
   <li><code>package.json</code> → scripts <code>build</code> y <code>preview</code>.</li>
-  <li><code>.env.production</code> y <code>.env.development</code>; <code>src/config/env.ts</code>.</li>
+  <li><code>.env.production</code> (<code>/api</code>) y <code>.env.development</code>; <code>src/config/env.ts</code>.</li>
+  <li><code>vite.config.ts:13-22</code> (proxy de <code>preview</code>) y <code>nginx.conf</code> (proxy de producción).</li>
   <li>Carpeta <code>dist/</code> (ignorada por Git en <code>.gitignore</code>).</li>
 </ul>
 </div>
 <div class="demo">
 <div class="etiqueta">Demuéstralo</div>
-<code>npm run build</code> → muestra <code>dist/assets</code>. Busca la URL embebida: <code>grep -o "https\?://[a-z0-9.:-]*/api" dist/assets/*.js</code>. Luego <code>npm run preview</code> y abre la URL que indica (puerto 4173).
+<code>npm run build</code> → muestra <code>dist/assets</code>. Busca la URL embebida: <code>grep -o 'var e=`/api`' dist/assets/apiClient-*.js</code> (Vite reemplazó <code>import.meta.env.VITE_API_URL</code> por el texto <code>/api</code>). Luego, con el backend encendido, <code>npm run preview</code> y abre <code>http://localhost:4173/productos</code>: carga datos reales.
 </div>
 
 <div class="repregunta">
 <div class="rp">Si cambias .env.production después de haber generado dist pero no reconstruyes, ¿qué URL puede quedar embebida?</div>
-La <strong>vieja</strong>, la que estaba al momento del build. Vite reemplazó <code>import.meta.env.VITE_API_URL</code> por el texto literal dentro de <code>dist/assets/*.js</code>; el <code>.env</code> ya no se lee. Es exactamente el caso del <code>dist/</code> actual de StockFlow, que apunta a <code>api.stockflow.example.com</code>. Hay que ejecutar <code>npm run build</code> otra vez después de cada cambio de configuración.
+La <strong>vieja</strong>, la que estaba al momento del build. Vite reemplazó <code>import.meta.env.VITE_API_URL</code> por el texto literal dentro de <code>dist/assets/*.js</code>; el <code>.env</code> ya no se lee. Por ejemplo, un <code>dist/</code> generado antes del cambio a <code>/api</code> seguiría apuntando al dominio de ejemplo anterior (<code>api.stockflow.example.com</code>). Hay que ejecutar <code>npm run build</code> otra vez después de cada cambio de configuración.
 </div>
 </div>
 
@@ -2167,7 +2168,8 @@ La <strong>vieja</strong>, la que estaba al momento del build. Vite reemplazó <
 <pre>nginx:   location / { try_files $uri $uri/ /index.html; }
 Netlify: archivo public/_redirects →  /*  /index.html  200
 Vercel:  vercel.json → { "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }</pre></li>
-  <li><strong>CORS productivo</strong>: el backend debe permitir el origen real del frontend (por ejemplo <code>https://stockflow.miempresa.com</code>) con la variable <code>CORS_ALLOWED_ORIGINS</code>; nunca <code>*</code> por comodidad.</li>
+  <li><strong>StockFlow lo resuelve con <code>nginx.conf</code></strong>: <code>location / { try_files … /index.html; }</code> para el fallback, y <code>location /api/ { proxy_pass http://backend:8080; }</code> para la API.</li>
+  <li><strong>CORS productivo</strong>: con el proxy, el navegador ve <strong>un solo origen</strong> y no hay CORS. nginx reenvía el <code>Host</code> con el puerto (<code>$http_host</code>) porque Spring compara <code>Origin</code> con el <code>Host</code> para decidir si la petición es de otro origen: con <code>$host</code> (sin puerto) un POST del mismo origen daba 403 "Invalid CORS request". Si la API se publica en otro dominio, o nginx sirve por HTTPS (hacia el backend habla HTTP), el backend debe permitir el origen real del frontend en <code>CORS_ALLOWED_ORIGINS</code>; nunca <code>*</code> por comodidad.</li>
   <li><strong>Dos 404 distintos</strong>: el 404 del hosting (no hay fallback: se pidió un documento HTML para <code>/productos</code>) y el 404 de la API (un endpoint o recurso inexistente en <code>/api/...</code>, que llega como JSON y lo muestra la app). En Network el primero es de tipo <em>document</em> y el segundo <em>fetch</em>.</li>
   <li>La pantalla de StockFlow para rutas inexistentes dentro de la app (<code>NotFoundPage</code>, <code>path="*"</code>) sólo funciona si el servidor primero entrega <code>index.html</code>.</li>
 </ul>
@@ -2177,8 +2179,13 @@ Vercel:  vercel.json → { "rewrites": [{ "source": "/(.*)", "destination": "/in
 <ul>
   <li><code>src/main.tsx:18</code> (<code>BrowserRouter</code>) y <code>src/routes/AppRouter.tsx:51</code> (<code>path="*"</code>).</li>
   <li>Backend: <code>application.yml</code> → <code>stockflow.cors.allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}</code>.</li>
-  <li><strong>Pendiente:</strong> StockFlow todavía no incluye la configuración del fallback para un hosting concreto (ver la sección de <a href="#pendientes">pendientes</a>).</li>
+  <li><code>webstorm/stockflow-frontend/nginx.conf</code>: <code>location /api/</code> (proxy, <code>Host $http_host</code>) y <code>location /</code> (<code>try_files</code>).</li>
+  <li>README del frontend, sección "Producción": prueba con Docker.</li>
 </ul>
+</div>
+<div class="demo">
+<div class="etiqueta">Demuéstralo</div>
+Con el backend encendido: <code>npm run build</code> y luego <code>docker run --rm -p 8081:80 --add-host backend:host-gateway -v "$PWD/dist:/usr/share/nginx/html:ro" -v "$PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro" nginx:1.27-alpine</code>. Abre <code>http://localhost:8081/productos</code> y presiona F5: la pantalla vuelve a cargar (es la "prueba obligatoria" de la guía G10). En Network, las llamadas van a <code>localhost:8081/api/...</code>.
 </div>
 
 <div class="repregunta">
@@ -2320,7 +2327,7 @@ El backend y la base cumplieron: el problema está <strong>en el frontend, despu
 <ul>
   <li>Ejecuta <code>npx vitest run src/features/categorias/pages/CategoriasPage.test.tsx</code> y explica una prueba de interacción (por ejemplo, la del 409 en DELETE).</li>
   <li><code>npm run build</code> → inspecciona <code>dist/index.html</code> y <code>dist/assets</code> (un <code>.js</code> por página lazy, nombres con hash) y busca la URL embebida de la API.</li>
-  <li>Explica que el hosting necesita el fallback a <code>index.html</code> para <code>BrowserRouter</code> y que el backend productivo debe permitir el dominio real del frontend en <code>CORS_ALLOWED_ORIGINS</code>.</li>
+  <li>Explica que el hosting necesita el fallback a <code>index.html</code> para <code>BrowserRouter</code> (en StockFlow, <code>nginx.conf</code>: recarga <code>/productos</code> con F5 sobre nginx) y que, con el proxy <code>/api/</code>, frontend y API comparten origen; si la API estuviera en otro dominio, el backend debería permitir el del frontend en <code>CORS_ALLOWED_ORIGINS</code>.</li>
 </ul>
 </section>
 
@@ -2369,17 +2376,15 @@ El backend y la base cumplieron: el problema está <strong>en el frontend, despu
 <!-- ============================== PENDIENTES ============================== -->
 <section id="pendientes">
 <h2 class="seccion">Pendientes conocidos del frontend</h2>
-<p>Puntos que el docente podría señalar. Conviene conocerlos y saber explicarlos con honestidad (la guía formal pide documentar la deuda técnica). Algunos se pueden corregir antes de la defensa.</p>
+<p>Puntos que el docente podría señalar. Conviene conocerlos y saber explicarlos con honestidad (la guía formal pide documentar la deuda técnica). Los del fallback SPA y la URL de producción (preguntas 47 y 48) ya se corrigieron con <code>nginx.conf</code> y <code>VITE_API_URL=/api</code>.</p>
 <table>
   <tr><th style="width:4%">#</th><th style="width:30%">Pendiente</th><th style="width:12%">Pregunta</th><th>Cómo explicarlo o corregirlo</th></tr>
-  <tr><td>1</td><td><code>.env.production</code> tiene una URL de ejemplo (<code>api.stockflow.example.com</code>) y el <code>dist/</code> local la tiene embebida</td><td>47</td><td>Es un marcador: antes de publicar hay que poner la URL real del backend y volver a ejecutar <code>npm run build</code>.</td></tr>
-  <tr><td>2</td><td>No hay configuración de fallback SPA para un hosting concreto</td><td>48</td><td>Agregar la regla del servidor elegido (nginx <code>try_files</code>, <code>vercel.json</code> o <code>public/_redirects</code>) y documentarla en el README.</td></tr>
-  <tr><td>3</td><td>No hay pruebas automáticas contra el backend real</td><td>43, 45</td><td>Las pruebas de páginas simulan los services. La integración se verifica con Postman, las pruebas Testcontainers del backend y Network. Mejora posible: MSW o una prueba e2e del flujo principal.</td></tr>
-  <tr><td>4</td><td>El examen menciona <code>npm run backend:check</code>, que no existe en StockFlow</td><td>23</td><td>El equivalente es <code>healthService.comprobar()</code> (<code>GET /api/health</code>), que usa la pantalla de acceso, o <code>curl http://localhost:8080/api/health</code>.</td></tr>
-  <tr><td>5</td><td><code>ProductoForm</code> y <code>CategoriaForm</code> llaman al service directamente (la tabla no)</td><td>15, 24</td><td>Decisión: el formulario es dueño de su envío (validar, guardar, mostrar errores por campo) y la Page decide qué hacer con el resultado mediante <code>onSaved</code>. La tabla, en cambio, es pura presentación.</td></tr>
-  <tr><td>6</td><td><code>NotificationsMenu</code> (en <code>components/common</code>) consulta <code>inventarioService</code></td><td>01, 08</td><td>Es una pieza del marco que funciona como mini-feature (alertas de stock en el Header). Si crece, conviene moverla a <code>features/inventario/components</code>.</td></tr>
-  <tr><td>7</td><td>Login, Perfil, Usuarios y Configuración son demostración (no hay autenticación en el backend)</td><td>—</td><td>Están rotuladas como DEMO en el menú y no hay protección de rutas a propósito, para no aparentar una seguridad que no existe (comentario en <code>AppRouter.tsx:21-23</code>).</td></tr>
-  <tr><td>8</td><td>No hay validación del JSON en tiempo de ejecución</td><td>04, 50</td><td><code>apiFetch</code> confía en el contrato (<code>as T</code>). Mejora posible: validar respuestas críticas con un esquema (por ejemplo Zod).</td></tr>
+  <tr><td>1</td><td>No hay pruebas automáticas contra el backend real</td><td>43, 45</td><td>Las pruebas de páginas simulan los services. La integración se verifica con Postman, las pruebas Testcontainers del backend y Network. Mejora posible: MSW o una prueba e2e del flujo principal.</td></tr>
+  <tr><td>2</td><td>El examen menciona <code>npm run backend:check</code>, que no existe en StockFlow</td><td>23</td><td>El equivalente es <code>healthService.comprobar()</code> (<code>GET /api/health</code>), que usa la pantalla de acceso, o <code>curl http://localhost:8080/api/health</code>.</td></tr>
+  <tr><td>3</td><td><code>ProductoForm</code> y <code>CategoriaForm</code> llaman al service directamente (la tabla no)</td><td>15, 24</td><td>Es el patrón de las guías del docente: en G06 <code>ClienteForm</code> llama a <code>clienteService.crear/actualizar</code> y avisa con <code>onSaved(cliente, mode)</code>, y en G07 <code>VehiculoForm</code> hace lo mismo. El formulario es dueño de su envío (validar, guardar, mostrar errores por campo) y la Page decide qué hacer con el resultado. La tabla, en cambio, es pura presentación y no importa services.</td></tr>
+  <tr><td>4</td><td><code>NotificationsMenu</code> (en <code>components/common</code>) consulta <code>inventarioService</code></td><td>01, 08</td><td>Es una pieza del marco que funciona como mini-feature (alertas de stock en el Header). Si crece, conviene moverla a <code>features/inventario/components</code>.</td></tr>
+  <tr><td>5</td><td>Login, Perfil, Usuarios y Configuración son demostración (no hay autenticación en el backend)</td><td>—</td><td>Están rotuladas como DEMO en el menú y no hay protección de rutas a propósito, para no aparentar una seguridad que no existe (comentario en <code>AppRouter.tsx:21-23</code>).</td></tr>
+  <tr><td>6</td><td>No hay validación del JSON en tiempo de ejecución</td><td>04, 50</td><td><code>apiFetch</code> confía en el contrato (<code>as T</code>). Mejora posible: validar respuestas críticas con un esquema (por ejemplo Zod).</td></tr>
 </table>
 </section>
 
@@ -2605,13 +2610,15 @@ El backend y la base cumplieron: el problema está <strong>en el frontend, despu
 <div class="entrada"><dt>preventDefault()</dt>
 <dd>Método de un evento que cancela el comportamiento por defecto del navegador; en un formulario, evita la recarga de la página al enviarlo. <span class="ver">[13]</span></dd></div>
 <div class="entrada"><dt>Preview</dt>
-<dd><code>npm run preview</code>: sirve localmente la carpeta <code>dist/</code> para revisar el build antes de publicarlo. No es un servidor de producción. <span class="ver">[47]</span></dd></div>
+<dd><code>npm run preview</code>: sirve localmente la carpeta <code>dist/</code> para revisar el build antes de publicarlo. No es un servidor de producción. En StockFlow reenvía <code>/api</code> al backend local. <span class="ver">[47]</span></dd></div>
 <div class="entrada"><dt>Promise</dt>
 <dd>Objeto que representa un resultado futuro: queda <strong>pendiente</strong>, luego se <strong>cumple</strong> con un valor o se <strong>rechaza</strong> con un error. <code>fetch</code> y las funciones <code>async</code> devuelven Promises. <span class="ver">[22, 31]</span></dd></div>
 <div class="entrada"><dt>Props</dt>
 <dd>Los parámetros que un componente padre le pasa a un hijo. Son de solo lectura para el hijo. Pueden ser datos o funciones (callbacks). <span class="ver">[10, 15]</span></dd></div>
 <div class="entrada"><dt>Provider</dt>
 <dd>Componente que pone un valor de Context a disposición de todos sus descendientes (<code>ThemeProvider</code>, <code>ToastProvider</code>). <span class="ver">[03]</span></dd></div>
+<div class="entrada"><dt>Proxy inverso</dt>
+<dd>Servidor que recibe las peticiones del navegador y las reenvía a otro servidor. En StockFlow, <code>nginx.conf</code> sirve <code>dist/</code> y reenvía <code>/api/</code> al backend: el navegador ve un solo origen, por eso <code>.env.production</code> usa <code>/api</code> y no hay CORS. <span class="ver">[47, 48]</span></dd></div>
 </dl>
 
 <div class="letra">Q - R</div>
