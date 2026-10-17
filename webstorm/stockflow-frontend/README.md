@@ -33,7 +33,7 @@ Su `CorsConfig` sólo permite el origen `http://localhost:5173`; por eso `vite.c
 |---|---|
 | `npm run dev` | Servidor de desarrollo con recarga automática |
 | `npm run build` | Revisa tipos (`tsc -b`) y genera `dist/` para producción |
-| `npm run preview` | Sirve `dist/` en el puerto 4173. Usa la URL de `.env.production`, así que no sirve para probar contra el backend local |
+| `npm run preview` | Sirve `dist/` en el puerto 4173 y reenvía `/api` al backend local (`localhost:8080`) |
 | `npm run lint` | Análisis estático con oxlint |
 | `npm test` | Vitest en modo observación |
 | `npm run test:run` | Vitest una sola vez (96 pruebas en 27 archivos) |
@@ -43,11 +43,32 @@ Su `CorsConfig` sólo permite el origen `http://localhost:5173`; por eso `vite.c
 | Archivo | `VITE_API_URL` |
 |---|---|
 | `.env.development` | `http://localhost:8080/api` |
-| `.env.production` | URL pública de la API (ejemplo) |
+| `.env.production` | `/api` (relativa: `nginx.conf` la reenvía al backend) |
 | `.env.local` | Opcional, sólo en tu máquina; no se sube a git |
 
 Sólo las variables con prefijo `VITE_` llegan al navegador, así que **nunca** se ponen claves ni contraseñas aquí.
 Después de editar un `.env` hay que reiniciar `npm run dev`.
+
+## Producción
+
+`npm run build` genera `dist/`. Para servirlo, `nginx.conf` hace dos cosas:
+
+- **Fallback SPA:** cualquier ruta que no sea un archivo (`/productos`, `/categorias`…) devuelve `index.html`, así
+  recargar con F5 no da 404.
+- **Proxy de `/api/`** al backend (`http://backend:8080`, el servicio de Docker Compose). Frontend y API quedan en el
+  mismo origen, por eso `.env.production` usa `/api`. Si la API se publica en otro dominio, hay que poner su URL en
+  `.env.production`, reconstruir y agregar el dominio del frontend a `CORS_ALLOWED_ORIGINS` del backend.
+  Con HTTPS en nginx también hay que agregarlo: nginx habla con el backend por HTTP y Spring ve un esquema distinto
+  al del `Origin` del navegador.
+
+Prueba rápida con Docker (backend corriendo en el puerto 8080):
+
+```bash
+npm run build
+docker run --rm -p 8081:80 --add-host backend:host-gateway \
+  -v "$PWD/dist:/usr/share/nginx/html:ro" -v "$PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro" nginx:1.27-alpine
+# http://localhost:8081/productos → recargar con F5 sigue funcionando
+```
 
 ## Funcionalidad
 
