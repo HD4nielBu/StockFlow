@@ -21,7 +21,7 @@ export function validarProducto(
 
   const categoriaId = Number(data.categoriaId);
   const categoria = categorias.find((c) => c.id === categoriaId);
-  if (!data.categoriaId) errors.categoriaId = 'Seleccione una categoría';
+  if (!data.categoriaId) errors.categoriaId = 'Selecciona una categoría';
   else if (!categoria) errors.categoriaId = 'La categoría seleccionada no existe';
   else if (!categoria.activo && categoria.id !== categoriaActualId) {
     errors.categoriaId = 'La categoría está inactiva y no admite productos nuevos';

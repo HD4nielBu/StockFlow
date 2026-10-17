@@ -1,94 +1,151 @@
-import { Link } from 'react-router';
+import { Boxes, CircleCheck, Coins, Package, RotateCw, TriangleAlert, Warehouse } from 'lucide-react';
 import { Alert } from '../components/ui/Alert';
-import { EmptyState } from '../components/ui/EmptyState';
-import { MetricCard } from '../components/ui/MetricCard';
-import { useCategorias } from '../features/categorias/hooks/useCategorias';
-import { inventarioService } from '../features/inventario/services/inventarioService';
-import { useProductos } from '../features/productos/hooks/useProductos';
-import { useAsyncList } from '../shared/hooks/useAsyncList';
+import { BarList } from '../components/ui/BarList';
+import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+import { Skeleton } from '../components/ui/LoadingSkeleton';
+import { PageHeader } from '../components/ui/PageHeader';
+import { StatCard } from '../components/ui/StatCard';
+import { CoberturaList } from '../features/inventario/components/CoberturaList';
+import { SaludInventario } from '../features/inventario/components/SaludInventario';
+import { useResumenInventario } from '../features/inventario/hooks/useResumenInventario';
+import {
+  existenciasPorUbicacion,
+  menorCobertura,
+  productosPorCategoria,
+  valorReferencial,
+} from '../features/inventario/utils/indicadores';
+import { formatoPrecio } from '../shared/utils/formato';
 
 /**
- * G10: el Dashboard no crea otra fuente de verdad. Las métricas son DATOS DERIVADOS de las
- * colecciones que ya entregan los hooks. Con mucho volumen, deberían venir de un endpoint
- * agregado del backend en lugar de descargar todo para contar.
+ * Indicadores calculados en el navegador a partir de los endpoints reales. Si en el futuro el backend
+ * expone un endpoint agregado (y movimientos por fecha), estos cálculos deberían migrar allí.
  */
 export default function DashboardPage() {
-  const categorias = useCategorias();
-  const productos = useProductos();
-  const stockBajo = useAsyncList(inventarioService.stockBajoMinimo);
+  const { categorias, productos, existencias, loading, error, reload } = useResumenInventario();
 
-  if (categorias.loading || productos.loading || stockBajo.loading) {
-    return <div className="state-card">Cargando panel...</div>;
-  }
-  // || y no ??: un error vacío es '' (no null), así que ?? nunca pasaría al siguiente
-  const error = categorias.error || productos.error || stockBajo.error;
-
-  const metricas = {
-    categorias: categorias.data.length,
-    categoriasActivas: categorias.data.filter((c) => c.activo).length,
-    productos: productos.data.length,
-    productosActivos: productos.data.filter((p) => p.activo).length,
-    alertas: stockBajo.data.length,
-  };
+  const activos = productos.filter((p) => p.activo).length;
+  const bajo = existencias.filter((e) => e.bajoMinimo).length;
+  const ubicaciones = existenciasPorUbicacion(existencias);
+  const valor = valorReferencial(existencias, productos);
+  const porCategoria = productosPorCategoria(productos, categorias);
+  const pctBajo = existencias.length === 0 ? 0 : Math.round((bajo / existencias.length) * 100);
 
   return (
-    <section className="page-stack">
-      <div className="page-heading">
-        <p className="eyebrow">Panel principal</p>
-        <h1>Resumen del inventario</h1>
-        <p>Datos en vivo desde el backend Spring Boot.</p>
-      </div>
+    <div className="page-stack">
+      <PageHeader
+        title="Dashboard"
+        description="Indicadores calculados con los datos actuales del catálogo y del inventario."
+        reference="Derivado de /api/categorias, /api/productos y /api/inventario/stock"
+        actions={
+          <Button variant="secondary" icon={RotateCw} onClick={reload} loading={loading} loadingText="Actualizando">
+            Actualizar
+          </Button>
+        }
+      />
 
-      {error && <Alert kind="error">{error}</Alert>}
-
-      <div className="stats-grid">
-        <MetricCard label="Categorías" value={metricas.categorias} helper={`${metricas.categoriasActivas} activas`} />
-        <MetricCard label="Productos" value={metricas.productos} helper={`${metricas.productosActivos} activos`} />
-        <MetricCard
-          label="Alertas de stock mínimo"
-          value={metricas.alertas}
-          helper="existencias en o bajo su mínimo"
-          tone={metricas.alertas > 0 ? 'warning' : 'default'}
-        />
-      </div>
-
-      <div className="page-heading">
-        <h2>Stock bajo (RF-20)</h2>
-        <p>Existencias por producto y ubicación que alcanzaron su stock mínimo.</p>
-      </div>
-      {stockBajo.data.length === 0 ? (
-        <EmptyState title="Sin alertas" description="Todas las existencias están por encima de su mínimo." />
-      ) : (
-        <div className="table-card">
-          <div className="table-responsive">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Ubicación</th>
-                  <th>Cantidad</th>
-                  <th>Mínimo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stockBajo.data.map((e) => (
-                  <tr key={e.stockId}>
-                    <td>
-                      <span className="code-cell">{e.codigoProducto}</span> · {e.producto}
-                    </td>
-                    <td>{e.ubicacion}</td>
-                    <td className="danger-cell">{e.cantidad}</td>
-                    <td>{e.stockMinimo}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      {error && (
+        <Alert kind="error" title="Parte de la información no se pudo cargar">
+          {error}
+        </Alert>
       )}
-      <p className="muted-cell">
-        Gestiona el catálogo en <Link to="/categorias">Categorías</Link> y <Link to="/productos">Productos</Link>.
+
+      <section aria-label="Indicadores principales" className="stats-grid">
+        <StatCard icon={Package} label="Productos activos" value={activos} helper={`de ${productos.length} registrados`} loading={loading} />
+        <StatCard
+          icon={Boxes}
+          label="Existencias registradas"
+          value={existencias.length}
+          helper={`en ${ubicaciones.length} ubicaciones`}
+          loading={loading}
+        />
+        <StatCard
+          icon={TriangleAlert}
+          label="Bajo el stock mínimo"
+          value={bajo}
+          helper={`${pctBajo} % de las existencias`}
+          tone={bajo > 0 ? 'warning' : 'success'}
+          loading={loading}
+        />
+        <StatCard
+          icon={Coins}
+          label="Valor referencial"
+          value={formatoPrecio(valor.valor)}
+          helper={valor.sinPrecio > 0 ? `Estimado · ${valor.sinPrecio} existencias sin precio` : 'Estimado con el precio referencial'}
+          loading={loading}
+        />
+      </section>
+
+      <div className="dashboard-grid">
+        <Card title="Productos por categoría" description="Cantidad de productos en cada categoría. Selecciona una para ver sus productos.">
+          {loading ? (
+            <ChartSkeleton />
+          ) : porCategoria.length === 0 ? (
+            <p className="muted-cell">No hay categorías registradas.</p>
+          ) : (
+            <BarList
+              label="Productos por categoría"
+              items={porCategoria.map((c) => ({ id: c.id, label: c.nombre, value: c.total, to: `/productos?categoria=${c.id}` }))}
+            />
+          )}
+        </Card>
+
+        <Card title="Estado del inventario" description="Existencias según su distancia al stock mínimo.">
+          {loading ? <ChartSkeleton rows={3} /> : <SaludInventario existencias={existencias} />}
+        </Card>
+
+        <Card title="Productos por ubicación" description="Productos distintos con stock en cada almacén o depósito.">
+          {loading ? (
+            <ChartSkeleton rows={3} />
+          ) : ubicaciones.length === 0 ? (
+            <p className="muted-cell">No hay existencias registradas.</p>
+          ) : (
+            <BarList
+              label="Productos por ubicación"
+              items={ubicaciones.map((u) => ({
+                id: u.ubicacionId,
+                label: u.ubicacion,
+                value: u.productos,
+                hint: u.bajoMinimo > 0 ? `${u.bajoMinimo} bajo el mínimo` : undefined,
+              }))}
+            />
+          )}
+        </Card>
+
+        <Card title="Menor cobertura del mínimo" description="Las existencias más cerca de agotarse respecto de su mínimo.">
+          {loading ? (
+            <ChartSkeleton />
+          ) : existencias.length === 0 ? (
+            <p className="muted-cell">No hay existencias registradas.</p>
+          ) : bajo === 0 && menorCobertura(existencias, 1)[0]?.ratio > 2 ? (
+            <div className="inline-empty">
+              <CircleCheck size={20} aria-hidden="true" />
+              <p>Todas las existencias duplican holgadamente su mínimo.</p>
+            </div>
+          ) : (
+            <CoberturaList items={menorCobertura(existencias, 5)} />
+          )}
+        </Card>
+      </div>
+
+      <p className="footnote">
+        <Warehouse size={14} aria-hidden="true" />
+        Las cantidades no se suman entre productos porque usan unidades distintas (cajas, litros, kilos…). El valor referencial
+        multiplica cada existencia por el precio referencial de su producto; no es un costo contable.
       </p>
-    </section>
+    </div>
+  );
+}
+
+function ChartSkeleton({ rows = 4 }: { rows?: number }) {
+  return (
+    <div className="list-skeleton" aria-hidden="true">
+      {Array.from({ length: rows }, (_, i) => (
+        <div key={i} className="list-skeleton__bar">
+          <Skeleton width={`${40 - i * 5}%`} height={12} />
+          <Skeleton width={`${90 - i * 15}%`} height={8} />
+        </div>
+      ))}
+    </div>
   );
 }

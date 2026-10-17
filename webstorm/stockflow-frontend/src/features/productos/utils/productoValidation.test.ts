@@ -20,7 +20,7 @@ describe('validarProducto', () => {
   });
 
   it('exige una categoría existente', () => {
-    expect(validarProducto({ ...valido, categoriaId: '' }, categoriasMock).categoriaId).toBe('Seleccione una categoría');
+    expect(validarProducto({ ...valido, categoriaId: '' }, categoriasMock).categoriaId).toBe('Selecciona una categoría');
     expect(validarProducto({ ...valido, categoriaId: '99' }, categoriasMock).categoriaId).toMatch(/no existe/);
   });
 

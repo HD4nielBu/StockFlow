@@ -1,7 +1,10 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { ApiError, mensajeDeError } from '../../../api/apiClient';
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { ApiError } from '../../../api/apiClient';
+import { describirError, type ErrorLegible } from '../../../api/describirError';
 import { Alert } from '../../../components/ui/Alert';
 import { Button } from '../../../components/ui/Button';
+import { Field, Input, Textarea } from '../../../components/ui/Field';
+import { Switch } from '../../../components/ui/Switch';
 import type { Categoria } from '../models/Categoria';
 import { categoriaService } from '../services/categoriaService';
 import type { CategoriaFormData } from '../types/CategoriaFormData';
@@ -20,35 +23,52 @@ interface CategoriaFormProps {
   /** null = modo crear; una categoría = modo editar. */
   categoria: Categoria | null;
   onSaved: (categoria: Categoria, mode: 'create' | 'edit') => void;
-  onCancelEdit: () => void;
+  onCancel: () => void;
+  /** El backend respondió 404: la categoría ya no existe y la lista debe recargarse. */
+  onStale?: () => void;
 }
 
 /**
- * G04/G06: un solo formulario controlado para crear (POST) y editar (PUT).
+ * G04/G06: un solo formulario controlado para crear (POST) y editar (PUT). Vive dentro de un Modal.
  * La decisión POST/PUT depende de si existe una categoría persistida (con id), no del texto del botón.
- * La Page lo renderiza con key={categoria?.id}: al cambiar la categoría a editar, React lo vuelve a
- * montar y useState toma el nuevo valor inicial (en vez de copiar props al estado con un Effect).
+ * La Page lo renderiza con un key nuevo en cada apertura: React lo vuelve a montar y useState toma
+ * el valor inicial correcto (en vez de copiar props al estado con un Effect).
  */
-export default function CategoriaForm({ categoria, onSaved, onCancelEdit }: CategoriaFormProps) {
+export default function CategoriaForm({ categoria, onSaved, onCancel, onStale }: CategoriaFormProps) {
   const [formData, setFormData] = useState<CategoriaFormData>(() => aFormulario(categoria));
   const [errors, setErrors] = useState<CategoriaFormErrors>({});
   const [saving, setSaving] = useState(false);
-  const [apiError, setApiError] = useState('');
+  const [apiError, setApiError] = useState<ErrorLegible | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const isEditing = categoria !== null;
+
+  // Foco en el primer campo. requestAnimationFrame: showModal() del Modal padre corre DESPUÉS de este Effect
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('input')?.focus());
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const enfocarPrimerError = () =>
+    requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const valor = e.target instanceof HTMLInputElement && e.target.type === 'checkbox' ? e.target.checked : value;
     // Inmutabilidad: se crea un objeto nuevo con ...prev; nunca formData.nombre = ...
     setFormData((prev) => ({ ...prev, [name]: valor }));
+    // El error de un campo desaparece en cuanto el usuario lo corrige
+    if (name in errors) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // la SPA no recarga la página
-    setApiError('');
+    setApiError(null);
     const validationErrors = validarCategoria(formData);
     setErrors(validationErrors);
-    if (Object.keys(validationErrors).length > 0) return; // no se envía una petición que fallaría
+    if (Object.keys(validationErrors).length > 0) {
+      enfocarPrimerError();
+      return; // no se envía una petición que fallaría
+    }
 
     const base = {
       codigo: formData.codigo.trim(),
@@ -61,54 +81,67 @@ export default function CategoriaForm({ categoria, onSaved, onCancelEdit }: Cate
         onSaved(await categoriaService.actualizar(categoria.id, { ...base, activo: formData.activo }), 'edit');
       } else {
         onSaved(await categoriaService.crear(base), 'create');
-        setFormData(formularioVacio);
       }
     } catch (err) {
-      // 400 del backend: se muestran sus errores junto a cada campo; 409: código o nombre repetido
-      if (err instanceof ApiError) setErrors(err.fieldErrors as CategoriaFormErrors);
-      setApiError(mensajeDeError(err, 'No se pudo guardar la categoría'));
+      // 400 del backend: sus errores se muestran junto a cada campo; 409: código o nombre repetido
+      if (err instanceof ApiError) {
+        setErrors(err.fieldErrors as CategoriaFormErrors);
+        if (err.status === 404) onStale?.();
+      }
+      setApiError(describirError(err, 'guardar la categoría'));
+      enfocarPrimerError();
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <form className="entity-form" onSubmit={handleSubmit} noValidate aria-label="Formulario de categoría">
-      <h2>{isEditing ? `Editar categoría #${categoria.id}` : 'Nueva categoría'}</h2>
-      <div className="form-grid">
-        <label>
-          Código
-          <input name="codigo" value={formData.codigo} onChange={handleChange} placeholder="CAT-OFI" />
-          {errors.codigo && <small className="field-error">{errors.codigo}</small>}
-        </label>
-        <label>
-          Nombre
-          <input name="nombre" value={formData.nombre} onChange={handleChange} placeholder="Material de oficina" />
-          {errors.nombre && <small className="field-error">{errors.nombre}</small>}
-        </label>
-        <label className="form-span-2">
-          Descripción
-          <textarea name="descripcion" rows={2} value={formData.descripcion} onChange={handleChange} />
-          {errors.descripcion && <small className="field-error">{errors.descripcion}</small>}
-        </label>
-        {isEditing && (
-          <label className="checkbox-field form-span-2">
-            <input type="checkbox" name="activo" checked={formData.activo} onChange={handleChange} />
-            Categoría activa (una inactiva no admite productos nuevos)
-          </label>
+    <form ref={formRef} className="modal-form" onSubmit={handleSubmit} noValidate aria-label="Formulario de categoría">
+      <div className="modal__body">
+        {apiError && (
+          <Alert kind="error" title={apiError.title}>
+            {apiError.description}
+          </Alert>
         )}
+        <div className="form-grid">
+          <Field label="Código" required error={errors.codigo} hint="Letras, números y guiones. Ej.: CAT-OFI">
+            {(control) => (
+              <Input {...control} name="codigo" value={formData.codigo} onChange={handleChange} maxLength={30} autoComplete="off" />
+            )}
+          </Field>
+          <Field label="Nombre" required error={errors.nombre}>
+            {(control) => (
+              <Input {...control} name="nombre" value={formData.nombre} onChange={handleChange} maxLength={100} placeholder="Material de oficina" />
+            )}
+          </Field>
+          <Field
+            label="Descripción"
+            error={errors.descripcion}
+            hint={`Opcional · ${formData.descripcion.length}/1000`}
+            className="form-span-2"
+          >
+            {(control) => <Textarea {...control} name="descripcion" rows={3} value={formData.descripcion} onChange={handleChange} />}
+          </Field>
+          {isEditing && (
+            <Switch
+              className="form-span-2"
+              name="activo"
+              checked={formData.activo}
+              onChange={handleChange}
+              label="Categoría activa"
+              description="Una categoría inactiva no admite productos nuevos."
+            />
+          )}
+        </div>
       </div>
-      {apiError && <Alert kind="error">{apiError}</Alert>}
-      <div className="form-actions">
-        {isEditing && (
-          <Button variant="secondary" onClick={onCancelEdit} disabled={saving}>
-            Cancelar edición
-          </Button>
-        )}
-        <Button type="submit" loading={saving} loadingText="Guardando...">
-          {isEditing ? 'Actualizar categoría' : 'Crear categoría'}
+      <footer className="modal__footer">
+        <Button variant="secondary" onClick={onCancel} disabled={saving}>
+          Cancelar
         </Button>
-      </div>
+        <Button type="submit" loading={saving} loadingText="Guardando...">
+          {isEditing ? 'Guardar cambios' : 'Crear categoría'}
+        </Button>
+      </footer>
     </form>
   );
 }

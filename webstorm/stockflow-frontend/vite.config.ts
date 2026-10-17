@@ -10,6 +10,16 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
   },
+  preview: {
+    // .env.production usa /api (relativa): en preview se reenvía al backend local, como hace nginx.conf.
+    // Sólo para probar dist/ en local: sin Origin, Spring no la trata como CORS (nginx conserva el Host y no lo necesita).
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        configure: (proxy) => proxy.on('proxyReq', (req) => req.removeHeader('origin')),
+      },
+    },
+  },
   test: {
     // G10: jsdom simula el navegador (document, window) para renderizar componentes
     environment: 'jsdom',
