@@ -1,0 +1,31 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/categorias"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: "*/*"
+  body:
+    type: json
+    content: |-
+      {
+        "codigo": "3arRtcx",
+        "nombre": "string",
+        "descripcion": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: "*/*"
+  body:
+    type: text
+    content: |-
+      {
+        "id": 1661,
+        "codigo": "string",
+        "nombre": "string",
+        "descripcion": "string",
+        "activo": false
+      }
+order: 1000

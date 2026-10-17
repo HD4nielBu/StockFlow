@@ -1,0 +1,165 @@
+/*
+ * G09: design tokens. Los componentes usan SIEMPRE estos nombres semánticos (--surface, --text-muted...)
+ * y nunca un color suelto: así el modo oscuro sólo redefine los valores, no cada componente.
+ * El tema se elige con data-theme="light|dark" en <html> (ver ThemeProvider).
+ */
+:root {
+  color-scheme: light;
+
+  /* Marca */
+  --brand: #17365d;
+  --brand-strong: #0f2742;
+  --brand-ink: #c9d6e8;
+  --brand-ink-strong: #ffffff;
+  --brand-hover: rgba(255, 255, 255, 0.07);
+  --brand-active: rgba(255, 255, 255, 0.12);
+  --brand-line: rgba(255, 255, 255, 0.1);
+
+  /* Acción */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-text: #1d4ed8;
+  --accent-soft: #eff4ff;
+  --on-accent: #ffffff;
+
+  /* Superficies y texto */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-hover: #f8fafc;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #0f172a;
+  --text-2: #334155;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+
+  /* Estado (el texto usa la variante oscura para cumplir contraste AA sobre el fondo suave) */
+  --success: #16a34a;
+  --success-text: #15803d;
+  --success-soft: #ecfdf3;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --danger-text: #b91c1c;
+  --danger-soft: #fef2f2;
+  --warning: #f59e0b;
+  --warning-text: #b45309;
+  --warning-soft: #fffbeb;
+  --info-text: #1d4ed8;
+  --info-soft: #eff4ff;
+
+  /* Gráficos: magnitud en un solo tono; estados reservados (validados con dataviz/validate_palette) */
+  --chart-bar: #2563eb;
+  --chart-track: #eef2f7;
+  --status-good: #16a34a;
+  --status-warning: #f59e0b;
+  --status-critical: #dc2626;
+
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.35);
+  --overlay: rgba(15, 23, 42, 0.45);
+  --tooltip-bg: #0f172a;
+  --tooltip-text: #f8fafc;
+  --segmented-bg: #f8fafc;
+
+  /* Tipografía */
+  --font-sans: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+
+  /* Forma */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-pop: 0 12px 32px -12px rgba(15, 23, 42, 0.28), 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-modal: 0 24px 64px -16px rgba(15, 23, 42, 0.35);
+
+  /* Layout */
+  --sidebar-width: 248px;
+  --sidebar-collapsed: 68px;
+  --header-height: 60px;
+  --content-max: 1280px;
+
+  /* Movimiento (curvas fuertes: ease-out para entrar, drawer para paneles) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 140ms;
+  --dur: 200ms;
+  --dur-slow: 260ms;
+  /* Los fundidos se conservan con movimiento reducido; los desplazamientos no (ver base.css) */
+  --dur-fade: 150ms;
+}
+
+/*
+ * Modo oscuro. "Sistema" también termina aquí: ThemeProvider (y el script de index.html, antes del
+ * primer pintado) resuelve prefers-color-scheme y escribe data-theme="dark" o "light".
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --brand: #0f1d33;
+  --brand-strong: #0a1526;
+  --brand-ink: #a9b8cc;
+  --brand-line: rgba(255, 255, 255, 0.07);
+
+  /* #2563eb y no #3b82f6: el texto blanco del botón primario necesita ≥ 4,5:1 (5,17 frente a 3,68) */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-text: #93b4ff;
+  --accent-soft: rgba(59, 130, 246, 0.14);
+
+  --bg: #0d1424;
+  --surface: #141d2f;
+  --surface-2: #1b2539;
+  --surface-hover: #182235;
+  --border: #253149;
+  --border-strong: #34425e;
+  --text: #e6ebf3;
+  --text-2: #c3cddc;
+  --text-muted: #8f9db3;
+  --text-faint: #66748c;
+
+  --success-text: #4ade80;
+  --success-soft: rgba(22, 163, 74, 0.16);
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-text: #f87171;
+  --danger-soft: rgba(220, 38, 38, 0.16);
+  --warning-text: #fbbf24;
+  --warning-soft: rgba(245, 158, 11, 0.14);
+  --info-text: #93b4ff;
+  --info-soft: rgba(59, 130, 246, 0.14);
+
+  --chart-bar: #3b82f6;
+  --chart-track: #1f2a3f;
+  --status-critical: #ef4444;
+
+  --focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.45);
+  --overlay: rgba(2, 6, 16, 0.62);
+  --tooltip-bg: #e6ebf3;
+  --tooltip-text: #0f172a;
+  --segmented-bg: #1b2539;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-pop: 0 16px 40px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border);
+  --shadow-modal: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
+}

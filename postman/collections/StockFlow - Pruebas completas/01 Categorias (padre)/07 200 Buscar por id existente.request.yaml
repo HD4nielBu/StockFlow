@@ -1,0 +1,13 @@
+$kind: http-request
+name: "[200] Buscar por id existente"
+url: "{{baseUrl}}/api/categorias/1"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Es CAT-OFI", () => pm.expect(pm.response.json().codigo).to.eql("CAT-OFI"));
+    language: text/javascript
+order: 7000

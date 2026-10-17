@@ -1,0 +1,3 @@
+$kind: collection
+description: "Módulo location (RF-07): alta, consultas y la regla de un único almacén central."
+order: 4000

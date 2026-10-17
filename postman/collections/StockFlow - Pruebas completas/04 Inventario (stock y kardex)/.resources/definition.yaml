@@ -1,0 +1,3 @@
+$kind: collection
+description: "Lado de lectura del flujo crítico: existencias, alertas de mínimo (RF-20) y kardex paginado (RF-19, @Query nativo)."
+order: 5000

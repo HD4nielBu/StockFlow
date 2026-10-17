@@ -1,0 +1,45 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/inventario/stock?productoId=7389&ubicacionId=7389&soloBajoMinimo=false"
+  method: GET
+  headers:
+    Accept: "*/*"
+  queryParams:
+    productoId: "7389"
+    ubicacionId: "7389"
+    soloBajoMinimo: "false"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: "*/*"
+  body:
+    type: text
+    content: |-
+      [
+        {
+          "stockId": 1333,
+          "productoId": 605,
+          "codigoProducto": "string",
+          "producto": "string",
+          "ubicacionId": 1135,
+          "codigoUbicacion": "string",
+          "ubicacion": "string",
+          "cantidad": 5132.837156457404,
+          "stockMinimo": 6421.807833597702,
+          "bajoMinimo": true
+        },
+        {
+          "stockId": 5330,
+          "productoId": 3187,
+          "codigoProducto": "string",
+          "producto": "string",
+          "ubicacionId": 9267,
+          "codigoUbicacion": "string",
+          "ubicacion": "string",
+          "cantidad": 2593.6575580268195,
+          "stockMinimo": 4074.129001917883,
+          "bajoMinimo": true
+        }
+      ]
+order: 1000

@@ -9,5 +9,8 @@ public interface ConsultarProductoUseCase {
 
     Optional<Producto> buscarPorId(Long id);
 
+    /** Todos los productos del catálogo, ordenados por código (lo usa el frontend para su tabla). */
+    List<Producto> listarTodos();
+
     List<Producto> listarPorCategoria(Long categoriaId);
 }

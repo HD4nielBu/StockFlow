@@ -1,0 +1,17 @@
+$kind: http-request
+name: "[200] Filtrar por tipo DEPOSITO"
+url: "{{baseUrl}}/api/ubicaciones?tipo=DEPOSITO"
+method: GET
+headers:
+  Accept: "application/json"
+queryParams:
+  tipo: "DEPOSITO"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve una lista", () => pm.expect(pm.response.json()).to.be.an("array"));
+      pm.test("Al menos 2 elementos", () => pm.expect(pm.response.json().length).to.be.at.least(2));
+      pm.test("Todas son DEPOSITO", () => pm.response.json().forEach(u => pm.expect(u.tipo).to.eql("DEPOSITO")));
+    language: text/javascript
+order: 2000

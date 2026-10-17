@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/api/categorias"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "cat-pos2",
+      "nombre": "Prueba desde Postman",
+      "descripcion": "Creada con Postman1"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201))
+      pm.collectionVariables.set("categoriaId", pm.response.json().id)
+    language: text/javascript
+order: 209864503591865

@@ -1,0 +1,33 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/categorias?nombre=string"
+  method: GET
+  headers:
+    Accept: "*/*"
+  queryParams:
+    nombre: string
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: "*/*"
+  body:
+    type: text
+    content: |-
+      [
+        {
+          "id": 3024,
+          "codigo": "string",
+          "nombre": "string",
+          "descripcion": "string",
+          "activo": true
+        },
+        {
+          "id": 5411,
+          "codigo": "string",
+          "nombre": "string",
+          "descripcion": "string",
+          "activo": false
+        }
+      ]
+order: 1000

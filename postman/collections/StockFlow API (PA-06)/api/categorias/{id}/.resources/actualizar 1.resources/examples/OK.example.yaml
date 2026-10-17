@@ -1,0 +1,34 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/categorias/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: "*/*"
+  pathVariables:
+    id: "7389"
+  body:
+    type: json
+    content: |-
+      {
+        "activo": false,
+        "codigo": "07ug",
+        "nombre": "string",
+        "descripcion": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: "*/*"
+  body:
+    type: text
+    content: |-
+      {
+        "id": 1661,
+        "codigo": "string",
+        "nombre": "string",
+        "descripcion": "string",
+        "activo": false
+      }
+order: 1000

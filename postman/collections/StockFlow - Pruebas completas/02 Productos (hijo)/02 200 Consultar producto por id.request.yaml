@@ -1,0 +1,13 @@
+$kind: http-request
+name: "[200] Consultar producto por id"
+url: "{{baseUrl}}/api/productos/1"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Es PRD-OFI-001", () => pm.expect(pm.response.json().codigo).to.eql("PRD-OFI-001"));
+    language: text/javascript
+order: 2000

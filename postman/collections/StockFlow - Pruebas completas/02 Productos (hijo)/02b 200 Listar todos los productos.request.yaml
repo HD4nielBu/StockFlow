@@ -1,0 +1,18 @@
+$kind: http-request
+name: "[200] Listar todos los productos"
+url: "{{baseUrl}}/api/productos"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve una lista", () => pm.expect(pm.response.json()).to.be.an("array"));
+      pm.test("Al menos 5 elementos", () => pm.expect(pm.response.json().length).to.be.at.least(5));
+      pm.test("Ordenados por código", () => {
+          const codigos = pm.response.json().map(p => p.codigo);
+          pm.expect(codigos).to.eql([...codigos].sort());
+      });
+    language: text/javascript
+order: 2500

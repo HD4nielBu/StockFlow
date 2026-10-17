@@ -58,6 +58,14 @@ public class ProductoController {
         return ResponseEntity.ok(ProductoWebMapper.toResponse(producto));
     }
 
+    /** Listado completo del catálogo, ordenado por código. 200 (lista vacía si no hay productos). */
+    @GetMapping
+    public List<ProductoResponse> listar() {
+        return consultar.listarTodos().stream()
+                .map(ProductoWebMapper::toResponse)
+                .toList();
+    }
+
     @GetMapping("/categoria/{categoriaId}")
     public List<ProductoResponse> listarPorCategoria(@PathVariable Long categoriaId) {
         return consultar.listarPorCategoria(categoriaId).stream()

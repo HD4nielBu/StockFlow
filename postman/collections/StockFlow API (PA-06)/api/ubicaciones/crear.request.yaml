@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/api/ubicaciones"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: "*/*"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "liiTwFtg8Z",
+      "nombre": "string",
+      "tipo": "ALMACEN_CENTRAL",
+      "direccion": "string"
+    }
+settings: {}
+examples: ./.resources/crear.resources/examples
+order: 3000

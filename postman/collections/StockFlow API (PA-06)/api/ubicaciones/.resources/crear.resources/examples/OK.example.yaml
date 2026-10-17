@@ -1,0 +1,33 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/ubicaciones"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: "*/*"
+  body:
+    type: json
+    content: |-
+      {
+        "codigo": "liiTwFtg8Z",
+        "nombre": "string",
+        "tipo": "ALMACEN_CENTRAL",
+        "direccion": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: "*/*"
+  body:
+    type: text
+    content: |-
+      {
+        "id": 6771,
+        "codigo": "string",
+        "nombre": "string",
+        "tipo": "DEPOSITO",
+        "direccion": "string",
+        "activo": false
+      }
+order: 1000

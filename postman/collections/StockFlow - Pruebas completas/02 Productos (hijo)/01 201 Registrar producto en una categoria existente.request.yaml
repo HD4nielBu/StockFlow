@@ -1,0 +1,30 @@
+$kind: http-request
+name: "[201] Registrar producto en una categoría existente"
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 1,
+      "codigo": "prd-pm{{$timestamp}}",
+      "nombre": "Cuaderno anillado A4",
+      "descripcion": "100 hojas cuadriculadas",
+      "unidadMedida": "UNIDAD",
+      "stockMinimoDefault": 25,
+      "precioReferencial": 18.9
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201));
+      pm.test("Trae el header Location", () => pm.response.to.have.header("Location"));
+      const r = pm.response.json();
+      pm.collectionVariables.set("productoId", r.id);
+      pm.collectionVariables.set("productoCodigo", r.codigo);
+      pm.test("Precio con 2 decimales (NUMERIC 12,2)", () => pm.expect(pm.response.text()).to.include("\"precioReferencial\":18.90"));
+    language: text/javascript
+order: 1000

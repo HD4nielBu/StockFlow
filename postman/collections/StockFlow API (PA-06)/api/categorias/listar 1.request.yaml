@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/categorias?nombre=string"
+method: GET
+headers:
+  Accept: "*/*"
+queryParams:
+  nombre: string
+settings: {}
+examples: ./.resources/listar 1.resources/examples
+order: 3000

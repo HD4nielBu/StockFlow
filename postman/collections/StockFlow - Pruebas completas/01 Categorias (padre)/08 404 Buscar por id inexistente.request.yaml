@@ -1,0 +1,18 @@
+$kind: http-request
+name: "[404] Buscar por id inexistente"
+url: "{{baseUrl}}/api/categorias/9999"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 404", () => pm.response.to.have.status(404));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(404);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+    language: text/javascript
+order: 8000

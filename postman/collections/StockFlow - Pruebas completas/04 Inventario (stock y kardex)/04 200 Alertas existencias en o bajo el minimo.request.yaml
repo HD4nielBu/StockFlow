@@ -1,0 +1,16 @@
+$kind: http-request
+name: "[200] Alertas: existencias en o bajo el mínimo"
+url: "{{baseUrl}}/api/inventario/stock?soloBajoMinimo=true"
+method: GET
+headers:
+  Accept: "application/json"
+queryParams:
+  soloBajoMinimo: "true"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve una lista", () => pm.expect(pm.response.json()).to.be.an("array"));
+      pm.test("Todas están bajo el mínimo", () => pm.response.json().forEach(e => pm.expect(e.bajoMinimo).to.eql(true)));
+    language: text/javascript
+order: 4000

@@ -1,0 +1,52 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/inventario/kardex/:productoId?pagina=0&tamano=20"
+  method: GET
+  headers:
+    Accept: "*/*"
+  queryParams:
+    pagina: "0"
+    tamano: "20"
+  pathVariables:
+    productoId: "7389"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: "*/*"
+  body:
+    type: text
+    content: |-
+      {
+        "contenido": [
+          {
+            "movimientoId": 8188,
+            "ocurridoAt": "1988-02-02T23:16:50.964Z",
+            "ubicacion": "string",
+            "tipo": "string",
+            "entrada": 5076.705749014145,
+            "salida": 4323.614099975442,
+            "saldoResultante": 9421.205047269405,
+            "referenciaTipo": "string",
+            "registradoPor": "string",
+            "motivo": "string"
+          },
+          {
+            "movimientoId": 6403,
+            "ocurridoAt": "2017-06-29T20:11:50.938Z",
+            "ubicacion": "string",
+            "tipo": "string",
+            "entrada": 9617.249604540708,
+            "salida": 7205.174586165094,
+            "saldoResultante": 9797.509534109564,
+            "referenciaTipo": "string",
+            "registradoPor": "string",
+            "motivo": "string"
+          }
+        ],
+        "pagina": 5464,
+        "tamano": 5396,
+        "totalElementos": 4834,
+        "totalPaginas": 2212
+      }
+order: 1000

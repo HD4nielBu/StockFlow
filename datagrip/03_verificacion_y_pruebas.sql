@@ -13,7 +13,7 @@ SELECT current_database() AS base_actual,
        current_user       AS usuario_actual;
 
 -- ---------------------------------------------------------------------
--- 2. Tablas creadas (17) y vistas (1)
+-- 2. Tablas creadas (17 + flyway_schema_history) y vistas (1)
 -- ---------------------------------------------------------------------
 SELECT table_name, table_type
 FROM information_schema.tables
@@ -126,53 +126,96 @@ DELETE FROM movimiento_inventario WHERE movimiento_id = 1;
 -- 7.15 FK: no se puede borrar una categoría con productos
 DELETE FROM categoria WHERE codigo = 'CAT-OFI';
 
+-- 7.16 TRIGGER (V3): los movimientos tampoco se modifican (no se puede falsear el kardex)
+UPDATE movimiento_inventario SET cantidad = 999 WHERE movimiento_id = 1;
+
+-- 7.17 ÍNDICE ÚNICO (V3): nombre de categoría repetido sólo cambiando mayúsculas
+INSERT INTO categoria (codigo, nombre) VALUES ('CAT-DUP', 'LIMPIEZA');
+
+-- 7.18 ÍNDICE ÚNICO PARCIAL (V3): segunda alerta ABIERTA para el mismo producto/ubicación
+INSERT INTO alerta_stock (producto_id, ubicacion_id, cantidad_detectada, stock_minimo)
+SELECT producto_id, ubicacion_id, cantidad_detectada, stock_minimo
+FROM alerta_stock WHERE estado = 'ABIERTA' LIMIT 1;
+
 -- ---------------------------------------------------------------------
 -- 8. Flujo crítico: atender la solicitud aprobada de forma transaccional
---    (RN-01 + RN-04 + RF-16: movimiento y stock en una sola transacción)
+--    (RN-01 + RN-03 + RN-07 + RF-16: movimiento, stock, estado y alerta en una sola transacción)
+--
+--    Es IDEMPOTENTE: todos los pasos exigen estado = 'APROBADA'. Si se ejecuta otra vez,
+--    la solicitud ya está ATENDIDA y ningún paso afecta filas (no se descuenta dos veces).
+--    Si un paso falla (por ejemplo, ck_movimiento_saldo por stock insuficiente),
+--    ejecuta ROLLBACK: no queda nada a medias.
+--
+--    Decisión de dominio: atender una solicitud es una SALIDA del almacén central para
+--    consumo del área solicitante; ubicacion_destino indica a dónde se entrega, no genera
+--    una ENTRADA de stock en ese depósito (eso sería una transferencia, RN-04).
 -- ---------------------------------------------------------------------
 BEGIN;
 
-WITH datos AS (
-    SELECT i.item_solicitud_id, i.producto_id, i.cantidad_solicitada,
-           s.stock_id, s.cantidad AS saldo_actual
-    FROM item_solicitud i
-    JOIN solicitud so ON so.solicitud_id = i.solicitud_id
-    JOIN stock s ON s.producto_id = i.producto_id
-                AND s.ubicacion_id = (SELECT ubicacion_id FROM ubicacion WHERE codigo = 'UB-CENTRAL')
-    WHERE so.codigo = 'SOL-2026-0001'
-)
+-- 8.1 Bloquear la solicitud y sus existencias: otra sesión que intente atenderla espera
+SELECT so.solicitud_id, so.estado
+FROM solicitud so
+WHERE so.codigo = 'SOL-2026-0001' AND so.estado = 'APROBADA'
+FOR UPDATE;
+
+SELECT s.stock_id, s.cantidad
+FROM stock s
+JOIN item_solicitud i ON i.producto_id = s.producto_id
+JOIN solicitud so     ON so.solicitud_id = i.solicitud_id
+WHERE so.codigo = 'SOL-2026-0001' AND so.estado = 'APROBADA'
+  AND s.ubicacion_id = (SELECT ubicacion_id FROM ubicacion WHERE codigo = 'UB-CENTRAL')
+FOR UPDATE OF s;
+
+-- 8.2 Movimiento de SALIDA por cada ítem (con el saldo que resultará)
 INSERT INTO movimiento_inventario
     (producto_id, ubicacion_id, tipo, cantidad, saldo_resultante, usuario_id,
      referencia_tipo, solicitud_id, motivo)
-SELECT d.producto_id,
-       (SELECT ubicacion_id FROM ubicacion WHERE codigo = 'UB-CENTRAL'),
-       'SALIDA', d.cantidad_solicitada, d.saldo_actual - d.cantidad_solicitada,
+SELECT i.producto_id, s.ubicacion_id,
+       'SALIDA', i.cantidad_solicitada, s.cantidad - i.cantidad_solicitada,
        (SELECT usuario_id FROM usuario WHERE username = 'almacen1'),
-       'SOLICITUD',
-       (SELECT solicitud_id FROM solicitud WHERE codigo = 'SOL-2026-0001'),
+       'SOLICITUD', so.solicitud_id,
        'Atención de solicitud interna'
-FROM datos d;
+FROM item_solicitud i
+JOIN solicitud so ON so.solicitud_id = i.solicitud_id
+JOIN stock s ON s.producto_id = i.producto_id
+            AND s.ubicacion_id = (SELECT ubicacion_id FROM ubicacion WHERE codigo = 'UB-CENTRAL')
+WHERE so.codigo = 'SOL-2026-0001' AND so.estado = 'APROBADA';
 
+-- 8.3 Descontar el stock (ck_stock_no_negativo protege RN-03)
 UPDATE stock s
 SET cantidad = s.cantidad - i.cantidad_solicitada,
     updated_at = now()
 FROM item_solicitud i
 JOIN solicitud so ON so.solicitud_id = i.solicitud_id
-WHERE so.codigo = 'SOL-2026-0001'
+WHERE so.codigo = 'SOL-2026-0001' AND so.estado = 'APROBADA'
   AND s.producto_id = i.producto_id
   AND s.ubicacion_id = (SELECT ubicacion_id FROM ubicacion WHERE codigo = 'UB-CENTRAL');
 
+-- 8.4 Registrar lo atendido
 UPDATE item_solicitud i
 SET cantidad_atendida = i.cantidad_solicitada
 FROM solicitud so
-WHERE so.solicitud_id = i.solicitud_id AND so.codigo = 'SOL-2026-0001';
+WHERE so.solicitud_id = i.solicitud_id
+  AND so.codigo = 'SOL-2026-0001' AND so.estado = 'APROBADA';
 
-UPDATE solicitud SET estado = 'ATENDIDA', cerrada_at = now()
-WHERE codigo = 'SOL-2026-0001';
-
+-- 8.5 Historial (antes de cambiar el estado, para que el filtro APROBADA siga valiendo)
 INSERT INTO historial_estado_solicitud (solicitud_id, estado_anterior, estado_nuevo, motivo, cambiado_por)
-VALUES ((SELECT solicitud_id FROM solicitud WHERE codigo='SOL-2026-0001'), 'APROBADA', 'ATENDIDA',
-        'Salida de almacén', (SELECT usuario_id FROM usuario WHERE username='almacen1'));
+SELECT so.solicitud_id, 'APROBADA', 'ATENDIDA', 'Salida de almacén',
+       (SELECT usuario_id FROM usuario WHERE username = 'almacen1')
+FROM solicitud so
+WHERE so.codigo = 'SOL-2026-0001' AND so.estado = 'APROBADA';
+
+-- 8.6 Cerrar la solicitud
+UPDATE solicitud SET estado = 'ATENDIDA', cerrada_at = now()
+WHERE codigo = 'SOL-2026-0001' AND estado = 'APROBADA';
+
+-- 8.7 RN-07: abrir alerta donde la existencia quedó en el mínimo o por debajo.
+--     ON CONFLICT usa el índice parcial de V3: si ya hay una alerta ABIERTA, no se duplica.
+INSERT INTO alerta_stock (producto_id, ubicacion_id, cantidad_detectada, stock_minimo)
+SELECT s.producto_id, s.ubicacion_id, s.cantidad, s.stock_minimo
+FROM stock s
+WHERE s.cantidad <= s.stock_minimo
+ON CONFLICT (producto_id, ubicacion_id) WHERE estado = 'ABIERTA' DO NOTHING;
 
 COMMIT;
 
@@ -185,7 +228,16 @@ ORDER BY ocurrido_at, movimiento_id;
 
 -- ---------------------------------------------------------------------
 -- 10. RF-20 · Alertas de stock mínimo (por producto/ubicación, RN-07)
+--     Primero las registradas en alerta_stock; luego el cálculo directo sobre stock
+--     (ambas listas deben coincidir).
 -- ---------------------------------------------------------------------
+SELECT p.codigo, u.codigo AS ubicacion, a.cantidad_detectada, a.stock_minimo, a.estado, a.generada_at
+FROM alerta_stock a
+JOIN producto p  ON p.producto_id = a.producto_id
+JOIN ubicacion u ON u.ubicacion_id = a.ubicacion_id
+WHERE a.estado = 'ABIERTA'
+ORDER BY p.codigo;
+
 SELECT p.codigo, p.nombre, u.codigo AS ubicacion, s.cantidad, s.stock_minimo
 FROM stock s
 JOIN producto p  ON p.producto_id = s.producto_id

@@ -17,6 +17,8 @@ public interface ProductoRepositoryPort {
 
     Optional<Producto> buscarPorId(Long id);
 
+    List<Producto> listarTodos();
+
     List<Producto> listarPorCategoriaId(Long categoriaId);
 
     boolean existePorCodigo(String codigo);

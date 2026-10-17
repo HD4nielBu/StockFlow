@@ -82,18 +82,63 @@ Asistente **opcional** y complementario para resumir tendencias de movimientos y
 | IA complementaria | Spring AI (uso acotado, con fallback) |
 | Arquitectura | Monolito modular, hexagonal simplificada |
 
-## 7. Estado actual
+## 7. Estado actual (2026-10-05)
 
-🔴 **Proyecto aún no iniciado.** Actualmente en etapa de planificación y levantamiento de requisitos, en preparación para la **Parte I – Parcial 1** (problema, requisitos, datos y backend fundacional).
+🟡 **Parte I – Parcial 1 en curso.** Documentación de dominio y datos completa; base de datos implementada con migraciones; backend con catálogo, ubicaciones y el lado de lectura del flujo crítico; aplicación web con el CRUD Categoría 1:N Producto conectado al backend. **Falta la aplicación móvil.**
 
-Próximos pasos según el cronograma de entregas:
-- [ ] Documento de visión y contexto del cliente
-- [ ] Matriz de actores, objetivos y responsabilidades
-- [ ] Catálogo de requisitos funcionales y no funcionales
-- [ ] Reglas de negocio numeradas
-- [ ] Modelo conceptual y DER lógico inicial
-- [ ] Configuración de repositorio, Docker Compose y migraciones iniciales
-- [ ] Backend con módulos base y al menos 3 casos de uso funcionando
-- [ ] Shell de aplicación web y proyecto móvil compilable
+Exigencias del Parcial 1 (ficha PA-06, sección N):
+- [x] Documento de visión y contexto del cliente — `docs/01-vision/vision-v0.1.md`
+- [x] Matriz de actores, objetivos y responsabilidades — `docs/01-vision/vision-v0.1.md`
+- [x] Catálogo de requisitos funcionales y no funcionales — `docs/02-requirements/requisitos-v0.1.md`
+- [x] Reglas de negocio numeradas (RN-01 a RN-08) — este README y `docs/04-model/decisiones-integridad-v0.1.md`
+- [x] Mapa de historias y casos de uso — `docs/02-requirements/mapa-historias-v0.1.md`
+- [x] Modelo conceptual, DER lógico y diccionario de datos — `docs/04-model/`
+- [x] Decisiones de arquitectura — `docs/03-decisions/` (convención Git: propuesta pendiente de acuerdo)
+- [x] Backlog priorizado con criterios de aceptación — `docs/02-requirements/backlog-v0.1.md`
+- [x] Docker Compose con PostgreSQL y migraciones Flyway (V1 esquema, V2 semilla, V3 protección del histórico)
+- [x] Backend con módulos y casos de uso funcionando (categorías, productos, ubicaciones, consulta de stock y kardex)
+- [x] API documentada: Swagger UI y `requests.http`
+- [ ] Esqueleto del flujo crítico completo en el backend (hoy: lectura de stock/kardex; solicitudes y movimientos en SQL)
+- [x] Aplicación web React + TypeScript (shell, layout, dashboard y CRUD de categorías y productos) — `webstorm/stockflow-frontend`
+- [ ] Aplicación móvil React Native + TypeScript (compilable, navegación y una pantalla)
+
+Detalle por requisito: `docs/02-requirements/requisitos-v0.1.md`.
+
+## 8. Cómo ejecutarlo
+
+Requisitos: Java 21, Maven (o IntelliJ IDEA), Docker y, para el frontend, Node.js 20.19+ con npm.
+
+```bash
+docker compose up -d                  # PostgreSQL 16 en localhost:5432 (base y usuario stockflow_admin)
+cd intellij/stockflow-backend
+mvn spring-boot:run                   # Flyway crea el esquema y la semilla; API en http://localhost:8080
+```
+
+- Frontend (con el backend encendido): `cd webstorm/stockflow-frontend && npm install && npm run dev` → http://localhost:5173
+- Probar la API: http://localhost:8080/swagger-ui.html o `intellij/stockflow-backend/requests.http` (IntelliJ).
+- Pruebas automáticas: `mvn test` (las de integración usan Docker; si no hay Docker, se omiten).
+- Verificación SQL y flujo crítico: `datagrip/03_verificacion_y_pruebas.sql` en DataGrip.
+- Credenciales: la clave por defecto es sólo de laboratorio. Para otra, crea un archivo `.env` (ignorado por git) con `DB_PASSWORD=...`.
+
+Detalles del backend, contrato HTTP y decisiones: `intellij/stockflow-backend/README.md`.
+
+## 9. Estructura del repositorio
+
+```
+StockFlow/
+├── docker-compose.yml          PostgreSQL 16
+├── docs/
+│   ├── 01-vision/              visión y glosario
+│   ├── 02-requirements/        backlog con criterios, requisitos RF/RNF, mapa de historias
+│   ├── 03-decisions/           decisiones de arquitectura (ADR)
+│   ├── 04-model/               modelo conceptual, relacional, DER, diccionario, físico
+│   └── ENTREGA.md              guía de entrega y orden de trabajo
+├── datagrip/                   00_admin (sin Docker) y 03_verificacion_y_pruebas.sql
+├── intellij/
+│   ├── stockflow-backend-lab/  Java 21 puro (capítulos 01-02)
+│   └── stockflow-backend/      Spring Boot (capítulos 03-08), migraciones en src/main/resources/db/migration
+└── webstorm/
+    └── stockflow-frontend/     React 19 + TypeScript + Vite (guías G01-G10)
+```
 
 ---

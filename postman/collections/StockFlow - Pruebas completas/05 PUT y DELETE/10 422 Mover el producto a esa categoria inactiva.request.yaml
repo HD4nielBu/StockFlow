@@ -1,0 +1,30 @@
+$kind: http-request
+name: "[422] Mover el producto a esa categoría inactiva"
+url: "{{baseUrl}}/api/productos/{{productoId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": {{categoriaId}},
+      "codigo": "{{productoCodigo}}",
+      "nombre": "Cuaderno",
+      "unidadMedida": "UNIDAD",
+      "stockMinimoDefault": 25,
+      "activo": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 422", () => pm.response.to.have.status(422));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(422);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+    language: text/javascript
+order: 10000

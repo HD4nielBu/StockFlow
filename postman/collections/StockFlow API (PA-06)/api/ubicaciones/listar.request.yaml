@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/ubicaciones?tipo=ALMACEN_CENTRAL"
+method: GET
+headers:
+  Accept: "*/*"
+queryParams:
+  tipo: ALMACEN_CENTRAL
+settings: {}
+examples: ./.resources/listar.resources/examples
+order: 2000

@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/api/categorias/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: "*/*"
+pathVariables:
+  id: "7389"
+body:
+  type: json
+  content: |-
+    {
+      "activo": false,
+      "codigo": "07ug",
+      "nombre": "string",
+      "descripcion": "string"
+    }
+settings: {}
+examples: ./.resources/actualizar 1.resources/examples
+order: 2000

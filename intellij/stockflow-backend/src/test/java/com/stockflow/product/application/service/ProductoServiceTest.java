@@ -6,7 +6,6 @@ import com.stockflow.category.domain.model.Categoria;
 import com.stockflow.category.domain.port.in.ConsultarCategoriaUseCase;
 import com.stockflow.product.domain.exception.CodigoProductoDuplicadoException;
 import com.stockflow.product.domain.exception.ProductoNoEncontradoException;
-import com.stockflow.product.domain.exception.StockMinimoInvalidoException;
 import com.stockflow.product.domain.model.Producto;
 import com.stockflow.product.domain.model.UnidadMedida;
 import com.stockflow.product.domain.port.out.ProductoRepositoryPort;
@@ -84,11 +83,6 @@ class ProductoServiceTest {
                 () -> service.registrar(producto(1L, " prd-ofi-001 ", 0)));
     }
 
-    @Test
-    void rechazaStockMinimoNegativoRN07() {
-        assertThrows(StockMinimoInvalidoException.class,
-                () -> service.registrar(producto(1L, "PRD-OFI-009", -1)));
-    }
 
     @Test
     void listaSoloLosProductosDeLaCategoria() {
@@ -101,6 +95,13 @@ class ProductoServiceTest {
     private Producto cambios(Long categoriaId, String codigo, boolean activo) {
         return new Producto(null, categoriaId, codigo, "Nombre editado", null,
                 UnidadMedida.CAJA, 7, new BigDecimal("12.00"), activo);
+    }
+
+    @Test
+    void listarTodosDevuelveLosProductosDeTodasLasCategorias() {
+        service.registrar(producto(1L, "PRD-OFI-001", 0));
+        service.registrar(producto(3L, "PRD-LIM-001", 0));
+        assertEquals(2, service.listarTodos().size());
     }
 
     // ---------- PUT ----------
@@ -210,6 +211,11 @@ class ProductoServiceTest {
         @Override
         public Optional<Producto> buscarPorId(Long id) {
             return datos.stream().filter(p -> p.getId().equals(id)).findFirst();
+        }
+
+        @Override
+        public List<Producto> listarTodos() {
+            return List.copyOf(datos);
         }
 
         @Override

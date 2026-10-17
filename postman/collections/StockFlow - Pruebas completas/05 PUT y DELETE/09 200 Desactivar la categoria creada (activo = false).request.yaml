@@ -1,0 +1,22 @@
+$kind: http-request
+name: "[200] Desactivar la categoría creada (activo = false)"
+url: "{{baseUrl}}/api/categorias/{{categoriaId}}"
+method: PUT
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "codigo": "{{categoriaCodigo}}",
+      "nombre": "{{categoriaNombre}}",
+      "activo": false
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Quedó inactiva", () => pm.expect(pm.response.json().activo).to.eql(false));
+    language: text/javascript
+order: 9000

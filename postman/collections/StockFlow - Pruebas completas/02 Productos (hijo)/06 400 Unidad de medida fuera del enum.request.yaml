@@ -1,0 +1,28 @@
+$kind: http-request
+name: "[400] Unidad de medida fuera del enum"
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 1,
+      "codigo": "PRD-X-400",
+      "nombre": "Unidad rara",
+      "unidadMedida": "BARRIL"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 400", () => pm.response.to.have.status(400));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(400);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+    language: text/javascript
+order: 6000

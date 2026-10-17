@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: "*/*"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 2789,
+      "codigo": "5RiPEJFuc6P",
+      "nombre": "string",
+      "descripcion": "string",
+      "unidadMedida": "CAJA",
+      "stockMinimoDefault": 7395,
+      "precioReferencial": 9552.295859865833
+    }
+settings: {}
+examples: ./.resources/crear 1.resources/examples
+order: 3000

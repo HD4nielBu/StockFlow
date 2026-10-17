@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: "*/*"
+pathVariables:
+  id: "7389"
+body:
+  type: json
+  content: |-
+    {
+      "activo": true,
+      "categoriaId": 6580,
+      "codigo": "wKsS9",
+      "nombre": "string",
+      "stockMinimoDefault": 4406,
+      "unidadMedida": "METRO",
+      "descripcion": "string",
+      "precioReferencial": 5310.124650850975
+    }
+settings: {}
+examples: ./.resources/actualizar.resources/examples
+order: 2000

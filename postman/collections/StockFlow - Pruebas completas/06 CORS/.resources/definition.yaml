@@ -1,0 +1,3 @@
+$kind: collection
+description: "Pregunta 24: preflight del navegador. Postman no aplica CORS; aquí se simula enviando los headers que mandaría el navegador."
+order: 7000

@@ -1,0 +1,14 @@
+$kind: http-request
+name: "[200] Listar categorías"
+url: "{{baseUrl}}/api/categorias"
+method: GET
+headers:
+  Accept: "application/json"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      pm.test("Devuelve una lista", () => pm.expect(pm.response.json()).to.be.an("array"));
+      pm.test("Al menos 4 elementos", () => pm.expect(pm.response.json().length).to.be.at.least(4));
+    language: text/javascript
+order: 5000

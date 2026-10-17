@@ -1,0 +1,29 @@
+$kind: http-request
+name: "[400] Precio negativo"
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "categoriaId": 1,
+      "codigo": "PRD-X-402",
+      "nombre": "Precio negativo",
+      "precioReferencial": -1
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 400", () => pm.response.to.have.status(400));
+      pm.test("Formato ApiErrorResponse", () => {
+          const e = pm.response.json();
+          pm.expect(e.status).to.eql(400);
+          pm.expect(e).to.have.property("message");
+          pm.expect(e).to.have.property("path");
+      });
+      pm.test("Error en el campo precioReferencial", () => pm.expect(pm.response.json().fieldErrors).to.have.property("precioReferencial"));
+    language: text/javascript
+order: 8000
