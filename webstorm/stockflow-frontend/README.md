@@ -36,7 +36,7 @@ Su `CorsConfig` sólo permite el origen `http://localhost:5173`; por eso `vite.c
 | `npm run preview` | Sirve `dist/` en el puerto 4173 y reenvía `/api` al backend local (`localhost:8080`) |
 | `npm run lint` | Análisis estático con oxlint |
 | `npm test` | Vitest en modo observación |
-| `npm run test:run` | Vitest una sola vez (96 pruebas en 27 archivos) |
+| `npm run test:run` | Vitest una sola vez (107 pruebas en 30 archivos) |
 
 ## Configuración
 
