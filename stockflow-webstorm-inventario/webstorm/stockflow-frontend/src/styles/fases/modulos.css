@@ -1,0 +1,360 @@
+/*
+ * Módulos de inventario: Ubicaciones, Existencias y Kardex.
+ * Cada uno toma uno de los tres mundos visuales:
+ *   Ubicaciones  noche azul (mapa de puntos)   · Existencias  amarillo (estanterías)   · Kardex  rojo y negro (libro de registro)
+ */
+
+/* ───── Mundos ───── */
+
+.app-shell:has(.page-ubicaciones) {
+  --sec: var(--cyan);
+  --sec-ink: var(--blue-deep);
+  --world-fg: #e8f7ff;
+  --world-muted: #b9d7ec;
+  --world:
+    radial-gradient(circle, rgb(53 214 255 / 0.22) 1.5px, transparent 2px) 0 0 / 28px 28px,
+    linear-gradient(170deg, var(--blue-mid), var(--blue-deep) 60%);
+}
+
+.app-shell:has(.page-existencias) {
+  --sec: var(--yellow);
+  --sec-ink: var(--yellow-ink);
+  --world-fg: var(--ink);
+  --world-muted: #3a3300;
+  --world:
+    linear-gradient(rgb(0 0 0 / 0.07) 2px, transparent 2px) 0 0 / 34px 34px,
+    linear-gradient(90deg, rgb(0 0 0 / 0.07) 2px, transparent 2px) 0 0 / 34px 34px,
+    var(--yellow);
+}
+
+.app-shell:has(.page-kardex) {
+  --sec: var(--red);
+  --sec-ink: var(--paper);
+  --world-fg: var(--paper);
+  --world-muted: #c9c9cc;
+  --world:
+    conic-gradient(from 160deg at 15% -10%, var(--red) 0 18deg, transparent 18deg 34deg, var(--red-dark) 34deg 44deg, transparent 44deg),
+    var(--ink);
+}
+
+/* Inicio ahora tiene cuatro métricas */
+.page-stack:has(> .stats-grid) .stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+/* Encabezados de los módulos nuevos */
+.page-ubicaciones > .page-heading h1,
+.page-existencias > .page-heading h1,
+.page-kardex > .page-heading h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+}
+
+.page-ubicaciones > .page-heading h1 {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+}
+
+.page-existencias > .page-heading h1 {
+  text-shadow: 6px 6px 0 #fff;
+}
+
+.page-kardex > .page-heading h1 {
+  justify-self: start;
+  display: inline-block;
+  padding: 2px 18px 6px;
+  background: var(--paper);
+  color: var(--ink);
+  transform: rotate(-2deg);
+  box-shadow: 10px 10px 0 var(--red);
+}
+
+.page-kardex > .page-heading .eyebrow,
+.page-existencias > .page-heading .eyebrow {
+  justify-self: start;
+  padding: 3px 10px;
+  background: var(--ink);
+}
+
+.page-existencias > .page-heading .eyebrow {
+  color: var(--yellow);
+}
+
+.page-ubicaciones .entity-form,
+.page-ubicaciones .toolbar {
+  animation: sube 0.5s var(--ease) both;
+}
+
+.page-ubicaciones .entity-form {
+  background: rgb(7 22 52 / 0.8);
+  color: #e8f7ff;
+  border: 2px solid var(--cyan);
+  clip-path: polygon(0 0, 100% 0, 98% 100%, 0 100%);
+}
+
+.page-ubicaciones .entity-form h2 {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--paper);
+}
+
+/* ───── Ubicaciones: tarjetas como puntos en un mapa ───── */
+
+.ubicaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ubicacion-card {
+  --i: 0;
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 20px 22px 18px 34px;
+  background: rgb(7 22 52 / 0.78);
+  border: 2px solid var(--cyan);
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
+  animation: sube 0.55s var(--ease) backwards;
+  animation-delay: calc(var(--i) * 80ms);
+}
+
+/* El "pin": un punto que late una vez al aparecer */
+.ubicacion-card::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 12px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 0 rgb(53 214 255 / 0.6);
+  animation: pin 1.4s var(--ease) 0.4s 2;
+}
+
+@keyframes pin {
+  to {
+    box-shadow: 0 0 0 16px rgb(53 214 255 / 0);
+  }
+}
+
+.ubicacion-card--almacen_central {
+  border-color: var(--yellow);
+}
+
+.ubicacion-card--almacen_central::before {
+  background: var(--yellow);
+}
+
+.ubicacion-card:nth-child(2) { --i: 1; }
+.ubicacion-card:nth-child(3) { --i: 2; }
+.ubicacion-card:nth-child(4) { --i: 3; }
+.ubicacion-card:nth-child(5) { --i: 4; }
+.ubicacion-card:nth-child(n + 6) { --i: 5; }
+
+.ubicacion-card__tipo {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.ubicacion-card--almacen_central .ubicacion-card__tipo {
+  color: var(--yellow);
+}
+
+.ubicacion-card__codigo {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--paper);
+}
+
+.ubicacion-card__nombre {
+  font-weight: 700;
+  color: #e8f7ff;
+}
+
+.ubicacion-card__direccion,
+.ubicacion-card__existencias {
+  font-size: 14px;
+  color: #b9d7ec;
+}
+
+.ubicacion-card__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ubicacion-card .btn--secondary {
+  min-height: 34px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.detalle-lista {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 18px;
+  margin: 18px 0 0;
+}
+
+.detalle-lista dt {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #4a4a52;
+}
+
+.detalle-lista dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ───── Existencias y Kardex: tablas ───── */
+
+.existencias-resumen {
+  margin: 0;
+  font-weight: 600;
+}
+
+.existencias-resumen strong {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.page-existencias .table-card,
+.page-kardex .table-card {
+  border: 4px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.page-kardex .table-card {
+  box-shadow: 8px 8px 0 var(--red);
+  border-color: var(--paper);
+}
+
+.page-existencias .data-table th,
+.page-kardex .data-table th {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-cond);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+
+.page-existencias .data-table td,
+.page-kardex .data-table td {
+  border-bottom: 2px solid #e2e2dc;
+  color: var(--ink);
+}
+
+.page-existencias .data-table tbody tr,
+.page-kardex .data-table tbody tr {
+  --i: 0;
+  animation: entra-inclinada 0.45s var(--ease) backwards;
+  animation-delay: calc(var(--i) * 50ms);
+}
+
+.page-existencias .data-table tbody tr:nth-child(2), .page-kardex .data-table tbody tr:nth-child(2) { --i: 1; }
+.page-existencias .data-table tbody tr:nth-child(3), .page-kardex .data-table tbody tr:nth-child(3) { --i: 2; }
+.page-existencias .data-table tbody tr:nth-child(4), .page-kardex .data-table tbody tr:nth-child(4) { --i: 3; }
+.page-existencias .data-table tbody tr:nth-child(5), .page-kardex .data-table tbody tr:nth-child(5) { --i: 4; }
+.page-existencias .data-table tbody tr:nth-child(n + 6), .page-kardex .data-table tbody tr:nth-child(n + 6) { --i: 5; }
+
+.page-existencias .code-cell,
+.page-kardex .code-cell {
+  display: block;
+  font-family: var(--font-heavy);
+  color: var(--ink);
+}
+
+.celda-secundaria {
+  display: block;
+  font-size: 13px;
+  color: #4a4a52;
+}
+
+.num-cell {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  text-align: right !important;
+}
+
+.page-existencias .fila-alerta td {
+  background: #fff4b3;
+}
+
+.page-existencias .fila-alerta td:first-child {
+  box-shadow: inset 8px 0 0 var(--red);
+}
+
+.nivel-stock {
+  display: block;
+  width: 120px;
+  height: 12px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: #fff;
+}
+
+.nivel-stock__barra {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transform-origin: left;
+  animation: llena 0.8s var(--ease) 0.3s backwards;
+}
+
+.nivel-stock--bajo .nivel-stock__barra {
+  background: var(--red);
+}
+
+.entrada-cell {
+  color: #04693c !important;
+}
+
+.salida-cell {
+  color: var(--red) !important;
+}
+
+.saldo-cell {
+  font-weight: 700;
+}
+
+.tipo-movimiento {
+  display: inline-block;
+  padding: 1px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 700;
+  transform: rotate(-2deg);
+}
+
+.page-existencias .toolbar .checkbox-field,
+.page-kardex .toolbar .checkbox-field {
+  align-self: center;
+}

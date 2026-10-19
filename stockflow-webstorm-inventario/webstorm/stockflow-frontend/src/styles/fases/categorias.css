@@ -1,0 +1,348 @@
+/*
+ * Categorías: amarillo eléctrico con cuadrícula (el fondo está en tokens.css).
+ * La tabla original (CategoriaTable) se dibuja como una estantería: cada <tr> es un casillero con una caja
+ * (descripción, estado y cantidad de productos) sobre una viga negra con su placa amarilla (código + nombre).
+ * La tabla sigue siendo una tabla para el lector de pantalla y para las pruebas.
+ * Celdas: 1 ID · 2 Código · 3 Nombre · 4 Descripción · 5 Productos · 6 Estado · 7 Acciones
+ * Al crear una categoría, su fila nueva se monta y la caja CAE sobre la viga.
+ */
+
+/* ───── Encabezado ───── */
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) > .page-heading .eyebrow {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--ink);
+  color: var(--yellow);
+  transform: rotate(-2deg);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) > .page-heading h1 {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 110px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-shadow: 6px 6px 0 #fff;
+}
+
+/* ───── Formulario: panel negro inclinado ───── */
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .entity-form {
+  padding: 24px 28px;
+  background: var(--ink);
+  color: var(--yellow);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: polygon(0 3%, 100% 0, 99% 100%, 1% 97%);
+  animation: sube 0.5s var(--ease) both;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .entity-form h2 {
+  color: var(--yellow);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .entity-form .form-grid label {
+  color: var(--yellow);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .entity-form .checkbox-field {
+  color: var(--paper);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .entity-form .alert--error {
+  box-shadow: 6px 6px 0 var(--yellow);
+}
+
+/* ───── La estantería ───── */
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .table-card,
+.page-stack:has(form[aria-label="Formulario de categoría"]) .table-responsive {
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table {
+  display: block;
+  min-width: 0;
+}
+
+/* Los títulos de columna se ocultan a la vista pero los sigue leyendo el lector de pantalla */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  border: 10px solid var(--ink);
+  border-right-width: 0;
+  /* Espacio libre al final de la última fila: casilleros vacíos rayados */
+  background: repeating-linear-gradient(45deg, transparent 0 10px, rgb(0 0 0 / 0.06) 10px 20px), var(--yellow-soft);
+}
+
+/* Cada fila es un casillero */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr {
+  --i: 0;
+  --crate-w: min(calc(100% - 1.5rem), 10.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(1.4rem, 1fr) auto auto auto auto auto auto;
+  min-height: 21rem;
+  background: var(--yellow-soft);
+  border-right: 10px solid var(--ink);
+  border-bottom: 10px solid var(--ink);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:hover {
+  background: var(--yellow-soft);
+}
+
+/* La caja: ocupa las filas 2 a 4 (estado, descripción, productos) */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr::before {
+  content: '';
+  grid-row: 2 / 5;
+  grid-column: 1;
+  justify-self: center;
+  width: var(--crate-w);
+  background:
+    linear-gradient(var(--yellow), var(--yellow)) 50% 0 / 30px 16px no-repeat,
+    var(--paper);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(4),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(5),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(6) {
+  justify-self: center;
+  width: var(--crate-w);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(6) {
+  grid-row: 2;
+  padding: 1.5rem 0.8rem 0.3rem;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(4) {
+  grid-row: 3;
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 3.4rem;
+  margin-block: 0.2rem;
+  padding: 0 0.8rem;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(5) {
+  grid-row: 4;
+  padding: 0.2rem 0.8rem 0.7rem;
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(5)::after {
+  content: ' productos';
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* La viga negra: la dibuja la celda del ID (filas 5 y 6), sin mostrar el número */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(1) {
+  z-index: 0;
+  grid-row: 5 / 7;
+  margin-top: 0.9rem;
+  font-size: 0;
+  color: transparent;
+  background: var(--ink);
+}
+
+/* La placa amarilla: código arriba, nombre abajo */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(2),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(3) {
+  margin-inline: 0.75rem;
+  padding-inline: 0.7rem;
+  background: var(--yellow);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(2) {
+  grid-row: 5;
+  margin-top: 1.6rem;
+  padding-top: 0.4rem;
+  font-family: var(--font-heavy);
+  font-size: 20px;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(3) {
+  grid-row: 6;
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: calc(2.5em + 0.4rem);
+  margin-bottom: 0.75rem;
+  /* El espacio inferior es un borde del color de la placa: así el texto recortado no asoma */
+  border-bottom: 0.4rem solid var(--yellow);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(7) {
+  grid-row: 7;
+  padding: 0.75rem;
+  white-space: normal;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(7) .btn {
+  min-height: 34px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(7) .btn--danger {
+  background: var(--ink);
+  color: var(--yellow);
+}
+
+/* Categoría inactiva: caja gris con borde punteado */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:has(.badge--inactive)::before {
+  background:
+    linear-gradient(var(--yellow), var(--yellow)) 50% 0 / 30px 16px no-repeat,
+    #d9d9d4;
+  border-style: dashed;
+}
+
+/* ───── Animaciones de la estantería ───── */
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr::before,
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(4),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(5),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(6) {
+  animation: cae 0.8s var(--ease) backwards;
+  animation-delay: calc(var(--i) * 80ms);
+  transition: transform 0.3s var(--pop);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(2),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table td:nth-child(3) {
+  animation: estampa 0.35s var(--pop) backwards;
+  animation-delay: calc(var(--i) * 80ms + 550ms);
+}
+
+/* Al pasar el mouse, la caja se levanta */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:hover::before,
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:hover td:nth-child(4),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:hover td:nth-child(5),
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:hover td:nth-child(6) {
+  transform: translateY(-6px);
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .pagination {
+  color: var(--ink);
+}
+
+/* Escalonado de entrada (--i) para las listas de Categorías, Productos e Inicio */
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(2),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(2),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(2) {
+  --i: 1;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(3),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(3),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(3) {
+  --i: 2;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(4),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(4),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(4) {
+  --i: 3;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(5),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(5),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(5) {
+  --i: 4;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(6),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(6),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(6) {
+  --i: 5;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(7),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(7),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(7) {
+  --i: 6;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(8),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(8),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(8) {
+  --i: 7;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(9),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(9),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(9) {
+  --i: 8;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(10),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(10),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(10) {
+  --i: 9;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(11),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(11),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(11) {
+  --i: 10;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(12),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(12),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(12) {
+  --i: 11;
+}
+
+.page-stack:has(form[aria-label="Formulario de categoría"]) .data-table tbody tr:nth-child(n + 13),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(n + 13),
+.page-stack:has(> .stats-grid) .data-table tbody tr:nth-child(n + 13) {
+  --i: 12;
+}

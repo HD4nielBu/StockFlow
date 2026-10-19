@@ -1,0 +1,244 @@
+/*
+ * Productos: rojo y negro con rayos diagonales (el fondo está en tokens.css).
+ * La tabla original (ProductoTable) se dibuja como tarjetas recortadas que entran de golpe.
+ * Celdas: 1 Código · 2 Nombre · 3 Categoría · 4 Unidad · 5 Stock mín. · 6 Precio ref. · 7 Estado · 8 Acciones
+ */
+
+/* ───── Encabezado: título recortado como de revista ───── */
+
+.page-stack:has(form[aria-label="Formulario de producto"]) > .page-heading .eyebrow {
+  justify-self: start;
+  padding: 3px 10px;
+  background: var(--ink);
+  color: var(--red);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) > .page-heading h1 {
+  justify-self: start;
+  display: inline-block;
+  padding: 2px 18px 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  transform: rotate(-3deg);
+  box-shadow: 10px 10px 0 var(--red), -6px -6px 0 var(--ink);
+  animation: aparece-girando 0.45s var(--pop) both;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) > .page-heading {
+  display: grid;
+  gap: 14px;
+}
+
+/* ───── Formulario: hoja blanca recortada ───── */
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .entity-form {
+  padding: 26px 30px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: polygon(0 2%, 99% 0, 100% 97%, 1% 100%);
+  animation: sube 0.5s var(--ease) both;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .entity-form h2 {
+  display: inline-block;
+  padding: 0 12px;
+  background: var(--red);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  transform: rotate(-1.5deg);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .entity-form .field-error {
+  color: var(--color-danger);
+}
+
+/* ───── Tarjetas ───── */
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .table-card,
+.page-stack:has(form[aria-label="Formulario de producto"]) .table-responsive {
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table {
+  display: block;
+  min-width: 0;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr));
+  gap: 28px 22px;
+  padding-top: 6px;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr {
+  --i: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'cat cat'
+    'code code'
+    'name name'
+    'price price'
+    'unit stock'
+    'state state'
+    'actions actions';
+  align-content: start;
+  padding: 22px 20px 18px;
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: polygon(0 3%, 96% 0, 100% 94%, 4% 100%);
+  transform: rotate(-1.2deg);
+  animation: golpe 0.55s var(--pop) backwards;
+  animation-delay: calc(var(--i) * 90ms);
+  transition: transform 0.25s var(--pop);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:nth-child(even) {
+  transform: rotate(1.5deg);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:hover {
+  background: var(--paper);
+  transform: rotate(0) scale(1.04);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td {
+  padding: 0;
+  border: 0;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(3) {
+  grid-area: cat;
+  justify-self: start;
+  padding: 2px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 700;
+  transform: rotate(-2deg);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(1) {
+  grid-area: code;
+  margin-top: 10px;
+  font-family: var(--font-heavy);
+  font-size: 21px;
+  color: var(--ink);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(2) {
+  grid-area: name;
+  margin: 2px 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(6) {
+  grid-area: price;
+  padding: 6px 0;
+  border-block: 3px solid var(--ink);
+  font-family: var(--font-display);
+  font-size: 54px;
+  line-height: 1;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(6)::after {
+  content: ' precio ref.';
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(4),
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(5) {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(4) {
+  grid-area: unit;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(5) {
+  grid-area: stock;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(4)::before,
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(5)::before {
+  display: block;
+  font-size: 12px;
+  color: #55555c;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(4)::before {
+  content: 'Unidad';
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(5)::before {
+  content: 'Stock mín.';
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(7) {
+  grid-area: state;
+  margin: 12px 0;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(8) {
+  grid-area: actions;
+  white-space: normal;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(8) .btn {
+  min-height: 34px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table td:nth-child(8) .btn--danger {
+  background: var(--red);
+  color: var(--paper);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .data-table tbody tr:has(.badge--inactive) {
+  filter: grayscale(1);
+  opacity: 0.8;
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .badge--active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.page-stack:has(form[aria-label="Formulario de producto"]) .pagination {
+  color: var(--paper);
+}

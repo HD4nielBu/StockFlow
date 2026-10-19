@@ -1,0 +1,29 @@
+/* G09: design tokens. Si cambia la identidad visual, se cambia aquí y no en cada componente. */
+:root {
+  --color-primary: #17365d;
+  --color-primary-strong: #0f2742;
+  --color-accent: #2f75b5;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecec;
+  --color-success: #067647;
+  --color-success-soft: #ecfdf3;
+  --color-warning: #b54708;
+  --color-warning-soft: #fffaeb;
+  --color-border: #d0d5dd;
+  --color-border-soft: #eaecf0;
+  --color-surface: #ffffff;
+  --color-background: #f3f6fa;
+  --color-text: #1d2733;
+  --color-muted: #667085;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 6px 18px rgba(16, 24, 40, 0.05);
+  --shadow-md: 0 12px 30px rgba(16, 24, 40, 0.14);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+}

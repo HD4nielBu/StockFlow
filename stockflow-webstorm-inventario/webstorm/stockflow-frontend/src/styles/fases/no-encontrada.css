@@ -1,0 +1,39 @@
+/* 404: tarjeta recortada sobre fondo negro con rayas diagonales */
+
+.not-found {
+  position: relative;
+  max-width: 760px;
+  padding: 34px 34px 30px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+  box-shadow: 12px 12px 0 var(--red);
+  clip-path: polygon(0 3%, 100% 0, 98% 100%, 2% 96%);
+  animation: aparece-girando 0.45s var(--pop) both;
+}
+
+.not-found .eyebrow {
+  display: inline-block;
+  padding: 2px 10px;
+  background: var(--red);
+  color: var(--paper);
+  transform: rotate(-3deg);
+}
+
+.not-found h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.not-found p {
+  color: #4a4a52;
+}
+
+.not-found .button-link {
+  background: var(--ink);
+  color: var(--paper);
+}

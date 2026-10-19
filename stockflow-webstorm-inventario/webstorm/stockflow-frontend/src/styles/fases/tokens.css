@@ -1,0 +1,101 @@
+/*
+ * Paleta. Primero los colores base; después se reasignan los tokens originales del proyecto
+ * (así todo lo que ya usaba var(--color-...) toma el nuevo diseño) y por último cada sección
+ * define su "mundo": --sec (color de la sección), --sec-ink (texto sobre ese color),
+ * --world (fondo), --world-fg y --world-muted (texto).
+ */
+:root {
+  --ink: #0b0b0d;
+  --paper: #f7f7f2;
+  --blue-deep: #071634;
+  --blue-mid: #0f2f6b;
+  --cyan: #35d6ff;
+  --yellow: #ffe100;
+  --yellow-soft: #fff7b8;
+  --yellow-ink: #1a1600;
+  --red: #e3001b;
+  --red-dark: #8f0011;
+
+  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --font-heavy: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --pop: cubic-bezier(0.34, 1.5, 0.64, 1);
+
+  /* Tokens originales con la nueva paleta */
+  --color-primary: var(--ink);
+  --color-primary-strong: var(--ink);
+  --color-accent: var(--blue-mid);
+  --color-danger: #c40018;
+  --color-danger-soft: #ffe3e6;
+  --color-success: #04693c;
+  --color-success-soft: #dcf5e7;
+  --color-text: var(--ink);
+  --color-muted: #4a4a52;
+  --color-border: var(--ink);
+  --color-border-soft: var(--ink);
+  --color-surface: var(--paper);
+  --color-background: var(--ink);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --shadow-sm: none;
+  --shadow-md: none;
+
+  /* Mundo por defecto (por ejemplo la página 404) */
+  --sec: var(--paper);
+  --sec-ink: var(--ink);
+  --world-fg: var(--paper);
+  --world-muted: #b7b7be;
+  --world: repeating-linear-gradient(-30deg, transparent 0 60px, rgb(255 255 255 / 0.03) 60px 120px), var(--ink);
+}
+
+/* Inicio: noche azul */
+.app-shell:has(.stats-grid) {
+  --sec: var(--cyan);
+  --sec-ink: var(--blue-deep);
+  --world-fg: #e8f7ff;
+  --world-muted: #b9d7ec;
+  --world:
+    radial-gradient(circle at 88% 9%, rgb(53 214 255 / 0.28) 0 70px, transparent 71px),
+    repeating-linear-gradient(-12deg, transparent 0 46px, rgb(53 214 255 / 0.07) 46px 48px),
+    linear-gradient(170deg, var(--blue-mid), var(--blue-deep) 60%);
+}
+
+/* Categorías: amarillo eléctrico */
+.app-shell:has(form[aria-label="Formulario de categoría"]) {
+  --sec: var(--yellow);
+  --sec-ink: var(--yellow-ink);
+  --world-fg: var(--ink);
+  --world-muted: #3a3300;
+  --world:
+    linear-gradient(rgb(0 0 0 / 0.07) 2px, transparent 2px) 0 0 / 34px 34px,
+    linear-gradient(90deg, rgb(0 0 0 / 0.07) 2px, transparent 2px) 0 0 / 34px 34px,
+    var(--yellow);
+}
+
+/* Productos: rojo y negro */
+.app-shell:has(form[aria-label="Formulario de producto"]) {
+  --sec: var(--red);
+  --sec-ink: var(--paper);
+  --world-fg: var(--paper);
+  --world-muted: #c9c9cc;
+  --world:
+    conic-gradient(from 200deg at 80% -8%, var(--red) 0 22deg, transparent 22deg 40deg, var(--red-dark) 40deg 52deg, transparent 52deg),
+    var(--ink);
+}
+
+:root {
+  font-family: var(--font-body);
+}
+
+body {
+  background: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--sec);
+  outline-offset: 3px;
+}

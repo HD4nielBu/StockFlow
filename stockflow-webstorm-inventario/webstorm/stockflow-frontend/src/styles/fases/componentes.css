@@ -1,0 +1,293 @@
+/* ───── Botones: paralelogramos que saltan al pasar el mouse ───── */
+
+.btn,
+.button-link {
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 8px 20px;
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  transition: transform 0.2s var(--pop);
+}
+
+.btn:hover:not(:disabled),
+.button-link:hover {
+  transform: scale(1.06) rotate(-1.5deg);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn--primary,
+.button-link {
+  background: var(--sec);
+  color: var(--sec-ink);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--sec);
+}
+
+.btn--secondary {
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: none;
+  border: 3px solid var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.btn--danger {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn--ghost {
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: none;
+  border: 3px solid var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* ───── Campos ───── */
+
+.form-grid label,
+.field {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.field__label {
+  color: inherit;
+  font-size: 15px;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.field input,
+.field select {
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus,
+.field input:focus,
+.field select:focus {
+  outline: 3px solid var(--sec);
+  outline-offset: 2px;
+  border-color: var(--ink);
+}
+
+.checkbox-field {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-body);
+}
+
+.checkbox-field input {
+  accent-color: var(--sec);
+}
+
+.field-error {
+  font-family: var(--font-body);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+  color: #ff8a8a;
+}
+
+/* ───── Barra de búsqueda: hoja recortada ───── */
+
+.toolbar {
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 6%, 99% 100%, 0 94%);
+  padding: 18px 22px;
+}
+
+/* ───── Estado ───── */
+
+.badge {
+  border-radius: 0;
+  border: 2px solid var(--ink);
+  background: var(--sec);
+  color: var(--sec-ink);
+  font-size: 11px;
+}
+
+.badge--inactive {
+  background: var(--paper);
+  color: var(--ink);
+  border-style: dashed;
+}
+
+/* ───── Avisos ───── */
+
+.alert {
+  border-radius: 0;
+  border: 4px solid var(--ink);
+  font-weight: 700;
+  animation: aparece-girando 0.35s var(--pop) both;
+}
+
+.alert--error {
+  background: var(--paper);
+  color: var(--color-danger);
+  box-shadow: 6px 6px 0 var(--color-danger);
+}
+
+/* El éxito flota arriba a la derecha (se ve aunque estés abajo) y se retira solo */
+.alert--success {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 60;
+  max-width: min(26rem, calc(100vw - 2rem));
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 6px 6px 0 var(--sec);
+  transform: rotate(-2deg);
+  animation:
+    aparece-girando 0.35s var(--pop) both,
+    se-retira 0.35s ease-in 2.6s forwards;
+}
+
+/* ───── Cargando y vacío ───── */
+
+.state-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+}
+
+.state-card::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  flex: none;
+  background: var(--sec);
+  border: 3px solid currentColor;
+  animation: cajas-saltan 0.9s var(--ease) infinite;
+}
+
+.empty-state {
+  border: 4px dashed currentColor;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.empty-state strong {
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+}
+
+/* ───── Paginación ───── */
+
+.pagination span {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+}
+
+/* ───── Diálogo de confirmación: aparece girando ───── */
+
+.modal {
+  padding: 26px 26px 22px;
+  border: 0;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: polygon(0 3%, 100% 0, 98% 100%, 2% 96%);
+  opacity: 0;
+  transform: scale(0.6) rotate(-10deg);
+  transition:
+    opacity 0.25s var(--ease),
+    transform 0.4s var(--pop),
+    overlay 0.4s allow-discrete,
+    display 0.4s allow-discrete;
+}
+
+.modal[open] {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: scale(0.6) rotate(-10deg);
+  }
+}
+
+.modal::backdrop {
+  background: rgb(11 11 13 / 0);
+  transition:
+    background-color 0.3s,
+    overlay 0.4s allow-discrete,
+    display 0.4s allow-discrete;
+}
+
+.modal[open]::backdrop {
+  background: rgb(11 11 13 / 0.72);
+}
+
+@starting-style {
+  .modal[open]::backdrop {
+    background: rgb(11 11 13 / 0);
+  }
+}
+
+.modal__header h2 {
+  display: inline-block;
+  padding: 0 12px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 400;
+  transform: rotate(-2deg);
+}
+
+.modal__close {
+  color: var(--ink);
+}
+
+.modal .btn--danger {
+  background: var(--red);
+  color: var(--paper);
+}

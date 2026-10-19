@@ -1,0 +1,21 @@
+/*
+ * Diseño "fases" de StockFlow: plantillas de estilo que se cargan DESPUÉS de tokens.css y global.css.
+ * Sólo cambian el aspecto y las animaciones; no se modificó ningún componente, servicio ni prueba.
+ * Para volver al diseño anterior basta con quitar `import './styles/fases/index.css'` de main.tsx.
+ *
+ * Cada sección tiene su propio mundo visual:
+ *   inicio.css      Inicio      noche azul con agua y luna, números en cursiva
+ *   categorias.css  Categorías  amarillo eléctrico con cuadrícula y estantería
+ *   productos.css   Productos   rojo y negro con rayos diagonales y tarjetas recortadas
+ * Cada pantalla se reconoce con :has() (por ejemplo, Categorías es la que contiene el formulario de categoría).
+ */
+@import './fuentes.css';
+@import './tokens.css';
+@import './animaciones.css';
+@import './layout.css';
+@import './componentes.css';
+@import './inicio.css';
+@import './categorias.css';
+@import './productos.css';
+@import './no-encontrada.css';
+@import './modulos.css';

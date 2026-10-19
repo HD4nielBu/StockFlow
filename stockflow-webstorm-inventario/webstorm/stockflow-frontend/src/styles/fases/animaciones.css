@@ -1,0 +1,63 @@
+/* Animaciones compartidas. El escalonado de las listas usa --i (ver el final de categorias.css). */
+
+/* Barrido diagonal con el color de la sección cada vez que se abre una pantalla */
+@keyframes barrido {
+  0% { clip-path: polygon(-30% 0, -10% 0, -30% 100%, -50% 100%); }
+  50% { clip-path: polygon(-30% 0, 130% 0, 110% 100%, -50% 100%); }
+  100% { clip-path: polygon(130% 0, 150% 0, 130% 100%, 110% 100%); }
+}
+
+@keyframes sube {
+  from { transform: translateY(30px); opacity: 0; }
+}
+
+@keyframes entra-inclinada {
+  from { transform: translateX(-40px) skewX(-6deg); opacity: 0; }
+}
+
+@keyframes llena {
+  from { transform: scaleX(0); }
+}
+
+/* La caja cae sobre la viga, se aplasta al aterrizar y rebota */
+@keyframes cae {
+  0% { transform: translateY(-220px) rotate(-8deg); opacity: 0; }
+  15% { opacity: 1; }
+  60% { transform: translateY(0) rotate(1deg); }
+  72% { transform: scale(1.06, 0.9); }
+  86% { transform: translateY(-6px); }
+  100% { transform: none; }
+}
+
+@keyframes estampa {
+  from { transform: rotate(-10deg) scale(1.35); opacity: 0; }
+}
+
+/* Tarjeta que entra de golpe desde la derecha */
+@keyframes golpe {
+  from { transform: translateX(80px) skewX(-20deg); opacity: 0; }
+}
+
+@keyframes aparece-girando {
+  from { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+}
+
+@keyframes se-retira {
+  to { transform: rotate(-2deg) translateY(-8px); opacity: 0; }
+}
+
+@keyframes cajas-saltan {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-12px); }
+}
+
+/* Con "reducir movimiento" activado en el sistema, todo aparece en su estado final sin animar */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

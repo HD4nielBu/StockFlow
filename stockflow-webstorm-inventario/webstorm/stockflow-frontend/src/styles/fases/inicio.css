@@ -1,0 +1,193 @@
+/*
+ * Inicio: noche azul con agua y luna (el fondo está en tokens.css).
+ * Títulos en cursiva condensada, paneles inclinados y filas de stock bajo como olas.
+ */
+
+.page-stack:has(> .stats-grid) > .page-heading:first-child h1 {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(44px, 7vw, 84px);
+  line-height: 0.95;
+  color: var(--paper);
+}
+
+.page-stack:has(> .stats-grid) .page-heading h2 {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 40px;
+}
+
+.page-stack:has(> .stats-grid) .stats-grid {
+  gap: 18px;
+}
+
+.page-stack:has(> .stats-grid) .metric-card {
+  padding: 18px 26px 22px;
+  background: rgb(7 22 52 / 0.72);
+  border: 2px solid var(--cyan);
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+  animation: sube 0.7s var(--ease) both;
+}
+
+.page-stack:has(> .stats-grid) .metric-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.page-stack:has(> .stats-grid) .metric-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.page-stack:has(> .stats-grid) .metric-card span {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9fd2ea;
+}
+
+.page-stack:has(> .stats-grid) .metric-card strong {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 96px;
+  line-height: 0.9;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-stack:has(> .stats-grid) .metric-card small {
+  color: #b9d7ec;
+}
+
+/* Con alertas: borde y número amarillos */
+.page-stack:has(> .stats-grid) .metric-card--warning {
+  border-color: var(--yellow);
+}
+
+.page-stack:has(> .stats-grid) .metric-card--warning strong {
+  color: var(--yellow);
+}
+
+/* ───── Stock bajo: filas inclinadas ───── */
+
+.page-stack:has(> .stats-grid) .table-card,
+.page-stack:has(> .stats-grid) .table-responsive {
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.page-stack:has(> .stats-grid) .data-table {
+  display: block;
+  min-width: 0;
+}
+
+.page-stack:has(> .stats-grid) .data-table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.page-stack:has(> .stats-grid) .data-table tbody {
+  display: grid;
+  gap: 10px;
+}
+
+.page-stack:has(> .stats-grid) .data-table tbody tr {
+  --i: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(5rem, 0.6fr) minmax(5rem, 0.6fr);
+  align-items: center;
+  padding: 14px 22px;
+  background: rgb(232 247 255 / 0.06);
+  border-left: 6px solid var(--cyan);
+  transform: skewX(-6deg);
+  animation: entra-inclinada 0.6s var(--ease) backwards;
+  animation-delay: calc(var(--i) * 90ms + 250ms);
+}
+
+.page-stack:has(> .stats-grid) .data-table tbody tr:hover {
+  background: rgb(232 247 255 / 0.12);
+}
+
+.page-stack:has(> .stats-grid) .data-table td {
+  padding: 0;
+  border: 0;
+  color: #e8f7ff;
+  transform: skewX(6deg);
+}
+
+.page-stack:has(> .stats-grid) .data-table .code-cell {
+  display: block;
+  font-family: var(--font-heavy);
+  font-size: 18px;
+  color: var(--cyan);
+}
+
+.page-stack:has(> .stats-grid) .data-table td:nth-child(2) {
+  color: #b9d7ec;
+}
+
+.page-stack:has(> .stats-grid) .data-table td:nth-child(3),
+.page-stack:has(> .stats-grid) .data-table td:nth-child(4) {
+  font-family: var(--font-cond);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 28px;
+}
+
+.page-stack:has(> .stats-grid) .data-table td:nth-child(3) {
+  color: var(--yellow);
+}
+
+.page-stack:has(> .stats-grid) .data-table td:nth-child(3)::before,
+.page-stack:has(> .stats-grid) .data-table td:nth-child(4)::before {
+  display: block;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9fd2ea;
+}
+
+.page-stack:has(> .stats-grid) .data-table td:nth-child(3)::before {
+  content: 'Cantidad';
+}
+
+.page-stack:has(> .stats-grid) .data-table td:nth-child(4)::before {
+  content: 'Mínimo';
+}
+
+.page-stack:has(> .stats-grid) > .muted-cell {
+  color: #b9d7ec;
+}
+
+.page-stack:has(> .stats-grid) a {
+  color: var(--cyan);
+}
+
+@media (max-width: 900px) {
+  .page-stack:has(> .stats-grid) .data-table tbody tr {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    transform: none;
+  }
+
+  .page-stack:has(> .stats-grid) .data-table td {
+    transform: none;
+  }
+
+  .page-stack:has(> .stats-grid) .data-table td:nth-child(1),
+  .page-stack:has(> .stats-grid) .data-table td:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+}
