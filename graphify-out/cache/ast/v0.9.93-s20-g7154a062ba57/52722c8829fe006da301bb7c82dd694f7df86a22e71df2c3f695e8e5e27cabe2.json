@@ -1,0 +1,1 @@
+{"nodes": [{"id": "pkg_com_stockflow_stockflow_backend_lab", "label": "com.stockflow:stockflow-backend-lab", "file_type": "code", "type": "package", "ecosystem": "maven", "source_file": "intellij/stockflow-backend-lab/pom.xml", "source_location": "L1", "version": "0.0.1-SNAPSHOT"}], "edges": []}

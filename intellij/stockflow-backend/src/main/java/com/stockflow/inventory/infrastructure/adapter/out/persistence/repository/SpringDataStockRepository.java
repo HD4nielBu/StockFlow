@@ -83,9 +83,19 @@ public interface SpringDataStockRepository extends JpaRepository<StockJpaEntity,
                    k.motivo           AS "motivo"
             FROM stockflow.vw_kardex k
             WHERE k.codigo_producto = :codigoProducto
+              AND (CAST(:desde AS TIMESTAMPTZ) IS NULL OR k.ocurrido_at >= :desde)
+              AND (CAST(:hasta AS TIMESTAMPTZ) IS NULL OR k.ocurrido_at < :hasta)
             ORDER BY k.ocurrido_at, k.movimiento_id
             """,
-            countQuery = "SELECT count(*) FROM stockflow.vw_kardex k WHERE k.codigo_producto = :codigoProducto",
+            countQuery = """
+            SELECT count(*) FROM stockflow.vw_kardex k
+            WHERE k.codigo_producto = :codigoProducto
+              AND (CAST(:desde AS TIMESTAMPTZ) IS NULL OR k.ocurrido_at >= :desde)
+              AND (CAST(:hasta AS TIMESTAMPTZ) IS NULL OR k.ocurrido_at < :hasta)
+            """,
             nativeQuery = true)
-    Page<KardexFila> buscarKardex(@Param("codigoProducto") String codigoProducto, Pageable pageable);
+    Page<KardexFila> buscarKardex(@Param("codigoProducto") String codigoProducto,
+                                  @Param("desde") Instant desde,
+                                  @Param("hasta") Instant hasta,
+                                  Pageable pageable);
 }

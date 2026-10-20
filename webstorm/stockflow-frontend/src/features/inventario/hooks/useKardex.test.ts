@@ -33,7 +33,7 @@ describe('useKardex', () => {
     rerender({ pag: 1 });
 
     // La página 0 se pidió con una señal que el cleanup abortó al cambiar a la página 1
-    const senalPagina0 = vi.mocked(inventarioService.kardex).mock.calls[0][3];
+    const senalPagina0 = vi.mocked(inventarioService.kardex).mock.calls[0][4];
     expect(senalPagina0?.aborted).toBe(true);
 
     // Llega primero la página 1 y DESPUÉS la página 0 (el servidor ya había respondido)

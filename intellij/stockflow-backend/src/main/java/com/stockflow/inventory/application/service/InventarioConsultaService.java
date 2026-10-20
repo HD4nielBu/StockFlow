@@ -13,6 +13,7 @@ import com.stockflow.shared.domain.exception.DatoInvalidoException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -51,16 +52,19 @@ public class InventarioConsultaService implements ConsultarInventarioUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public Pagina<MovimientoKardex> consultarKardex(Long productoId, int pagina, int tamano) {
+    public Pagina<MovimientoKardex> consultarKardex(Long productoId, Instant desde, Instant hasta, int pagina, int tamano) {
         if (pagina < 0) {
             throw new DatoInvalidoException("La página empieza en 0");
         }
         if (tamano < 1 || tamano > TAMANO_MAXIMO) {
             throw new DatoInvalidoException("El tamaño de página debe estar entre 1 y " + TAMANO_MAXIMO);
         }
+        if (desde != null && hasta != null && !desde.isBefore(hasta)) {
+            throw new DatoInvalidoException("La fecha 'desde' debe ser anterior a 'hasta'");
+        }
         var producto = consultarProducto.buscarPorId(productoId)
                 .orElseThrow(() -> new ProductoNoEncontradoException(productoId));
         // vw_kardex identifica al producto por su código (único, RN-06)
-        return consultaPort.buscarKardex(producto.getCodigo(), pagina, tamano);
+        return consultaPort.buscarKardex(producto.getCodigo(), desde, hasta, pagina, tamano);
     }
 }

@@ -46,6 +46,19 @@
 
 /* ---------- Celdas de las tablas CRUD ---------- */
 .data-table .align-end { text-align: right; }
+/* Casillas de selección (acciones masivas) */
+.data-table th.data-table__select, .data-table td.data-table__select { width: 44px; padding-right: 0; }
+.data-table__select .checkbox { gap: 0; vertical-align: middle; }
+.data-table tbody tr[data-selected] { background: var(--accent-soft); }
+
+.bulk-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
+  padding: 8px var(--space-3) 8px var(--space-4);
+  background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: var(--radius-md);
+}
+.bulk-bar__count { color: var(--text); }
+.bulk-bar__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.bulk-bar__clear { margin-left: auto; }
 /* Encabezado ordenable: botón que hereda el aspecto del <th>; el icono indica el sentido actual */
 .data-table__sort {
   display: inline-flex; align-items: center; gap: 4px; margin: -4px -6px; padding: 4px 6px;
@@ -200,6 +213,13 @@
 .delta { font-weight: 550; color: var(--text-2); }
 .delta--in { color: var(--success-text); }
 .filters__product { flex: 1 1 320px; max-width: 480px; }
+.filters__date { flex: 0 1 170px; min-width: 150px; }
+/* Alineado con los campos (que tienen etiqueta encima) */
+.filters__clear { align-self: flex-end; }
+@media (max-width: 639.98px) {
+  /* Las dos fechas comparten una fila */
+  .filters__date { flex: 1 1 140px; min-width: 0; }
+}
 .is-refetching { opacity: 0.6; transition: opacity var(--dur-fade) ease; }
 
 /* ---------- Almacenes ---------- */
@@ -299,6 +319,7 @@
   .pagination__button { min-width: 44px; height: 44px; }
   .segmented__option, .menu__item, .header-search__option, .sidebar__link, .tabs__tab { height: 44px; }
   .header-search__input { height: 44px; font-size: 16px; }
+  .data-table__select .checkbox { min-width: 44px; min-height: 44px; justify-content: center; }
 }
 @media (pointer: coarse) and (max-width: 639.98px) {
   /* Búsqueda contraída a icono: caja de 44 px centrada en el header de 60 px */

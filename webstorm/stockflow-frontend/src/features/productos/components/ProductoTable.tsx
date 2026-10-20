@@ -2,7 +2,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Badge } from '../../../components/ui/Badge';
 import { Skeleton } from '../../../components/ui/LoadingSkeleton';
-import { DataTable, type Column } from '../../../components/ui/DataTable';
+import { DataTable, type Column, type DataTableProps } from '../../../components/ui/DataTable';
 import { DropdownItem, DropdownSeparator } from '../../../components/ui/Dropdown';
 import { RowActions } from '../../../components/ui/RowActions';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
@@ -25,6 +25,8 @@ interface ProductoTableProps {
   footer?: ReactNode;
   sort?: Orden | null;
   onSortChange?: (sort: Orden | null) => void;
+  /** Casillas para acciones masivas. */
+  selection?: DataTableProps<Producto>['selection'];
 }
 
 function StockCell({ stock, loading }: { stock: StockProducto | undefined | null; loading: boolean }) {
@@ -39,7 +41,7 @@ function StockCell({ stock, loading }: { stock: StockProducto | undefined | null
   );
 }
 
-export default function ProductoTable({ productos, categoriasPorId, stock, stockLoading = false, onEdit, onDelete, busyId, footer, sort, onSortChange }: ProductoTableProps) {
+export default function ProductoTable({ productos, categoriasPorId, stock, stockLoading = false, onEdit, onDelete, busyId, footer, sort, onSortChange, selection }: ProductoTableProps) {
   const columns: Column<Producto>[] = [
     {
       key: 'producto',
@@ -91,6 +93,7 @@ export default function ProductoTable({ productos, categoriasPorId, stock, stock
       footer={footer}
       sort={sort}
       onSortChange={onSortChange}
+      selection={selection}
       actions={(p) => (
         <RowActions name={p.nombre} busy={busyId === p.id}>
           <DropdownItem icon={Pencil} onSelect={() => onEdit(p)}>

@@ -14,6 +14,11 @@
   --brand-hover: rgba(255, 255, 255, 0.07);
   --brand-active: rgba(255, 255, 255, 0.12);
   --brand-line: rgba(255, 255, 255, 0.1);
+  /* Acentos sobre la marca (sidebar y panel del login son oscuros en ambos temas) */
+  --brand-accent: #93c5fd;
+  --brand-indicator: #60a5fa;
+  --brand-avatar-bg: rgba(96, 165, 250, 0.2);
+  --brand-avatar-ink: #dbeafe;
 
   /* Acción */
   --accent: #2563eb;
@@ -21,6 +26,9 @@
   --accent-text: #1d4ed8;
   --accent-soft: #eff4ff;
   --on-accent: #ffffff;
+  --on-danger: #ffffff;
+  --switch-thumb: #ffffff;
+  --shadow-thumb: 0 1px 2px rgba(15, 23, 42, 0.25);
 
   /* Superficies y texto */
   --bg: #f8fafc;

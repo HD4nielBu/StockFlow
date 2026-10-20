@@ -1,7 +1,7 @@
 import { Package, Pencil, Trash2 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { DataTable, type Column } from '../../../components/ui/DataTable';
+import { DataTable, type Column, type DataTableProps } from '../../../components/ui/DataTable';
 import { DropdownItem, DropdownSeparator } from '../../../components/ui/Dropdown';
 import { RowActions } from '../../../components/ui/RowActions';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
@@ -19,13 +19,15 @@ interface CategoriaTableProps {
   footer?: ReactNode;
   sort?: Orden | null;
   onSortChange?: (sort: Orden | null) => void;
+  /** Casillas para acciones masivas. */
+  selection?: DataTableProps<Categoria>['selection'];
 }
 
 /**
  * G03/G06: muestra filas y EMITE intenciones (onEdit, onDelete) hacia la Page.
  * No importa categoriaService: la tabla no decide cómo se habla con el backend.
  */
-export default function CategoriaTable({ categorias, productosPorCategoria, onEdit, onDelete, busyId, footer, sort, onSortChange }: CategoriaTableProps) {
+export default function CategoriaTable({ categorias, productosPorCategoria, onEdit, onDelete, busyId, footer, sort, onSortChange, selection }: CategoriaTableProps) {
   const navigate = useNavigate();
 
   const columns: Column<Categoria>[] = [
@@ -70,6 +72,7 @@ export default function CategoriaTable({ categorias, productosPorCategoria, onEd
       footer={footer}
       sort={sort}
       onSortChange={onSortChange}
+      selection={selection}
       actions={(c) => (
         <RowActions name={c.nombre} busy={busyId === c.id}>
           <DropdownItem icon={Pencil} onSelect={() => onEdit(c)}>

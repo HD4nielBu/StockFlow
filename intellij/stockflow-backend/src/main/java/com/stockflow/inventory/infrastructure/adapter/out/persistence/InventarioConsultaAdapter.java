@@ -10,6 +10,7 @@ import com.stockflow.inventory.infrastructure.adapter.out.persistence.repository
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.List;
 
 /** Adapter OUT: traduce las proyecciones de Spring Data al modelo de lectura del dominio. */
@@ -30,8 +31,8 @@ public class InventarioConsultaAdapter implements InventarioConsultaPort {
     }
 
     @Override
-    public Pagina<MovimientoKardex> buscarKardex(String codigoProducto, int pagina, int tamano) {
-        var page = repository.buscarKardex(codigoProducto, PageRequest.of(pagina, tamano));
+    public Pagina<MovimientoKardex> buscarKardex(String codigoProducto, Instant desde, Instant hasta, int pagina, int tamano) {
+        var page = repository.buscarKardex(codigoProducto, desde, hasta, PageRequest.of(pagina, tamano));
         return new Pagina<>(page.getContent().stream().map(InventarioConsultaAdapter::toDomain).toList(),
                 page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages());
     }

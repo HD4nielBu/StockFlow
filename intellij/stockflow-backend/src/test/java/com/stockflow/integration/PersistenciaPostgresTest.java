@@ -18,6 +18,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -112,11 +113,22 @@ class PersistenciaPostgresTest {
     @Test
     void kardexPaginadoLeeLaVistaYCalculaElTotal() {
         // PRD-OFI-001 tiene 2 movimientos de carga inicial (central y depósito norte)
-        var pagina = inventario.buscarKardex("PRD-OFI-001", 0, 1);
+        var pagina = inventario.buscarKardex("PRD-OFI-001", null, null, 0, 1);
         assertEquals(1, pagina.contenido().size());
         assertEquals(2, pagina.totalElementos());
         assertEquals(2, pagina.totalPaginas());
         assertEquals("ENTRADA", pagina.contenido().get(0).tipo());
+    }
+
+    @Test
+    void kardexFiltraPorRangoDeFechasTambienEnElTotal() {
+        // desde inclusive, hasta exclusive; el total (countQuery) debe aplicar el mismo filtro
+        var todo = inventario.buscarKardex("PRD-OFI-001", Instant.EPOCH, Instant.parse("2999-01-01T00:00:00Z"), 0, 20);
+        assertEquals(2, todo.totalElementos());
+
+        var futuro = inventario.buscarKardex("PRD-OFI-001", Instant.parse("2999-01-01T00:00:00Z"), null, 0, 20);
+        assertEquals(0, futuro.totalElementos());
+        assertTrue(futuro.contenido().isEmpty());
     }
 
     // ---------- DELETE protegido por las FK (traducción a excepciones de dominio) ----------

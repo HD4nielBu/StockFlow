@@ -1,7 +1,8 @@
 import { Check } from 'lucide-react';
-import type { InputHTMLAttributes, ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
-type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & { label: ReactNode };
+// ComponentProps y no InputHTMLAttributes: incluye ref (en React 19 es una prop más) para indeterminate
+type CheckboxProps = Omit<ComponentProps<'input'>, 'type'> & { label: ReactNode };
 
 /** Checkbox nativo (teclado y formularios gratis) con apariencia propia. */
 export function Checkbox({ label, className, ...props }: CheckboxProps) {

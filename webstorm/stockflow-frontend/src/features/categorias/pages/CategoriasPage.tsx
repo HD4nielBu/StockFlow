@@ -1,9 +1,10 @@
-import { FolderPlus, Plus, RotateCw, SearchX } from 'lucide-react';
+import { CircleOff, FolderPlus, Plus, RotateCw, SearchX, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { ApiError } from '../../../api/apiClient';
 import { describirError } from '../../../api/describirError';
 import { Alert } from '../../../components/ui/Alert';
+import { BulkBar } from '../../../components/ui/BulkBar';
 import { Button } from '../../../components/ui/Button';
 import { ConfirmDialog } from '../../../components/ui/ConfirmDialog';
 import { EmptyState } from '../../../components/ui/EmptyState';
@@ -15,6 +16,8 @@ import { SearchInput } from '../../../components/ui/SearchInput';
 import { SegmentedControl } from '../../../components/ui/SegmentedControl';
 import { SelectFilter } from '../../../components/ui/SelectFilter';
 import { useToast } from '../../../components/ui/toast/useToast';
+import { useSeleccion } from '../../../shared/hooks/useSeleccion';
+import { avisarLote, enLote } from '../../../shared/utils/lote';
 import { ordenar, type Orden } from '../../../shared/utils/ordenar';
 import { normalizar, paginar } from '../../../shared/utils/paginar';
 import { useProductos } from '../../productos/hooks/useProductos';
@@ -62,6 +65,9 @@ export default function CategoriasPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [orden, setOrden] = useState<Orden | null>(null);
+  const { seleccion, alternar, reemplazar } = useSeleccion<number>();
+  const [bulkConfirmOpen, setBulkConfirmOpen] = useState(false);
+  const [bulkBusy, setBulkBusy] = useState<'desactivar' | 'eliminar' | null>(null);
 
   // Datos DERIVADOS: se calculan en cada render, no se guardan en otro useState (G08/G09)
   const productosPorCategoria = useMemo(() => {
@@ -143,6 +149,34 @@ export default function CategoriasPage() {
 
   const productosDelPendiente = pendingDelete ? (productosPorCategoria.get(pendingDelete.id) ?? 0) : 0;
 
+  // Sólo cuentan los seleccionados que siguen visibles con los filtros actuales: nunca se actúa sobre filas ocultas
+  const seleccionadas = filtradas.filter((c) => seleccion.has(c.id));
+  const activasSeleccionadas = seleccionadas.filter((c) => c.activo);
+  const conProductosSeleccionadas = seleccionadas.filter((c) => (productosPorCategoria.get(c.id) ?? 0) > 0).length;
+
+  // PUT con los datos de la lista y activo=false (la API no tiene PATCH ni endpoint por lote)
+  const desactivarSeleccion = async () => {
+    setBulkBusy('desactivar');
+    const lote = await enLote(activasSeleccionadas, ({ id, ...datos }) => categoriaService.actualizar(id, { ...datos, activo: false }));
+    const guardadas = new Map(lote.exitos.map((e) => [e.valor.id, e.valor]));
+    setCategorias((prev) => prev.map((c) => guardadas.get(c.id) ?? c));
+    avisarLote(toast, lote, { hecho: (n) => (n === 1 ? '1 categoría desactivada' : `${n} categorías desactivadas`), accion: 'desactivar' }, (c) => c.codigo);
+    reemplazar(lote.fallos.map((f) => f.item.id)); // las que fallaron quedan seleccionadas para reintentar
+    setBulkBusy(null);
+  };
+
+  const eliminarSeleccion = async () => {
+    setBulkBusy('eliminar');
+    const lote = await enLote(seleccionadas, (c) => categoriaService.eliminar(c.id));
+    const eliminadas = new Set(lote.exitos.map((e) => e.item.id));
+    setCategorias((prev) => prev.filter((c) => !eliminadas.has(c.id)));
+    // 409: tiene productos (FK sin CASCADE). Esas filas se conservan y siguen seleccionadas.
+    avisarLote(toast, lote, { hecho: (n) => (n === 1 ? '1 categoría eliminada' : `${n} categorías eliminadas`), accion: 'eliminar' }, (c) => c.codigo);
+    reemplazar(lote.fallos.map((f) => f.item.id));
+    setBulkBusy(null);
+    setBulkConfirmOpen(false);
+  };
+
   return (
     <section className="page-stack">
       <PageHeader
@@ -198,6 +232,27 @@ export default function CategoriasPage() {
         />
       </div>
 
+      {seleccionadas.length > 0 && (
+        <BulkBar count={seleccionadas.length} noun={['categoría seleccionada', 'categorías seleccionadas']} onClear={() => reemplazar([])}>
+          {activasSeleccionadas.length > 0 && (
+            <Button
+              variant="secondary"
+              size="sm"
+              icon={CircleOff}
+              loading={bulkBusy === 'desactivar'}
+              loadingText="Desactivando"
+              disabled={bulkBusy !== null}
+              onClick={desactivarSeleccion}
+            >
+              Desactivar ({activasSeleccionadas.length})
+            </Button>
+          )}
+          <Button variant="danger" size="sm" icon={Trash2} disabled={bulkBusy !== null} onClick={() => setBulkConfirmOpen(true)}>
+            Eliminar
+          </Button>
+        </BulkBar>
+      )}
+
       {loading ? (
         <TableSkeleton columns={5} rows={5} label="Cargando categorías" />
       ) : pagina.totalItems === 0 ? (
@@ -240,6 +295,11 @@ export default function CategoriasPage() {
           onSortChange={(o) => {
             setOrden(o);
             setPage(1);
+          }}
+          selection={{
+            isSelected: (c) => seleccion.has(c.id),
+            onToggle: (filas, on) => alternar(filas.map((c) => c.id), on),
+            label: (c) => c.nombre,
           }}
           footer={
             <>
@@ -289,6 +349,19 @@ export default function CategoriasPage() {
         confirming={deleting}
         onConfirm={confirmDelete}
         onCancel={() => setConfirmOpen(false)}
+      />
+
+      <ConfirmDialog
+        open={bulkConfirmOpen}
+        title={`Eliminar ${seleccionadas.length === 1 ? '1 categoría' : `${seleccionadas.length} categorías`}`}
+        message={
+          conProductosSeleccionadas > 0
+            ? `${conProductosSeleccionadas} de ellas tienen productos asociados: el sistema no las eliminará y seguirán seleccionadas. El resto se eliminará y no se puede deshacer.`
+            : 'Esta acción no se puede deshacer.'
+        }
+        confirming={bulkBusy === 'eliminar'}
+        onConfirm={eliminarSeleccion}
+        onCancel={() => setBulkConfirmOpen(false)}
       />
     </section>
   );

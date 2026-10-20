@@ -1,4 +1,4 @@
-import { ArrowDownLeft, ArrowUpRight, Boxes, Gauge, Info, PackageSearch, RotateCw, ScrollText } from 'lucide-react';
+import { ArrowDownLeft, ArrowUpRight, Boxes, CalendarX, Gauge, Info, PackageSearch, RotateCw, ScrollText } from 'lucide-react';
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router';
 import { describirError } from '../../../api/describirError';
@@ -7,7 +7,7 @@ import { Badge } from '../../../components/ui/Badge';
 import { Button } from '../../../components/ui/Button';
 import { DataTable, type Column } from '../../../components/ui/DataTable';
 import { EmptyState } from '../../../components/ui/EmptyState';
-import { Field, Select } from '../../../components/ui/Field';
+import { Field, Input, Select } from '../../../components/ui/Field';
 import { TableSkeleton } from '../../../components/ui/LoadingSkeleton';
 import { PageHeader } from '../../../components/ui/PageHeader';
 import { Pagination } from '../../../components/ui/Pagination';
@@ -27,7 +27,7 @@ const fechaHora = new Intl.DateTimeFormat('es-BO', { dateStyle: 'medium', timeSt
 
 /**
  * RF-19: kardex de un producto (GET /api/inventario/kardex/{id}, paginado en el servidor).
- * Producto, página y tamaño viven en la URL: el enlace "Ver kardex" de Existencias llega aquí.
+ * Producto, rango de fechas, página y tamaño viven en la URL: el enlace "Ver kardex" de Existencias llega aquí.
  * No hay botón "Registrar movimiento": la API todavía no lo expone.
  */
 export default function MovimientosPage() {
@@ -39,7 +39,15 @@ export default function MovimientosPage() {
   const productoId = Number(params.get('producto')) || null;
   const pagina = Math.max(1, Number(params.get('pagina')) || 1);
   const tamano = Number(params.get('tamano')) || 10;
-  const kardex = useKardex(productoId, pagina - 1, tamano); // la API cuenta páginas desde 0
+  const desde = params.get('desde') ?? '';
+  const hasta = params.get('hasta') ?? '';
+  // Rango invertido: se avisa junto al campo y no se consulta (la API respondería 400)
+  const rangoInvalido = desde !== '' && hasta !== '' && desde > hasta;
+  const kardex = useKardex(rangoInvalido ? null : productoId, pagina - 1, tamano, {
+    desde: desde || undefined,
+    hasta: hasta || undefined,
+  }); // la API cuenta páginas desde 0
+  const hayRango = desde !== '' || hasta !== '';
 
   const actualizar = (cambios: Record<string, string | null>) => {
     const siguiente = new URLSearchParams(params);
@@ -116,7 +124,7 @@ export default function MovimientosPage() {
       <PageHeader
         title="Movimientos"
         description="Kardex de cada producto: entradas, salidas y saldo por ubicación."
-        reference="RF-19 · GET /api/inventario/kardex/{productoId}?pagina&tamano"
+        reference="RF-19 · GET /api/inventario/kardex/{productoId}?desde&hasta&pagina&tamano"
       />
 
       <div className="filters">
@@ -139,17 +147,43 @@ export default function MovimientosPage() {
             )}
           </Field>
         </div>
+        {/* AAAA-MM-DD se compara bien como texto; min/max guían al selector de fecha */}
+        <div className="filters__date">
+          <Field label="Desde">
+            {(control) => (
+              <Input {...control} type="date" value={desde} max={hasta || undefined} onChange={(e) => actualizar({ desde: e.target.value || null, pagina: null })} />
+            )}
+          </Field>
+        </div>
+        <div className="filters__date">
+          <Field label="Hasta" error={rangoInvalido ? 'Debe ser igual o posterior a «Desde»' : undefined}>
+            {(control) => (
+              <Input {...control} type="date" value={hasta} min={desde || undefined} onChange={(e) => actualizar({ hasta: e.target.value || null, pagina: null })} />
+            )}
+          </Field>
+        </div>
+        {hayRango && (
+          <Button variant="ghost" className="filters__clear" onClick={() => actualizar({ desde: null, hasta: null, pagina: null })}>
+            Quitar fechas
+          </Button>
+        )}
       </div>
 
       {productos.error && <Alert kind="error" title="No se pudieron cargar los productos">{productos.error}</Alert>}
 
       {!productoId ? (
         <EmptyState icon={PackageSearch} title="Elige un producto" description="Verás cada entrada y salida con el saldo resultante en su ubicación." />
-      ) : (
+      ) : rangoInvalido ? null : (
         <>
           {producto && (
             <section aria-label={`Resumen de ${producto.nombre}`} className="stats-grid">
-              <StatCard icon={ScrollText} label="Movimientos" value={kardex.data?.totalElementos ?? 0} helper="registrados en el kardex" loading={kardex.loading && !kardex.data} />
+              <StatCard
+                icon={ScrollText}
+                label="Movimientos"
+                value={kardex.data?.totalElementos ?? 0}
+                helper={hayRango ? 'en el rango de fechas elegido' : 'registrados en el kardex'}
+                loading={kardex.loading && !kardex.data}
+              />
               <StatCard
                 icon={Boxes}
                 label="Stock actual"
@@ -176,7 +210,20 @@ export default function MovimientosPage() {
           ) : kardex.loading && !kardex.data ? (
             <TableSkeleton columns={6} rows={5} label="Cargando kardex" />
           ) : kardex.data && kardex.data.totalElementos === 0 ? (
-            <EmptyState icon={ScrollText} title="Sin movimientos" description="Este producto todavía no tiene entradas ni salidas registradas." />
+            hayRango ? (
+              <EmptyState
+                icon={CalendarX}
+                title="Sin movimientos en estas fechas"
+                description="Amplía el rango o quita el filtro de fechas para ver todo el kardex."
+                action={
+                  <Button variant="secondary" onClick={() => actualizar({ desde: null, hasta: null, pagina: null })}>
+                    Quitar fechas
+                  </Button>
+                }
+              />
+            ) : (
+              <EmptyState icon={ScrollText} title="Sin movimientos" description="Este producto todavía no tiene entradas ni salidas registradas." />
+            )
           ) : (
             kardex.data && (
               // Al cambiar de página se mantiene la tabla anterior atenuada: sin saltos de altura
