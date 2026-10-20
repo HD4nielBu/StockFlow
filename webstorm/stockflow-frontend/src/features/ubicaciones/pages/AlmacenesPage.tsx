@@ -162,7 +162,7 @@ export default function AlmacenesPage() {
         La API permite crear ubicaciones, pero todavía no editarlas ni eliminarlas. Solo puede existir un almacén central.
       </p>
 
-      <Modal open={formOpen} raw title="Nueva ubicación" description="Un lugar físico donde se guarda stock." onClose={() => setFormOpen(false)}>
+      <Modal open={formOpen} raw guardChanges title="Nueva ubicación" description="Un lugar físico donde se guarda stock." onClose={() => setFormOpen(false)}>
         <UbicacionForm
           key={formKey}
           hayAlmacenCentral={cuenta('ALMACEN_CENTRAL') > 0}

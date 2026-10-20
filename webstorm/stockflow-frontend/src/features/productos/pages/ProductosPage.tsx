@@ -295,6 +295,7 @@ export default function ProductosPage() {
       <Modal
         open={formOpen}
         raw
+        guardChanges
         size="lg"
         title={editing ? `Editar ${editing.nombre}` : 'Nuevo producto'}
         description={editing ? `Código ${editing.codigo}` : 'El producto pertenece a una categoría activa.'}

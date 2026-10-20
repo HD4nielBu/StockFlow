@@ -252,6 +252,7 @@ export default function CategoriasPage() {
       <Modal
         open={formOpen}
         raw
+        guardChanges
         title={editing ? `Editar ${editing.nombre}` : 'Nueva categoría'}
         description={editing ? `Código ${editing.codigo}` : 'Agrupa productos del mismo tipo.'}
         onClose={() => setFormOpen(false)}

@@ -271,3 +271,27 @@
   .profile-hero__text { flex: 1 1 calc(100% - 80px); }
   .profile-hero > .badge { margin-left: 80px; }
 }
+
+/*
+ * Pantallas táctiles (teléfono y tablet). Al final del último archivo para ganar a los tamaños de arriba.
+ * - Objetivos de 44 px (Apple HIG / Material); con mouse se conserva la densidad compacta de 32-36 px.
+ * - Controles a 16 px: con menos, iOS hace zoom en la página al enfocar el campo.
+ */
+@media (pointer: coarse) {
+  .btn, .btn--sm { height: 44px; }
+  .btn--icon, .btn--sm.btn--icon { width: 44px; }
+  .icon-button, .page-header__info, .toast__close, .row-actions, .user-trigger--avatar { width: 44px; height: 44px; }
+  .control, .table-card__footer .control { height: 44px; font-size: 16px; }
+  .control--textarea { height: auto; }
+  .search-input__control, .password-input__control { padding-right: 46px; }
+  .search-input__clear, .password-input__toggle { right: 0; width: 44px; height: 44px; }
+  .pagination__button { min-width: 44px; height: 44px; }
+  .segmented__option, .menu__item, .header-search__option, .sidebar__link, .tabs__tab { height: 44px; }
+  .header-search__input { height: 44px; font-size: 16px; }
+}
+@media (pointer: coarse) and (max-width: 639.98px) {
+  /* Búsqueda contraída a icono: caja de 44 px centrada en el header de 60 px */
+  .header-search { width: 44px; height: 44px; }
+  .header-search__icon { margin-left: 14px; }
+  .header-search__input { top: 8px; width: 44px; }
+}

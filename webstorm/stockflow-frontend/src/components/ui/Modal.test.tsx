@@ -29,4 +29,30 @@ describe('Modal', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Cerrar' }));
     expect(onClose).toHaveBeenCalledOnce();
   });
+
+  it('con guardChanges, cerrar un formulario modificado pide confirmar antes de descartar', async () => {
+    const onClose = vi.fn();
+    render(
+      <Modal open guardChanges title="Nuevo producto" onClose={onClose}>
+        <input aria-label="Nombre" />
+      </Modal>,
+    );
+    await userEvent.type(screen.getByRole('textbox', { name: 'Nombre' }), 'Tóner');
+    await userEvent.click(screen.getByRole('button', { name: 'Cerrar' }));
+    expect(onClose).not.toHaveBeenCalled();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Descartar' }));
+    expect(onClose).toHaveBeenCalledOnce();
+  });
+
+  it('con guardChanges y sin cambios, cierra directamente', async () => {
+    const onClose = vi.fn();
+    render(
+      <Modal open guardChanges title="Nuevo producto" onClose={onClose}>
+        <input aria-label="Nombre" />
+      </Modal>,
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Cerrar' }));
+    expect(onClose).toHaveBeenCalledOnce();
+  });
 });
