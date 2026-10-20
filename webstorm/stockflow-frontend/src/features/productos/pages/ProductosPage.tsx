@@ -16,6 +16,7 @@ import { SegmentedControl } from '../../../components/ui/SegmentedControl';
 import { SelectFilter } from '../../../components/ui/SelectFilter';
 import { useToast } from '../../../components/ui/toast/useToast';
 import { useAsyncList } from '../../../shared/hooks/useAsyncList';
+import { ordenar, type Orden } from '../../../shared/utils/ordenar';
 import { normalizar, paginar } from '../../../shared/utils/paginar';
 import { useCategorias } from '../../categorias/hooks/useCategorias';
 import type { Categoria } from '../../categorias/models/Categoria';
@@ -56,6 +57,7 @@ export default function ProductosPage() {
   const [status, setStatus] = useState('all');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [orden, setOrden] = useState<Orden | null>(null);
   const categoriaFiltro = searchParams.get('categoria') ?? 'all';
 
   // El state "nuevo" se consume una vez: si se recarga la página, el modal no vuelve a abrirse
@@ -87,7 +89,18 @@ export default function ProductosPage() {
   });
   const activos = porTextoYCategoria.filter((p) => p.activo).length;
   const filtrados = porTextoYCategoria.filter((p) => status === 'all' || (status === 'active' ? p.activo : !p.activo));
-  const pagina = paginar(filtrados, page, pageSize);
+  // Filtrar → ordenar → paginar: el orden abarca todos los resultados, no sólo la página visible
+  const pagina = paginar(
+    ordenar(filtrados, orden, {
+      producto: (p) => p.nombre,
+      categoria: (p) => categoriasPorId.get(p.categoriaId)?.nombre,
+      stock: (p) => stock?.get(p.id)?.total ?? (stock ? 0 : null),
+      minimo: (p) => p.stockMinimoDefault,
+      precio: (p) => p.precioReferencial,
+    }),
+    page,
+    pageSize,
+  );
   const hayFiltros = search !== '' || status !== 'all' || categoriaFiltro !== 'all';
 
   const cambiarCategoria = (valor: string) => {
@@ -268,6 +281,11 @@ export default function ProductosPage() {
             setConfirmOpen(true);
           }}
           busyId={loadingDetailId}
+          sort={orden}
+          onSortChange={(o) => {
+            setOrden(o);
+            setPage(1);
+          }}
           footer={
             <>
               <Pagination

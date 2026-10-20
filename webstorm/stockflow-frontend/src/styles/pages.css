@@ -46,6 +46,17 @@
 
 /* ---------- Celdas de las tablas CRUD ---------- */
 .data-table .align-end { text-align: right; }
+/* Encabezado ordenable: botón que hereda el aspecto del <th>; el icono indica el sentido actual */
+.data-table__sort {
+  display: inline-flex; align-items: center; gap: 4px; margin: -4px -6px; padding: 4px 6px;
+  border: 0; border-radius: var(--radius-xs); background: none; color: inherit; font-weight: inherit; cursor: pointer;
+}
+.data-table__sort-icon { flex-shrink: 0; opacity: 0.55; }
+.data-table th[aria-sort] { color: var(--text); }
+.data-table th[aria-sort] .data-table__sort-icon { opacity: 1; color: var(--accent-text); }
+@media (hover: hover) and (pointer: fine) {
+  .data-table__sort:hover { color: var(--text); background: var(--surface-2); }
+}
 .data-table th.data-table__actions, .data-table td.data-table__actions { width: 56px; padding-right: 10px; text-align: right; }
 .cell-stack { display: grid; gap: 2px; min-width: 0; }
 .cell-title { color: var(--text); font-weight: 550; }

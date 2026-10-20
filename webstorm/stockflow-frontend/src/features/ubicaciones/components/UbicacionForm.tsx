@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent, type FocusEvent, type FormEvent } from 'react';
 import { ApiError } from '../../../api/apiClient';
 import { describirError, type ErrorLegible } from '../../../api/describirError';
 import { Alert } from '../../../components/ui/Alert';
@@ -36,6 +36,14 @@ export default function UbicacionForm({ hayAlmacenCentral, onSaved, onCancel }: 
     if (name in errors) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
+  // Validación al salir del campo. Un campo vacío no se marca hasta enviar: no regaña a quien sólo pasa con Tab
+  const handleBlur = (e: FocusEvent<HTMLFormElement>) => {
+    // El blur de cada campo burbujea hasta el <form>: target es el campo que perdió el foco
+    const { name, value } = e.target as EventTarget as HTMLInputElement;
+    if (!(name in form) || value.trim() === '') return;
+    setErrors((prev) => ({ ...prev, [name]: validarUbicacion(form)[name as keyof UbicacionFormErrors] }));
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setApiError(null);
@@ -64,7 +72,7 @@ export default function UbicacionForm({ hayAlmacenCentral, onSaved, onCancel }: 
   };
 
   return (
-    <form ref={formRef} className="modal-form" onSubmit={handleSubmit} noValidate aria-label="Formulario de ubicación">
+    <form ref={formRef} className="modal-form" onSubmit={handleSubmit} onBlur={handleBlur} noValidate aria-label="Formulario de ubicación">
       <div className="modal__body">
         {apiError && (
           <Alert kind="error" title={apiError.title}>

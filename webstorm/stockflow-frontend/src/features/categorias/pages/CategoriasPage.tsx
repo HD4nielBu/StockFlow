@@ -15,6 +15,7 @@ import { SearchInput } from '../../../components/ui/SearchInput';
 import { SegmentedControl } from '../../../components/ui/SegmentedControl';
 import { SelectFilter } from '../../../components/ui/SelectFilter';
 import { useToast } from '../../../components/ui/toast/useToast';
+import { ordenar, type Orden } from '../../../shared/utils/ordenar';
 import { normalizar, paginar } from '../../../shared/utils/paginar';
 import { useProductos } from '../../productos/hooks/useProductos';
 import CategoriaForm from '../components/CategoriaForm';
@@ -60,6 +61,7 @@ export default function CategoriasPage() {
   const [status, setStatus] = useState('all');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [orden, setOrden] = useState<Orden | null>(null);
 
   // Datos DERIVADOS: se calculan en cada render, no se guardan en otro useState (G08/G09)
   const productosPorCategoria = useMemo(() => {
@@ -76,7 +78,16 @@ export default function CategoriasPage() {
     const coincideEstado = status === 'all' || (status === 'active' ? c.activo : !c.activo);
     return coincideTexto && coincideEstado; // AND entre filtros, OR entre campos de texto
   });
-  const pagina = paginar(filtradas, page, pageSize); // primero filtrar, después paginar
+  // Primero filtrar, después ordenar y por último paginar
+  const pagina = paginar(
+    ordenar(filtradas, orden, {
+      nombre: (c) => c.nombre,
+      codigo: (c) => c.codigo,
+      productos: (c) => productosPorCategoria.get(c.id) ?? 0,
+    }),
+    page,
+    pageSize,
+  );
   const hayFiltros = search !== '' || status !== 'all';
 
   const limpiarFiltros = () => {
@@ -225,6 +236,11 @@ export default function CategoriasPage() {
             setConfirmOpen(true);
           }}
           busyId={loadingDetailId}
+          sort={orden}
+          onSortChange={(o) => {
+            setOrden(o);
+            setPage(1);
+          }}
           footer={
             <>
               <Pagination

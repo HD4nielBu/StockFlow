@@ -5,6 +5,7 @@ import { DataTable, type Column } from '../../../components/ui/DataTable';
 import { DropdownItem, DropdownSeparator } from '../../../components/ui/Dropdown';
 import { RowActions } from '../../../components/ui/RowActions';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
+import type { Orden } from '../../../shared/utils/ordenar';
 import type { Categoria } from '../models/Categoria';
 
 interface CategoriaTableProps {
@@ -16,13 +17,15 @@ interface CategoriaTableProps {
   /** Fila con una operación en curso (cargando el detalle para editar). */
   busyId?: number | null;
   footer?: ReactNode;
+  sort?: Orden | null;
+  onSortChange?: (sort: Orden | null) => void;
 }
 
 /**
  * G03/G06: muestra filas y EMITE intenciones (onEdit, onDelete) hacia la Page.
  * No importa categoriaService: la tabla no decide cómo se habla con el backend.
  */
-export default function CategoriaTable({ categorias, productosPorCategoria, onEdit, onDelete, busyId, footer }: CategoriaTableProps) {
+export default function CategoriaTable({ categorias, productosPorCategoria, onEdit, onDelete, busyId, footer, sort, onSortChange }: CategoriaTableProps) {
   const navigate = useNavigate();
 
   const columns: Column<Categoria>[] = [
@@ -30,6 +33,7 @@ export default function CategoriaTable({ categorias, productosPorCategoria, onEd
       key: 'nombre',
       header: 'Categoría',
       mobile: 'primary',
+      sortable: true,
       cell: (c) => (
         <span className="cell-stack">
           <span className="cell-title">{c.nombre}</span>
@@ -37,11 +41,12 @@ export default function CategoriaTable({ categorias, productosPorCategoria, onEd
         </span>
       ),
     },
-    { key: 'codigo', header: 'Código', cell: (c) => <span className="code-cell">{c.codigo}</span> },
+    { key: 'codigo', header: 'Código', sortable: true, cell: (c) => <span className="code-cell">{c.codigo}</span> },
     {
       key: 'productos',
       header: 'Productos',
       align: 'end',
+      sortable: true,
       cell: (c) => {
         const total = productosPorCategoria?.get(c.id) ?? 0;
         return total === 0 ? (
@@ -63,6 +68,8 @@ export default function CategoriaTable({ categorias, productosPorCategoria, onEd
       rowKey={(c) => c.id}
       caption="Categorías del catálogo"
       footer={footer}
+      sort={sort}
+      onSortChange={onSortChange}
       actions={(c) => (
         <RowActions name={c.nombre} busy={busyId === c.id}>
           <DropdownItem icon={Pencil} onSelect={() => onEdit(c)}>
