@@ -84,7 +84,7 @@ Asistente **opcional** y complementario para resumir tendencias de movimientos y
 
 ## 7. Estado actual (2026-10-19)
 
-🟡 **Parte I – Parcial 1 en curso.** Documentación de dominio y datos completa; base de datos implementada con migraciones; backend con catálogo, ubicaciones y el lado de lectura del flujo crítico; aplicación web con el CRUD Categoría 1:N Producto conectado al backend. **Aplicación móvil iniciada:** Guías 01 (entorno y primera pantalla) y 02 (componentes con datos de ejemplo) terminadas; falta la navegación (G03).
+🟡 **Parte I – Parcial 1 en curso.** Documentación de dominio y datos completa; base de datos implementada con migraciones; backend con catálogo, ubicaciones y el lado de lectura del flujo crítico; aplicación web con el CRUD Categoría 1:N Producto conectado al backend. **Aplicación móvil iniciada:** Guías 01 a 03 terminadas: entorno, componentes y navegación con Expo Router, con datos de ejemplo; la conexión al backend empieza en la Guía 08 (CRUD real en la 09).
 
 Exigencias del Parcial 1 (ficha PA-06, sección N):
 - [x] Documento de visión y contexto del cliente — `docs/01-vision/vision-v0.1.md`
@@ -100,7 +100,7 @@ Exigencias del Parcial 1 (ficha PA-06, sección N):
 - [x] API documentada: Swagger UI y `requests.http`
 - [ ] Esqueleto del flujo crítico completo en el backend (hoy: lectura de stock/kardex; solicitudes y movimientos en SQL)
 - [x] Aplicación web React + TypeScript (shell, layout, dashboard y CRUD de categorías y productos) — `webstorm/stockflow-frontend`
-- [ ] Aplicación móvil React Native + TypeScript (compilable, navegación y una pantalla) — `androidstudio/stockflow-mobile`; hoy compila y muestra una pantalla, falta la navegación (G03)
+- [x] Aplicación móvil React Native + TypeScript (compilable, navegación y una pantalla) — `androidstudio/stockflow-mobile` (guías móviles 01-03)
 
 Detalle por requisito: `docs/02-requirements/requisitos-v0.1.md`.
 

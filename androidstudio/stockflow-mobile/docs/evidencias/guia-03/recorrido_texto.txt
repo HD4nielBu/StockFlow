@@ -1,0 +1,13 @@
+Texto visible en el emulador (uiautomator), Guía 03 · 2026-10-19
+
+[A04 /categorias/2]  CATEGORÍA N.º 2 · CAT-LIM | Limpieza | Estado: ACTIVA | Productos asociados (1) | PRD-LIM-001
+[A05 /categorias/4]  CATEGORÍA N.º 4 · CAT-TEC | Tecnología | Estado: INACTIVA | Productos asociados (1) | PRD-TEC-001
+[A06 /categorias/5]  CATEGORÍA N.º 5 · CAT-MUE | Mobiliario | Productos asociados (0) | Sin resultados
+[A09 /productos]     PRD-OFI-001 | PRD-OFI-002 | PRD-LIM-001 | PRD-EPP-001 | PRD-TEC-001, cada uno con su categoría
+[A10 producto 3 → "Ver ficha de la categoría"]  CATEGORÍA N.º 2 · CAT-LIM | Limpieza
+[A16 Atrás de Android] detalle categoría → detalle producto → lista productos → Inicio, en orden
+[A11 /categorias/999] Sin resultados | No se encontró la categoría solicitada o su ID no es válido. | Ir a la lista de categorías
+[A12 /productos/abc]  Sin resultados | No se encontró el producto solicitado o su ID no es válido. | Ir a la lista de productos
+[A13 /inventario]     Ruta no encontrada | Pantalla desconocida | La dirección solicitada no corresponde a una pantalla de StockFlow.
+[Caso D] arranque en frío en /productos/3 (sin historial) → "← Volver" → Productos | Todos los productos (router.replace)
+[A15] nombre 'Limpieza' → 'Limpieza PRUEBA': cambia en /productos ("Categoría: Limpieza PRUEBA") y en /categorias/2; restaurado
