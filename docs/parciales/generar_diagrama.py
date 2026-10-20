@@ -18,37 +18,42 @@ DESTINO = AQUI.parent.parent / "diagrama-flujo-2do-parcial.pdf"
 AZUL, VERDE, CODIGO, TENUE, ROJO = "#1f3a5f", "#2f8f5b", "#8a1f4a", "#5b6470", "#b42318"
 
 
-def secuencia(carriles, pasos, ancho=1000, fila=37, frontera=None):
+def secuencia(carriles, pasos, ancho=1000, fila=37, frontera=None, pesos=None):
     """Diagrama de secuencia en SVG.
 
     carriles: [(titulo, subtitulo)].
     pasos: ("fase", texto) | ("msg", desde, hasta, etiqueta, ref, vuelta) | ("nota", carril, etiqueta, ref).
     frontera: índice del primer carril del backend (se sombrea y se marca la línea HTTP).
+    pesos: ancho relativo de cada carril (por defecto, todos iguales).
+    Las etiquetas de las notas admiten "|" como salto de línea.
     """
     n = len(carriles)
-    sep = ancho / n
-    xs = [sep * (i + 0.5) for i in range(n)]
+    pesos = pesos or [1] * n
+    bordes = [ancho * sum(pesos[:i]) / sum(pesos) for i in range(n + 1)]
+    xs = [(bordes[i] + bordes[i + 1]) / 2 for i in range(n)]
     y0 = 62
-    alto = y0 + fila * len(pasos) + 30
+    # una nota de varias líneas ocupa una fila más alta
+    altos = [fila + 12 * (p[2].count("|")) if p[0] == "nota" else fila for p in pasos]
+    alto = y0 + sum(altos) + 30
     o = [f'<svg viewBox="0 0 {ancho} {alto}" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="11">',
          '<defs><marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
          f'<path d="M0,0 L10,5 L0,10 z" fill="{AZUL}"/></marker>'
          '<marker id="fv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
          f'<path d="M0,0 L10,5 L0,10 z" fill="{VERDE}"/></marker></defs>']
     if frontera is not None:
-        xb = sep * frontera
+        xb = bordes[frontera]
         o.append(f'<rect x="0" y="0" width="{xb}" height="{alto}" fill="#e8eef7" opacity="0.45"/>')
         o.append(f'<rect x="{xb}" y="0" width="{ancho - xb}" height="{alto}" fill="#e9f6ef" opacity="0.7"/>')
         o.append(f'<line x1="{xb}" y1="0" x2="{xb}" y2="{alto}" stroke="{ROJO}" stroke-width="1.6" stroke-dasharray="7 4"/>')
         o.append(f'<text x="{xb + 5}" y="{alto - 6}" fill="{ROJO}" font-size="10" font-weight="bold">HTTP · frontera frontend / backend</text>')
-    for x, (titulo, sub) in zip(xs, carriles):
+    for i, (x, (titulo, sub)) in enumerate(zip(xs, carriles)):
         o.append(f'<line x1="{x}" y1="44" x2="{x}" y2="{alto - 4}" stroke="#9aa5b4" stroke-dasharray="3 3"/>')
-        o.append(f'<rect x="{x - sep / 2 + 6}" y="4" width="{sep - 12}" height="38" rx="4" fill="#fff" stroke="{AZUL}"/>')
+        o.append(f'<rect x="{bordes[i] + 6}" y="4" width="{bordes[i + 1] - bordes[i] - 12}" height="38" rx="4" fill="#fff" stroke="{AZUL}"/>')
         o.append(f'<text x="{x}" y="20" text-anchor="middle" font-weight="bold" fill="{AZUL}" font-size="11.5">{escape(titulo)}</text>')
         o.append(f'<text x="{x}" y="34" text-anchor="middle" fill="{TENUE}" font-size="9">{escape(sub)}</text>')
     halo = 'paint-order="stroke" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"'
     for k, p in enumerate(pasos):
-        y = y0 + fila * k + fila * 0.62
+        y = y0 + sum(altos[:k]) + altos[k] * 0.5 + fila * 0.12
         if p[0] == "fase":
             o.append(f'<rect x="2" y="{y - 15}" width="{ancho - 4}" height="20" fill="{AZUL}" rx="3"/>')
             o.append(f'<text x="10" y="{y - 1}" fill="#fff" font-weight="bold" font-size="11">{escape(p[1])}</text>')
@@ -57,9 +62,14 @@ def secuencia(carriles, pasos, ancho=1000, fila=37, frontera=None):
             _, c, etiqueta, ref = p
             x = xs[c]
             o.append(f'<rect x="{x - 8}" y="{y - 12}" width="16" height="16" fill="{AZUL}" rx="2"/>')
-            tx, anc = (x - 14, "end") if c >= n / 2 else (x + 14, "start")
-            o.append(f'<text x="{tx}" y="{y - 2}" text-anchor="{anc}" fill="#111" {halo}>{escape(etiqueta)}</text>')
-            o.append(f'<text x="{tx}" y="{y + 10}" text-anchor="{anc}" fill="{CODIGO}" font-family="DejaVu Sans Mono" font-size="9" {halo}>{escape(ref)}</text>')
+            # en el backend el texto va a la derecha para no cruzar la frontera HTTP
+            del_backend = frontera is not None and c >= frontera
+            tx, anc = (x - 14, "end") if c >= n / 2 and not del_backend else (x + 14, "start")
+            lineas = etiqueta.split("|")
+            ty = y - 2 - 6 * (len(lineas) - 1)
+            for j, linea in enumerate(lineas):
+                o.append(f'<text x="{tx}" y="{ty + 12 * j}" text-anchor="{anc}" fill="#111" {halo}>{escape(linea)}</text>')
+            o.append(f'<text x="{tx}" y="{ty + 12 * len(lineas)}" text-anchor="{anc}" fill="{CODIGO}" font-family="DejaVu Sans Mono" font-size="9" {halo}>{escape(ref)}</text>')
             continue
         _, a, b, etiqueta, ref, vuelta = p
         xa, xb = xs[a], xs[b]
@@ -104,7 +114,7 @@ IDA = [
     ("apiClient", "apiFetch → fetch|URL + JSON", "f"),
     ("Controller", "@PutMapping|@Valid", "b"),
     ("ProductoService", "@Transactional|404·422·409", "b"),
-    ("Adapter + JPA", "guardar → save|UPDATE", "b"),
+    ("Adapter + JPA", "actualizar → flush|UPDATE", "b"),
     ("PostgreSQL", "FK · UNIQUE|commit", "b"),
 ]
 VUELTA = [
@@ -118,44 +128,84 @@ VUELTA = [
     ("Usuario", "ve el cambio|+ toast", "f"),
 ]
 
-# --- Página 2: PUT completo (editar un producto y cambiar su categoría) ---
+# --- Páginas 2 y 3: PUT completo (editar un producto y cambiar su categoría) ---
 CARRILES_PUT = [
     ("Usuario", "navegador"),
-    ("Table / Form", "componentes"),
+    ("ProductoTable", "lista"),
+    ("ProductoForm", "modal"),
     ("ProductosPage", "dueña del estado"),
     ("productoService", "+ apiClient"),
     ("fetch / CORS", "Web API del navegador"),
-    ("Spring Boot", "Controller → Service"),
+    ("Spring Boot", "Controller → Service → Adapter"),
     ("PostgreSQL", "esquema stockflow"),
 ]
-PASOS_PUT = [
+PESOS_PUT = [0.8, 1, 1, 1.05, 1.1, 1, 1.45, 1.3]
+PASOS_PUT_AB = [
     ("fase", "A · Abrir la edición con datos frescos (GET /{id})"),
     ("msg", 0, 1, "1. Elige «Editar» en la fila", "ProductoTable.tsx:88", False),
-    ("msg", 1, 2, "2. onEdit(p): sólo avisa", "ProductoTable.tsx:21-22", False),
-    ("msg", 2, 3, "3. obtenerPorId(id)", "ProductosPage.tsx:110-113", False),
-    ("msg", 3, 5, "4. GET /api/productos/{id}", "apiClient.ts:52-68", False),
-    ("msg", 5, 2, "5. 200 + Producto → abrirFormulario: modal precargado", "ProductoForm.tsx:38-51 (aFormulario)", True),
+    ("msg", 1, 3, "2. onEdit(p): la tabla sólo avisa", "ProductoTable.tsx:21-22", False),
+    ("msg", 3, 4, "3. obtenerPorId(id)", "ProductosPage.tsx:110-113", False),
+    ("msg", 4, 6, "4. GET /api/productos/{id}", "apiClient.ts:52-68", False),
+    ("msg", 6, 2, "5. 200 + Producto → abrirFormulario: modal precargado", "ProductosPage.tsx:104-108 · ProductoForm.tsx:38-51 (aFormulario)", True),
     ("fase", "B · Editar y guardar (PUT)"),
-    ("msg", 0, 1, "6. Cambia la categoría: handleChange → setFormData → re-render", "ProductoForm.tsx:90-95", False),
-    ("nota", 1, "7. «Guardar cambios»: preventDefault → validarProducto → setSaving(true)", "ProductoForm.tsx:97-107"),
-    ("msg", 1, 3, "8. actualizar(id, {...aPayload, activo})", "ProductoForm.tsx:110 · productoService.ts:16-19", False),
-    ("msg", 3, 4, "9. apiFetch: URL + Content-Type JSON", "apiClient.ts:52-59", False),
-    ("msg", 4, 5, "10. OPTIONS (preflight CORS) → 200", "CorsConfig.java:24-25", False),
-    ("msg", 4, 5, "11. PUT /api/productos/{id} con el JSON", "", False),
-    ("nota", 5, "12. @Valid (400) → actualizar @Transactional", "ProductoController.java:77-79"),
-    ("nota", 5, "13. producto 404 · categoría 404 · inactiva 422 · código 409", "ProductoService.java:52-66"),
-    ("msg", 5, 6, "14. UPDATE producto SET categoria_id …", "ProductoPersistenceAdapter.java:34-38", False),
-    ("msg", 6, 5, "15. FK válida → commit", "", True),
+    ("msg", 0, 2, "6. Cambia la categoría: handleChange → setFormData → re-render", "ProductoForm.tsx:90-95", False),
+    ("nota", 2, "7. «Guardar cambios»: preventDefault → validarProducto → setSaving(true)", "ProductoForm.tsx:97-107"),
+    ("msg", 2, 4, "8. actualizar(id, {...aPayload, activo})", "ProductoForm.tsx:110 · productoService.ts:17-19", False),
+    ("msg", 4, 5, "9. apiFetch: URL + Content-Type JSON", "apiClient.ts:52-59", False),
+    ("msg", 5, 6, "10. OPTIONS (preflight CORS) → 200", "CorsConfig.java:24-25", False),
+    ("msg", 5, 6, "11. PUT /api/productos/{id} con el JSON", "", False),
+    ("nota", 6, "12. @Valid (400) →|actualizar @Transactional", "ProductoController.java:77-79"),
+    ("nota", 6, "13. producto 404 · categoría 404|inactiva 422 · código 409", "ProductoService.java:52-66"),
+    ("msg", 6, 7, "14. UPDATE producto …", "ProductoPersistenceAdapter.java:42-53", False),
+    ("msg", 7, 6, "15. FK válida → commit", "", True),
+]
+PASOS_PUT_C = [
     ("fase", "C · Volver a la pantalla"),
-    ("msg", 5, 4, "16. 200 + ProductoResponse (JSON)", "", True),
-    ("msg", 4, 3, "17. response.ok → response.json()", "apiClient.ts:61-67", True),
-    ("msg", 3, 1, "18. Producto → onSaved(producto, 'edit')", "ProductoForm.tsx:110", True),
-    ("msg", 1, 2, "19. handleSaved: setData(prev.map(...)), cierra el modal", "ProductosPage.tsx:122-126", True),
-    ("nota", 2, "20. re-render: filtros → paginar → tabla", "ProductosPage.tsx:79-90"),
-    ("msg", 2, 0, "21. La fila muestra la nueva categoría + toast", "ProductoTable.tsx:56 (categoriasPorId.get)", True),
+    ("msg", 6, 5, "16. 200 + ProductoResponse (JSON)", "ProductoController.java:81", True),
+    ("msg", 5, 4, "17. response.ok → response.json()", "apiClient.ts:61-67", True),
+    ("msg", 4, 2, "18. Producto → onSaved(producto, 'edit')", "ProductoForm.tsx:110", True),
+    ("msg", 2, 3, "19. handleSaved: setData(prev.map(...)), cierra el modal", "ProductosPage.tsx:122-126", True),
+    ("nota", 3, "20. re-render: filtros → paginar → tabla", "ProductosPage.tsx:79-90"),
+    ("msg", 3, 1, "21. La fila muestra la nueva categoría + toast", "ProductoTable.tsx:56 (categoriasPorId.get)", True),
+    ("msg", 1, 0, "    el usuario ve el cambio", "", True),
 ]
 
-# --- Página 3: GET al entrar a /productos, con cancelación ---
+# --- Páginas 4 y 5: crear (POST) y eliminar (DELETE); el preflight CORS es igual que en el PUT ---
+CARRILES_ESCRITURA = [c for c in CARRILES_PUT if c[0] != "fetch / CORS"]
+PESOS_ESCRITURA = [0.8, 1, 1, 1.05, 1.1, 1.5, 1.05]
+PASOS_POST = [
+    ("fase", "POST · Crear un producto → 201 Created"),
+    ("msg", 0, 3, "1. «Nuevo producto»: abrirFormulario(null)", "ProductosPage.tsx:158 · :104-108", False),
+    ("msg", 3, 2, "2. Modal vacío (producto = null)", "ProductosPage.tsx:303-312", False),
+    ("nota", 2, "3. Llena y envía: preventDefault → validarProducto → setSaving(true)", "ProductoForm.tsx:97-108"),
+    ("msg", 2, 4, "4. crear(aPayload(formData))", "ProductoForm.tsx:112 · productoService.ts:13-15", False),
+    ("msg", 4, 5, "5. POST /api/productos + JSON (antes, OPTIONS)", "apiClient.ts:52-59", False),
+    ("nota", 5, "6. @Valid (400) →|registrar @Transactional", "ProductoController.java:46-47"),
+    ("nota", 5, "7. categoría 404 · inactiva 422|· código repetido 409", "ProductoService.java:38-48"),
+    ("msg", 5, 6, "8. INSERT INTO producto …", "ProductoPersistenceAdapter.java:34-39", False),
+    ("msg", 5, 4, "9. 201 Created + Location + ProductoResponse", "ProductoController.java:48-51", True),
+    ("msg", 4, 2, "10. response.ok → response.json() → onSaved(p, 'create')", "apiClient.ts:61-67 · ProductoForm.tsx:112", True),
+    ("msg", 2, 3, "11. handleSaved: setData(prev => [...prev, saved]), cierra el modal", "ProductosPage.tsx:122-126", True),
+    ("msg", 3, 0, "12. re-render: la fila nueva aparece + toast «creado»", "ProductosPage.tsx:125", True),
+]
+PASOS_DELETE = [
+    ("fase", "DELETE · Eliminar un producto → 204 No Content"),
+    ("msg", 0, 1, "1. «Eliminar» en el menú de la fila", "ProductoTable.tsx:92", False),
+    ("msg", 1, 3, "2. onDelete(p): setPendingDelete(p) · setConfirmOpen(true)", "ProductosPage.tsx:266-269", False),
+    ("msg", 3, 0, "3. ConfirmDialog: «¿Eliminar …?» (avisa si tiene stock)", "ProductosPage.tsx:314-327", True),
+    ("msg", 0, 3, "4. Confirma → confirmDelete → setDeleting(true)", "ProductosPage.tsx:128-132", False),
+    ("msg", 3, 4, "5. eliminar(id)", "ProductosPage.tsx:133 · productoService.ts:21-23", False),
+    ("msg", 4, 5, "6. DELETE /api/productos/{id}  (sin body)", "apiClient.ts:52-59", False),
+    ("nota", 5, "7. no existe → 404|eliminar @Transactional", "ProductoService.java:75-81"),
+    ("msg", 5, 6, "8. DELETE FROM producto + flush", "ProductoPersistenceAdapter.java:56-65", False),
+    ("msg", 6, 5, "9. FK de stock o kardex → 409", "Adapter :61-64 → GlobalExceptionHandler", True),
+    ("msg", 5, 4, "10. 204 No Content (sin cuerpo)", "ProductoController.java:85-88", True),
+    ("nota", 4, "11. status 204 → return undefined: no se llama a response.json()", "apiClient.ts:64-66"),
+    ("msg", 4, 3, "12. setData(prev => prev.filter(p => p.id !== id))", "ProductosPage.tsx:134", True),
+    ("msg", 3, 0, "13. La fila desaparece + toast «eliminado» (en 409, se queda)", "ProductosPage.tsx:135-141", True),
+]
+
+# --- Página 6: GET al entrar a /productos, con cancelación ---
 CARRILES_GET = [
     ("Usuario", "navegador"),
     ("ProductosPage", "Page"),
@@ -180,7 +230,7 @@ PASOS_GET = [
     ("nota", 2, "12. si la respuesta ya venía en camino, se descarta", "useAsyncList.ts:29 · probado en useAsyncList.test.ts:62"),
 ]
 
-# --- Página 4: dónde se rompe (pregunta 50 y desafío 3) ---
+# --- Página 7: dónde se rompe (pregunta 50 y desafío 3) ---
 FALLAS = [
     ("URL mal escrita dentro de /api", "4 / 11", "404 en /api/producto", "Backend (sin mapping) → ApiError", "Alert con el mensaje del backend + Reintentar"),
     ("Prefijo o puerto incorrecto", "4 / 11", "«CORS error» o ERR_CONNECTION_REFUSED", "Navegador → TypeError", "«No se pudo conectar con el backend…»"),
@@ -194,6 +244,12 @@ FALLAS = [
     ("Respuesta con forma inesperada", "17", "200, pero el JSON no coincide con el modelo", "Nadie en runtime (TS no existe al ejecutar)", "Celdas vacías; si el render se rompe, AppErrorBoundary"),
     ("201/200 en Network pero la tabla no cambia", "18-20", "La respuesta está bien", "Estado del frontend", "Revisar onSaved, setData con array nuevo, filtros y página"),
 ]
+
+
+LEYENDA = (f'<p class="leyenda"><b class="f">Flecha llena</b>: llamada o petición · <b class="v">flecha punteada verde</b>: respuesta · '
+           f'cuadrado azul: algo que pasa dentro de ese carril · <b class="r">línea roja</b>: frontera HTTP. '
+           f'Las rutas de frontend cuelgan de <code>webstorm/stockflow-frontend/src/</code> y las de backend de '
+           f'<code>intellij/stockflow-backend/src/main/java/com/stockflow/</code>.</p>')
 
 
 def html() -> str:
@@ -213,9 +269,10 @@ def html() -> str:
   .sub {{ color: {TENUE}; margin: 0 0 8pt; }}
   h3 {{ color: {AZUL}; font-size: 11pt; margin: 10pt 0 4pt; }}
   svg {{ width: 100%; display: block; }}
-  .alto svg {{ max-height: 150mm; }}
+  .alto svg {{ max-height: 158mm; }}
+  .alto:has(.caja) svg {{ max-height: 136mm; }}
   code {{ font-family: "DejaVu Sans Mono", monospace; color: {CODIGO}; font-size: 8.4pt; }}
-  .leyenda {{ font-size: 8.4pt; color: {TENUE}; margin-top: 5pt; }}
+  .leyenda {{ font-size: 8.4pt; color: {TENUE}; margin: 0 0 5pt; }}
   .leyenda b.f {{ color: {AZUL}; }} .leyenda b.v {{ color: {VERDE}; }} .leyenda b.r {{ color: {ROJO}; }}
   ul {{ margin: 4pt 0; padding-left: 15pt; }} li {{ margin-bottom: 3pt; }}
   table {{ width: 100%; border-collapse: collapse; font-size: 8.6pt; }}
@@ -237,19 +294,48 @@ def html() -> str:
   <div class="caja">
     <b>Cómo usarlo en la defensa</b>
     <ul>
-      <li>Dibuja primero estas dos filas (son 16 cajas) y marca la frontera HTTP. Después agrega el detalle de la página 2 sólo si te lo piden.</li>
+      <li>Dibuja primero estas dos filas (son 16 cajas) y marca la frontera HTTP. Después agrega el detalle de las páginas 2 y 3 sólo si te lo piden.</li>
       <li>Por cada caja, nombra la pieza real (archivo y función) y qué decide: «ProductoForm valida y arma el payload», «el service conoce la ruta», «apiClient revisa response.ok».</li>
       <li>Para la vuelta, el punto clave es que React re-renderiza porque se llamó a un setter con un array nuevo (<code>setData(prev.map(...))</code>), no «porque llegó la respuesta».</li>
-      <li>La página 4 responde «¿dónde se rompería?»: cada falla apunta al número de paso de la página 2.</li>
+      <li>Las páginas 4 y 5 cubren el POST y el DELETE; la 6, el GET al entrar.</li>
+      <li>La página 7 responde «¿dónde se rompería?»: cada falla apunta al número de paso del PUT (páginas 2 y 3).</li>
     </ul>
   </div>
 </section>
 
 <section class="alto">
-  <h2>Detalle: editar un producto y cambiarle la categoría (PUT)</h2>
-  <p class="sub">Es la operación que sugiere la pregunta 50: toca formulario, relación 1:N, PUT, reglas de negocio y actualización de la tabla.</p>
-  {secuencia(CARRILES_PUT, PASOS_PUT, fila=27, frontera=5)}
-  <p class="leyenda"><b class="f">Flecha llena</b>: llamada o petición · <b class="v">flecha punteada verde</b>: respuesta · cuadrado azul: algo que pasa dentro de ese carril · <b class="r">línea roja</b>: frontera HTTP. Las rutas de frontend cuelgan de <code>webstorm/stockflow-frontend/src/</code> y las de backend de <code>intellij/stockflow-backend/src/main/java/com/stockflow/</code>.</p>
+  <h2>Detalle: editar un producto y cambiarle la categoría (PUT) · A y B</h2>
+  <p class="sub">Es la operación que sugiere la pregunta 50: toca formulario, relación 1:N, PUT, reglas de negocio y actualización de la tabla.
+  <b>Producto → Categoría es nuestro equivalente del Vehículo → Cliente del docente</b>: el hijo guarda la FK y el formulario elige al padre con un select.</p>
+  {LEYENDA}
+  {secuencia(CARRILES_PUT, PASOS_PUT_AB, fila=30, frontera=6, pesos=PESOS_PUT)}
+</section>
+
+<section class="alto">
+  <h2>Detalle: editar un producto (PUT) · C, la vuelta</h2>
+  <p class="sub">Desde que Spring responde hasta que la fila cambia en pantalla. La numeración sigue la de la página anterior.</p>
+  {LEYENDA}
+  {secuencia(CARRILES_PUT, PASOS_PUT_C, fila=34, frontera=6, pesos=PESOS_PUT)}
+  <div class="caja"><b>Por qué cambia la pantalla:</b> no es «porque llegó la respuesta», es porque <code>handleSaved</code> llama al setter con un array nuevo (<code>prev.map(...)</code>).
+  React compara referencias: si se mutara el array viejo, no habría re-render.</div>
+</section>
+
+<section class="alto">
+  <h2>Detalle: crear un producto (POST)</h2>
+  <p class="sub">El mismo formulario que el PUT, con <code>producto = null</code>. Cambia el método, el status (201 en lugar de 200) y cómo se actualiza el estado.</p>
+  {LEYENDA}
+  {secuencia(CARRILES_ESCRITURA, PASOS_POST, fila=34, frontera=5, pesos=PESOS_ESCRITURA)}
+  <div class="caja"><b>Clave:</b> <code>[...prev, saved]</code> agrega el producto que devolvió el backend (ya con su <code>id</code>), sin volver a pedir la lista.
+  Si el backend responde 400, 404, 409 o 422, <code>onSaved</code> nunca se llama: el modal sigue abierto con los datos y el error (<code>ProductoForm.tsx:114-120</code>).</div>
+</section>
+
+<section class="alto">
+  <h2>Detalle: eliminar un producto (DELETE)</h2>
+  <p class="sub">Confirmación antes de la petición, 204 sin cuerpo y 409 si el producto ya tiene historia (RN-01: el kardex no se borra).</p>
+  {LEYENDA}
+  {secuencia(CARRILES_ESCRITURA, PASOS_DELETE, fila=30, frontera=5, pesos=PESOS_ESCRITURA)}
+  <div class="caja"><b>Clave:</b> un 204 no trae cuerpo, así que <code>response.json()</code> lanzaría un error de sintaxis; por eso <code>apiFetch</code> devuelve <code>undefined</code> antes (<code>apiClient.ts:64-66</code>).
+  La fila se quita con <code>filter</code> (array nuevo) sólo después de que el backend confirmó; en un 409 el <code>catch</code> muestra el toast y la fila se queda.</div>
 </section>
 
 <section class="alto">

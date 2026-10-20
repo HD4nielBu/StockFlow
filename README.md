@@ -82,9 +82,9 @@ Asistente **opcional** y complementario para resumir tendencias de movimientos y
 | IA complementaria | Spring AI (uso acotado, con fallback) |
 | Arquitectura | Monolito modular, hexagonal simplificada |
 
-## 7. Estado actual (2026-10-05)
+## 7. Estado actual (2026-10-19)
 
-🟡 **Parte I – Parcial 1 en curso.** Documentación de dominio y datos completa; base de datos implementada con migraciones; backend con catálogo, ubicaciones y el lado de lectura del flujo crítico; aplicación web con el CRUD Categoría 1:N Producto conectado al backend. **Falta la aplicación móvil.**
+🟡 **Parte I – Parcial 1 en curso.** Documentación de dominio y datos completa; base de datos implementada con migraciones; backend con catálogo, ubicaciones y el lado de lectura del flujo crítico; aplicación web con el CRUD Categoría 1:N Producto conectado al backend. **Aplicación móvil iniciada:** Guía 01 (entorno y primera pantalla) terminada; faltan componentes (G02) y navegación (G03).
 
 Exigencias del Parcial 1 (ficha PA-06, sección N):
 - [x] Documento de visión y contexto del cliente — `docs/01-vision/vision-v0.1.md`
@@ -100,7 +100,7 @@ Exigencias del Parcial 1 (ficha PA-06, sección N):
 - [x] API documentada: Swagger UI y `requests.http`
 - [ ] Esqueleto del flujo crítico completo en el backend (hoy: lectura de stock/kardex; solicitudes y movimientos en SQL)
 - [x] Aplicación web React + TypeScript (shell, layout, dashboard y CRUD de categorías y productos) — `webstorm/stockflow-frontend`
-- [ ] Aplicación móvil React Native + TypeScript (compilable, navegación y una pantalla)
+- [ ] Aplicación móvil React Native + TypeScript (compilable, navegación y una pantalla) — `androidstudio/stockflow-mobile`; hoy compila y muestra una pantalla, falta la navegación (G03)
 
 Detalle por requisito: `docs/02-requirements/requisitos-v0.1.md`.
 
@@ -115,6 +115,7 @@ mvn spring-boot:run                   # Flyway crea el esquema y la semilla; API
 ```
 
 - Frontend (con el backend encendido): `cd webstorm/stockflow-frontend && npm install && npm run dev` → http://localhost:5173
+- Móvil (Android SDK y emulador encendido): `cd androidstudio/stockflow-mobile && npm install && npx expo start --android`. Detalles para Android 17 en su `README.md`.
 - Probar la API: http://localhost:8080/swagger-ui.html o `intellij/stockflow-backend/requests.http` (IntelliJ).
 - Pruebas automáticas: `mvn test` (las de integración usan Docker; si no hay Docker, se omiten).
 - Verificación SQL y flujo crítico: `datagrip/03_verificacion_y_pruebas.sql` en DataGrip.
@@ -137,8 +138,10 @@ StockFlow/
 ├── intellij/
 │   ├── stockflow-backend-lab/  Java 21 puro (capítulos 01-02)
 │   └── stockflow-backend/      Spring Boot (capítulos 03-08), migraciones en src/main/resources/db/migration
-└── webstorm/
-    └── stockflow-frontend/     React 19 + TypeScript + Vite (guías G01-G10)
+├── webstorm/
+│   └── stockflow-frontend/     React 19 + TypeScript + Vite (guías G01-G10)
+└── androidstudio/
+    └── stockflow-mobile/       React Native + Expo + TypeScript (guías móviles G01-G15), avance en docs/
 ```
 
 ---

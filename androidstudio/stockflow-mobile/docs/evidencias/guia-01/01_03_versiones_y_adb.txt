@@ -1,0 +1,12 @@
+Fecha: 2026-10-19 20:14
+node v24.21.0
+npm 11.19.0
+adb: Android Debug Bridge version 1.0.41
+emulador: Android emulator version 37.2.12.0 (build_id 16428233) (CL:N/A)
+KVM (version 12) is installed and usable.
+RAM: 23 GB
+
+$ adb devices -l
+List of devices attached
+emulator-5554          device product:sdk_gphone64_x86_64 model:sdk_gphone64_x86_64 device:emu64xa transport_id:1
+
