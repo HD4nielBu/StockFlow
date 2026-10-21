@@ -38,4 +38,14 @@ describe('inventarioService', () => {
 
     expect(fetch).toHaveBeenCalledWith('http://localhost:8080/api/inventario/stock?soloBajoMinimo=true', expect.anything());
   });
+
+  it('pide 8 semanas de movimientos con la zona horaria del navegador', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('[]', { status: 200 })));
+
+    await inventarioService.movimientosSemanales();
+
+    expect(urlPedida().pathname).toBe('/api/inventario/movimientos/semanal');
+    expect(urlPedida().searchParams.get('semanas')).toBe('8');
+    expect(urlPedida().searchParams.get('zona')).toBe(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  });
 });

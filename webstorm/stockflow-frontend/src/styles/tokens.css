@@ -59,6 +59,7 @@
   /* Gráficos: magnitud en un solo tono; estados reservados (validados con dataviz/validate_palette) */
   --chart-bar: #2563eb;
   --chart-track: #eef2f7;
+  --chart-out: #eb6834;   /* 2.ª serie (salidas); validado con --chart-bar contra daltonismo */
   --status-good: #16a34a;
   --status-warning: #f59e0b;
   --status-critical: #dc2626;
@@ -168,6 +169,7 @@
 
   --chart-bar: #3b82f6;
   --chart-track: #1f2a3f;
+  --chart-out: #d95926;
   --status-critical: #ef4444;
 
   --focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.45);

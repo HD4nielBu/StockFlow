@@ -3,6 +3,7 @@ package com.stockflow.inventory.infrastructure.adapter.in.web;
 import com.stockflow.inventory.domain.port.in.ConsultarInventarioUseCase;
 import com.stockflow.inventory.infrastructure.adapter.in.web.dto.ExistenciaResponse;
 import com.stockflow.inventory.infrastructure.adapter.in.web.dto.MovimientoKardexResponse;
+import com.stockflow.inventory.infrastructure.adapter.in.web.dto.MovimientosSemanaResponse;
 import com.stockflow.inventory.infrastructure.adapter.in.web.dto.PaginaResponse;
 import com.stockflow.inventory.infrastructure.adapter.in.web.mapper.InventarioWebMapper;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -53,5 +54,17 @@ public class InventarioController {
                                                            @RequestParam(defaultValue = "0") int pagina,
                                                            @RequestParam(defaultValue = "20") int tamano) {
         return InventarioWebMapper.toResponse(consultar.consultarKardex(productoId, desde, hasta, pagina, tamano));
+    }
+
+    /**
+     * Movimientos de entrada y salida por semana para el dashboard: ?semanas=8&zona=America/La_Paz. 200 / 422.
+     * Cuenta movimientos (no unidades: los productos tienen unidades distintas). Incluye las semanas en 0.
+     */
+    @GetMapping("/movimientos/semanal")
+    public List<MovimientosSemanaResponse> movimientosSemanales(@RequestParam(defaultValue = "8") int semanas,
+                                                                @RequestParam(defaultValue = "UTC") String zona) {
+        return consultar.resumenSemanal(semanas, zona).stream()
+                .map(InventarioWebMapper::toResponse)
+                .toList();
     }
 }

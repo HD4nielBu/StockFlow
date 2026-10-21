@@ -2,6 +2,7 @@ package com.stockflow.inventory.infrastructure.adapter.out.persistence;
 
 import com.stockflow.inventory.domain.model.Existencia;
 import com.stockflow.inventory.domain.model.MovimientoKardex;
+import com.stockflow.inventory.domain.model.MovimientosSemana;
 import com.stockflow.inventory.domain.model.Pagina;
 import com.stockflow.inventory.domain.port.out.InventarioConsultaPort;
 import com.stockflow.inventory.infrastructure.adapter.out.persistence.repository.SpringDataStockRepository;
@@ -35,6 +36,13 @@ public class InventarioConsultaAdapter implements InventarioConsultaPort {
         var page = repository.buscarKardex(codigoProducto, desde, hasta, PageRequest.of(pagina, tamano));
         return new Pagina<>(page.getContent().stream().map(InventarioConsultaAdapter::toDomain).toList(),
                 page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages());
+    }
+
+    @Override
+    public List<MovimientosSemana> contarMovimientosPorSemana(int semanas, String zona) {
+        return repository.contarMovimientosPorSemana(semanas, zona).stream()
+                .map(f -> new MovimientosSemana(f.getSemana(), f.getEntradas(), f.getSalidas()))
+                .toList();
     }
 
     private static Existencia toDomain(ExistenciaFila f) {

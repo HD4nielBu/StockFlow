@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -43,6 +44,12 @@ public interface SpringDataStockRepository extends JpaRepository<StockJpaEntity,
         String getReferenciaTipo();
         String getRegistradoPor();
         String getMotivo();
+    }
+
+    interface SemanaFila {
+        LocalDate getSemana();
+        Long getEntradas();
+        Long getSalidas();
     }
 
     // CAST(:x AS BIGINT) IS NULL: PostgreSQL necesita conocer el tipo del parámetro cuando llega null
@@ -98,4 +105,27 @@ public interface SpringDataStockRepository extends JpaRepository<StockJpaEntity,
                                   @Param("desde") Instant desde,
                                   @Param("hasta") Instant hasta,
                                   Pageable pageable);
+
+    /*
+     * generate_series arma TODAS las semanas del rango (las vacías salen con 0) y el LEFT JOIN cuenta en cada una.
+     * Sólo ENTRADA y SALIDA: las transferencias son internas (salida + entrada, RN-04) y los ajustes son correcciones.
+     * date_trunc('week') empieza el lunes; AT TIME ZONE pasa el instante a la hora local de :zona.
+     */
+    @Query(value = """
+            WITH semanas AS (
+                SELECT generate_series(date_trunc('week', now() AT TIME ZONE :zona) - make_interval(weeks => :semanas - 1),
+                                       date_trunc('week', now() AT TIME ZONE :zona),
+                                       interval '1 week') AS inicio
+            )
+            SELECT CAST(s.inicio AS DATE) AS "semana",
+                   count(m.movimiento_id) FILTER (WHERE m.tipo = 'ENTRADA') AS "entradas",
+                   count(m.movimiento_id) FILTER (WHERE m.tipo = 'SALIDA')  AS "salidas"
+            FROM semanas s
+            LEFT JOIN stockflow.movimiento_inventario m
+                   ON m.ocurrido_at AT TIME ZONE :zona >= s.inicio
+                  AND m.ocurrido_at AT TIME ZONE :zona <  s.inicio + interval '1 week'
+            GROUP BY s.inicio
+            ORDER BY s.inicio
+            """, nativeQuery = true)
+    List<SemanaFila> contarMovimientosPorSemana(@Param("semanas") int semanas, @Param("zona") String zona);
 }

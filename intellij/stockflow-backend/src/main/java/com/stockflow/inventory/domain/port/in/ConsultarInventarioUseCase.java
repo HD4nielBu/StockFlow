@@ -2,6 +2,7 @@ package com.stockflow.inventory.domain.port.in;
 
 import com.stockflow.inventory.domain.model.Existencia;
 import com.stockflow.inventory.domain.model.MovimientoKardex;
+import com.stockflow.inventory.domain.model.MovimientosSemana;
 import com.stockflow.inventory.domain.model.Pagina;
 
 import java.time.Instant;
@@ -18,4 +19,10 @@ public interface ConsultarInventarioUseCase {
      * desde (inclusive) y hasta (exclusive) son filtros opcionales por fecha del movimiento (null = sin límite).
      */
     Pagina<MovimientoKardex> consultarKardex(Long productoId, Instant desde, Instant hasta, int pagina, int tamano);
+
+    /**
+     * Entradas y salidas de las últimas {@code semanas} semanas, de la más antigua a la actual (incluye semanas sin
+     * movimientos). zona: id IANA (p. ej. America/La_Paz) que decide dónde empieza cada lunes.
+     */
+    List<MovimientosSemana> resumenSemanal(int semanas, String zona);
 }

@@ -2,6 +2,7 @@ import { apiFetch } from '../../../api/apiClient';
 import type { PaginaResponse } from '../../../api/PaginaResponse';
 import type { Existencia } from '../models/Existencia';
 import type { MovimientoKardex } from '../models/MovimientoKardex';
+import type { MovimientosSemana } from '../models/MovimientosSemana';
 
 /** Rango de fechas del kardex tal como lo da <input type="date"> (AAAA-MM-DD), ambos días inclusive. */
 export interface RangoFechas {
@@ -35,5 +36,10 @@ export const inventarioService = {
     if (rango.desde) query.set('desde', inicioDelDia(rango.desde));
     if (rango.hasta) query.set('hasta', inicioDelDia(rango.hasta, 1));
     return apiFetch<PaginaResponse<MovimientoKardex>>(`/inventario/kardex/${productoId}?${query}`, { signal });
+  },
+  /** Entradas y salidas de las últimas 8 semanas. Las semanas empiezan el lunes en la zona horaria del navegador. */
+  movimientosSemanales(signal?: AbortSignal): Promise<MovimientosSemana[]> {
+    const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return apiFetch<MovimientosSemana[]>(`/inventario/movimientos/semanal?semanas=8&zona=${encodeURIComponent(zona)}`, { signal });
   },
 };

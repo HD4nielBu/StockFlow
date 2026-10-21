@@ -24,4 +24,17 @@ class InventarioConsultaServiceTest {
         var instante = Instant.parse("2026-10-20T04:00:00Z");
         assertThrows(DatoInvalidoException.class, () -> service.consultarKardex(1L, instante, instante, 0, 20));
     }
+
+    @Test
+    void resumenSemanalRechazaSemanasFueraDeRango() {
+        assertThrows(DatoInvalidoException.class, () -> service.resumenSemanal(0, "UTC"));
+        assertThrows(DatoInvalidoException.class, () -> service.resumenSemanal(53, "UTC"));
+    }
+
+    @Test
+    void resumenSemanalSoloAceptaZonasIana() {
+        assertThrows(DatoInvalidoException.class, () -> service.resumenSemanal(8, "Marte/Olympus"));
+        // Un desfase fijo se rechaza: PostgreSQL lo leería con el signo invertido
+        assertThrows(DatoInvalidoException.class, () -> service.resumenSemanal(8, "+05:00"));
+    }
 }

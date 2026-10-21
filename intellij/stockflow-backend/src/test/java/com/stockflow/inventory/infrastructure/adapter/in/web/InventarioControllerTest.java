@@ -53,6 +53,13 @@ class InventarioControllerTest {
     }
 
     @Test
+    void movimientosSemanalesUsaOchoSemanasEnUtcPorDefecto() throws Exception {
+        when(consultar.resumenSemanal(anyInt(), any())).thenReturn(List.of());
+        mvc.perform(get("/api/inventario/movimientos/semanal")).andExpect(status().isOk());
+        verify(consultar).resumenSemanal(8, "UTC");
+    }
+
+    @Test
     void unaFechaMalFormadaEs400() throws Exception {
         mvc.perform(get("/api/inventario/kardex/1").param("desde", "ayer")).andExpect(status().isBadRequest());
         verify(consultar, never()).consultarKardex(anyLong(), any(), any(), anyInt(), anyInt());

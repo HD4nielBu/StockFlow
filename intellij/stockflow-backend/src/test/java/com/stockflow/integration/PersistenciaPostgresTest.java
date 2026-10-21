@@ -131,6 +131,18 @@ class PersistenciaPostgresTest {
         assertTrue(futuro.contenido().isEmpty());
     }
 
+    @Test
+    void movimientosPorSemanaIncluyeLasSemanasVaciasYCuentaLaSemilla() {
+        // La semilla registra una ENTRADA por cada fila de stock al migrar, o sea en la semana actual
+        var semanas = inventario.contarMovimientosPorSemana(8, "America/La_Paz");
+        assertEquals(8, semanas.size());
+        var actual = semanas.get(7);
+        assertEquals(inventario.buscarExistencias(null, null, false).size(), actual.entradas());
+        assertEquals(0, actual.salidas());
+        assertTrue(semanas.subList(0, 7).stream().allMatch(s -> s.entradas() == 0 && s.salidas() == 0));
+        assertEquals(java.time.DayOfWeek.MONDAY, actual.semana().getDayOfWeek());
+    }
+
     // ---------- DELETE protegido por las FK (traducción a excepciones de dominio) ----------
 
     @Test

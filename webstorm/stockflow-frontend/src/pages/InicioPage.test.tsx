@@ -25,6 +25,7 @@ beforeEach(() => {
   vi.mocked(categoriaService.listar).mockResolvedValue(categoriasMock);
   vi.mocked(productoService.listar).mockResolvedValue(productosMock);
   vi.mocked(inventarioService.listarExistencias).mockResolvedValue(existencias);
+  vi.mocked(inventarioService.movimientosSemanales).mockResolvedValue([{ semana: '2026-10-19', entradas: 5, salidas: 2 }]);
 });
 
 describe('InicioPage', () => {
@@ -58,5 +59,6 @@ describe('DashboardPage', () => {
     const porCategoria = screen.getByRole('list', { name: 'Productos por categoría' });
     expect(within(porCategoria).getByRole('link', { name: /Material de oficina/ })).toHaveAttribute('href', '/productos?categoria=1');
     expect(screen.getByRole('img', { name: /2 existencias: 1 bajo el mínimo/ })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /19 oct.*5 entradas y 2 salidas/ })).toBeInTheDocument();
   });
 });
