@@ -40,4 +40,15 @@ describe('DataTable · orden', () => {
     expect(header).toHaveAttribute('aria-sort', 'descending');
     expect(nombres()).toEqual(['Tóner', 'Archivador']);
   });
+
+  it('en móvil el selector "Ordenar por" aplica el mismo orden', async () => {
+    render(<Tabla />);
+    const selector = screen.getByRole('combobox', { name: 'Ordenar por' });
+    await userEvent.selectOptions(selector, 'nombre:desc');
+    expect(screen.getByRole('columnheader', { name: /Nombre/ })).toHaveAttribute('aria-sort', 'descending');
+    expect(nombres()).toEqual(['Tóner', 'Archivador']);
+
+    await userEvent.selectOptions(selector, '');
+    expect(nombres()).toEqual(['Tóner', 'Archivador']); // sin orden vuelve al de origen
+  });
 });

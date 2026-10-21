@@ -11,6 +11,7 @@
 /* ---------- G03/G10: métricas y tablas ---------- */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
 .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); }
+.table-card__sort { display: none; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); }
 /* position: relative para que los textos .sr-only (absolutos) queden recortados por el scroll y no estiren la página */
 .table-responsive { position: relative; overflow-x: auto; }
 .data-table { width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0; }
@@ -100,6 +101,7 @@
   .segmented { width: 100%; }
   .segmented__option { flex: 1; justify-content: center; }
   .table-card__footer .field { width: 100%; }
+  .table-card__sort { display: block; }
 
   /* La tabla se reorganiza como lista de tarjetas: título + menú arriba, el resto como pares etiqueta/valor */
   .data-table--stack { min-width: 0; }
@@ -278,7 +280,7 @@
 .definition-list > div:last-child { border-bottom: 0; padding-bottom: 0; }
 .definition-list dt { color: var(--text-muted); }
 .definition-list dd { margin: 0; color: var(--text); overflow-wrap: anywhere; }
-.definition-list code { padding: 2px 6px; border-radius: 4px; background: var(--surface-2); font-size: var(--text-sm); }
+.definition-list code { padding: 2px 6px; border-radius: var(--radius-xs); background: var(--surface-2); font-size: var(--text-sm); }
 .demo-fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .demo-note { display: flex; align-items: center; gap: 6px; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--text-muted); }
 

@@ -30,7 +30,7 @@ kbd { font-family: inherit; }
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 .skip-link {
-  position: fixed; top: 8px; left: 8px; z-index: 100; padding: 8px 14px; border-radius: var(--radius-sm);
+  position: fixed; top: 8px; left: 8px; z-index: var(--z-skip-link); padding: 8px 14px; border-radius: var(--radius-sm);
   background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none;
   transform: translateY(-160%);
 }

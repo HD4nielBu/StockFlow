@@ -2,6 +2,7 @@ import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 import type { Key, ReactNode } from 'react';
 import { siguienteOrden, type Orden } from '../../shared/utils/ordenar';
 import { Checkbox } from './Checkbox';
+import { SelectFilter } from './SelectFilter';
 
 export interface Column<T> {
   key: string;
@@ -44,8 +45,29 @@ export type DataTableProps<T> = {
  */
 export function DataTable<T>({ rows, columns, rowKey, caption, actions, footer, sort = null, onSortChange, selection }: DataTableProps<T>) {
   const marcadas = selection ? rows.filter(selection.isSelected).length : 0;
+  const ordenables = onSortChange ? columns.filter((col) => col.sortable) : [];
   return (
     <div className="table-card">
+      {/* En móvil el <thead> se oculta: este selector reemplaza a los encabezados ordenables */}
+      {onSortChange && ordenables.length > 0 && (
+        <div className="table-card__sort">
+          <SelectFilter
+            label="Ordenar por"
+            value={sort ? `${sort.key}:${sort.dir}` : ''}
+            options={[
+              { value: '', label: 'Sin orden' },
+              ...ordenables.flatMap((col) => [
+                { value: `${col.key}:asc`, label: `${col.header} · ascendente` },
+                { value: `${col.key}:desc`, label: `${col.header} · descendente` },
+              ]),
+            ]}
+            onChange={(v) => {
+              const i = v.lastIndexOf(':');
+              onSortChange(v ? { key: v.slice(0, i), dir: v.slice(i + 1) as Orden['dir'] } : null);
+            }}
+          />
+        </div>
+      )}
       <div className="table-responsive">
         <table className="data-table data-table--stack">
           <caption className="sr-only">{caption}</caption>
