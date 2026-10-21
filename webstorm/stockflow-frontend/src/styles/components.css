@@ -74,7 +74,11 @@
 }
 
 /* Card */
-.card { padding: var(--space-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs); }
+/* Superficie de tarjeta: una sola definición para todas las variantes (cada una pone su padding y layout) */
+.card, .stat-card, .table-card, .quick-action, .profile-hero, .location-card, .report-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
+}
+.card { padding: var(--space-5); }
 .card__header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-4); }
 .card__title { font-size: var(--text-md); }
 .card__description { margin-top: 2px; color: var(--text-muted); font-size: var(--text-sm); }
@@ -95,7 +99,6 @@
 /* Stat card */
 .stat-card {
   display: grid; align-content: start; gap: 6px; padding: var(--space-4) var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .stat-card__top { display: flex; align-items: center; gap: var(--space-2); min-height: 30px; }
 .stat-card__label { font-size: var(--text-sm); font-weight: 500; color: var(--text-muted); }

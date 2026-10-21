@@ -10,7 +10,7 @@
 
 /* ---------- G03/G10: métricas y tablas ---------- */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-.table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); }
+.table-card { overflow: hidden; }
 .table-card__sort { display: none; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); }
 /* position: relative para que los textos .sr-only (absolutos) queden recortados por el scroll y no estiren la página */
 .table-responsive { position: relative; overflow-x: auto; }
@@ -132,8 +132,7 @@
 .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); }
 .quick-action {
   display: flex; align-items: center; gap: var(--space-3); padding: 14px var(--space-4);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
-  color: inherit; text-decoration: none; box-shadow: var(--shadow-xs);
+  color: inherit; text-decoration: none;
   transition: border-color var(--dur-fast) ease, transform 120ms var(--ease-out);
 }
 .quick-action:active { transform: scale(0.985); }
@@ -201,7 +200,6 @@
 /* ---------- Perfil ---------- */
 .profile-hero {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding: var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .profile-hero__text { flex: 1; min-width: 0; }
 .profile-hero__text h2 { font-size: var(--text-lg); }
@@ -228,7 +226,6 @@
 .location-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
 .location-card {
   display: grid; gap: var(--space-3); align-content: start; padding: var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .location-card__head { display: flex; align-items: flex-start; gap: var(--space-3); }
 .location-card__icon { display: grid; place-items: center; flex-shrink: 0; width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--accent-text); }
@@ -249,7 +246,6 @@
 .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
 .report-card {
   display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-3); padding: var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .report-card__icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--accent-text); }
 .report-card__text h2 { font-size: var(--text-md); }
