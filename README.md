@@ -133,7 +133,10 @@ StockFlow/
 │   ├── 02-requirements/        backlog con criterios, requisitos RF/RNF, mapa de historias
 │   ├── 03-decisions/           decisiones de arquitectura (ADR)
 │   ├── 04-model/               modelo conceptual, relacional, DER, diccionario, físico
+│   ├── guias/                  guías de ejecución, frontend y Postman (linux/, macos/, windows/) y su generador
+│   ├── parciales/              guías de estudio de los parciales, diagrama de flujo y sus generadores
 │   └── ENTREGA.md              guía de entrega y orden de trabajo
+├── postman/                    colecciones de Postman
 ├── datagrip/                   00_admin (sin Docker) y 03_verificacion_y_pruebas.sql
 ├── intellij/
 │   ├── stockflow-backend-lab/  Java 21 puro (capítulos 01-02)

@@ -18,11 +18,10 @@ RAIZ = AQUI.parent.parent
 sys.path.insert(0, str(AQUI.parent / "parciales"))
 from generar_pdf import imprimir, paginas  # noqa: E402
 
-CARPETA = RAIZ / "guias-para-hacer-correr-StockFlow-xd"
 SALIDAS = {
-    "linux": [RAIZ / "guia-ejecucion-stockflow.pdf", CARPETA / "guia-ejecucion-stockflow.pdf"],
-    "macos": [CARPETA / "MacOS" / "guia-ejecucion-stockflow-macos.pdf"],
-    "windows": [CARPETA / "Windows" / "guia-ejecucion-stockflow-windows.pdf"],
+    "linux": [AQUI / "linux" / "guia-ejecucion-stockflow.pdf"],
+    "macos": [AQUI / "macos" / "guia-ejecucion-stockflow-macos.pdf"],
+    "windows": [AQUI / "windows" / "guia-ejecucion-stockflow-windows.pdf"],
 }
 FECHA = "19 de octubre de 2026"
 

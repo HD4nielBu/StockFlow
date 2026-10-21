@@ -13,7 +13,7 @@ from pathlib import Path
 from generar_pdf import imprimir
 
 AQUI = Path(__file__).resolve().parent
-DESTINO = AQUI.parent.parent / "diagrama-flujo-2do-parcial.pdf"
+DESTINO = AQUI / "diagrama-flujo-2do-parcial.pdf"
 
 AZUL, VERDE, CODIGO, TENUE, ROJO = "#1f3a5f", "#2f8f5b", "#8a1f4a", "#5b6470", "#b42318"
 
