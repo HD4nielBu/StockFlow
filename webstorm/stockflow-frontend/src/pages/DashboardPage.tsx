@@ -7,8 +7,11 @@ import { Skeleton } from '../components/ui/LoadingSkeleton';
 import { PageHeader } from '../components/ui/PageHeader';
 import { StatCard } from '../components/ui/StatCard';
 import { CoberturaList } from '../features/inventario/components/CoberturaList';
+import { MovimientosSemanales } from '../features/inventario/components/MovimientosSemanales';
 import { SaludInventario } from '../features/inventario/components/SaludInventario';
 import { useResumenInventario } from '../features/inventario/hooks/useResumenInventario';
+import { inventarioService } from '../features/inventario/services/inventarioService';
+import { useAsyncList } from '../shared/hooks/useAsyncList';
 import {
   existenciasPorUbicacion,
   menorCobertura,
@@ -18,11 +21,16 @@ import {
 import { formatoPrecio } from '../shared/utils/formato';
 
 /**
- * Indicadores calculados en el navegador a partir de los endpoints reales. Si en el futuro el backend
- * expone un endpoint agregado (y movimientos por fecha), estos cálculos deberían migrar allí.
+ * Indicadores calculados en el navegador a partir de los endpoints reales, salvo los movimientos por semana,
+ * que agrega el backend (no se pueden derivar sin descargar todo el kardex).
  */
 export default function DashboardPage() {
-  const { categorias, productos, existencias, loading, error, reload } = useResumenInventario();
+  const { categorias, productos, existencias, loading, error, reload: recargarResumen } = useResumenInventario();
+  const semanal = useAsyncList(inventarioService.movimientosSemanales);
+  const reload = () => {
+    recargarResumen();
+    semanal.reload();
+  };
 
   const activos = productos.filter((p) => p.activo).length;
   const bajo = existencias.filter((e) => e.bajoMinimo).length;
@@ -36,9 +44,9 @@ export default function DashboardPage() {
       <PageHeader
         title="Dashboard"
         description="Indicadores calculados con los datos actuales del catálogo y del inventario."
-        reference="Derivado de /api/categorias, /api/productos y /api/inventario/stock"
+        reference="Derivado de /api/categorias, /api/productos, /api/inventario/stock y /api/inventario/movimientos/semanal"
         actions={
-          <Button variant="secondary" icon={RotateCw} onClick={reload} loading={loading} loadingText="Actualizando">
+          <Button variant="secondary" icon={RotateCw} onClick={reload} loading={loading || semanal.loading} loadingText="Actualizando">
             Actualizar
           </Button>
         }
@@ -75,6 +83,16 @@ export default function DashboardPage() {
           loading={loading}
         />
       </section>
+
+      <Card title="Movimientos por semana" description="Entradas y salidas registradas en las últimas 8 semanas (cantidad de movimientos).">
+        {semanal.loading ? (
+          <ChartSkeleton rows={3} />
+        ) : semanal.error ? (
+          <p className="muted-cell">No se pudieron cargar los movimientos. {semanal.error}</p>
+        ) : (
+          <MovimientosSemanales semanas={semanal.data} />
+        )}
+      </Card>
 
       <div className="dashboard-grid">
         <Card title="Productos por categoría" description="Cantidad de productos en cada categoría. Selecciona una para ver sus productos.">

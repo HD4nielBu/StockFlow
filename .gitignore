@@ -15,3 +15,7 @@ falta-mejora-proyecto.md
 /investigacion/
 /conceptos/
 /.obsidian/
+
+__pycache__/
+graphify-out/cache/
+LIBROS-AYUDA/

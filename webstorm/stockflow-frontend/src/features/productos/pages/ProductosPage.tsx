@@ -1,9 +1,10 @@
-import { PackagePlus, Plus, RotateCw, SearchX } from 'lucide-react';
+import { CircleOff, PackagePlus, Plus, RotateCw, SearchX, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { ApiError } from '../../../api/apiClient';
 import { describirError } from '../../../api/describirError';
 import { Alert } from '../../../components/ui/Alert';
+import { BulkBar } from '../../../components/ui/BulkBar';
 import { Button } from '../../../components/ui/Button';
 import { ConfirmDialog } from '../../../components/ui/ConfirmDialog';
 import { EmptyState } from '../../../components/ui/EmptyState';
@@ -16,6 +17,9 @@ import { SegmentedControl } from '../../../components/ui/SegmentedControl';
 import { SelectFilter } from '../../../components/ui/SelectFilter';
 import { useToast } from '../../../components/ui/toast/useToast';
 import { useAsyncList } from '../../../shared/hooks/useAsyncList';
+import { useSeleccion } from '../../../shared/hooks/useSeleccion';
+import { avisarLote, enLote } from '../../../shared/utils/lote';
+import { ordenar, type Orden } from '../../../shared/utils/ordenar';
 import { normalizar, paginar } from '../../../shared/utils/paginar';
 import { useCategorias } from '../../categorias/hooks/useCategorias';
 import type { Categoria } from '../../categorias/models/Categoria';
@@ -56,6 +60,10 @@ export default function ProductosPage() {
   const [status, setStatus] = useState('all');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [orden, setOrden] = useState<Orden | null>(null);
+  const { seleccion, alternar, reemplazar } = useSeleccion<number>();
+  const [bulkConfirmOpen, setBulkConfirmOpen] = useState(false);
+  const [bulkBusy, setBulkBusy] = useState<'desactivar' | 'eliminar' | null>(null);
   const categoriaFiltro = searchParams.get('categoria') ?? 'all';
 
   // El state "nuevo" se consume una vez: si se recarga la página, el modal no vuelve a abrirse
@@ -87,7 +95,18 @@ export default function ProductosPage() {
   });
   const activos = porTextoYCategoria.filter((p) => p.activo).length;
   const filtrados = porTextoYCategoria.filter((p) => status === 'all' || (status === 'active' ? p.activo : !p.activo));
-  const pagina = paginar(filtrados, page, pageSize);
+  // Filtrar → ordenar → paginar: el orden abarca todos los resultados, no sólo la página visible
+  const pagina = paginar(
+    ordenar(filtrados, orden, {
+      producto: (p) => p.nombre,
+      categoria: (p) => categoriasPorId.get(p.categoriaId)?.nombre,
+      stock: (p) => stock?.get(p.id)?.total ?? (stock ? 0 : null),
+      minimo: (p) => p.stockMinimoDefault,
+      precio: (p) => p.precioReferencial,
+    }),
+    page,
+    pageSize,
+  );
   const hayFiltros = search !== '' || status !== 'all' || categoriaFiltro !== 'all';
 
   const cambiarCategoria = (valor: string) => {
@@ -142,6 +161,34 @@ export default function ProductosPage() {
       setConfirmOpen(false);
     }
   };
+
+  // Sólo cuentan los seleccionados que siguen visibles con los filtros actuales: nunca se actúa sobre filas ocultas
+  const seleccionados = filtrados.filter((p) => seleccion.has(p.id));
+  const activosSeleccionados = seleccionados.filter((p) => p.activo);
+
+  // PUT con los datos de la lista y activo=false (la API no tiene PATCH ni endpoint por lote)
+  const desactivarSeleccion = async () => {
+    setBulkBusy('desactivar');
+    const lote = await enLote(activosSeleccionados, ({ id, ...datos }) => productoService.actualizar(id, { ...datos, activo: false }));
+    const guardados = new Map(lote.exitos.map((e) => [e.valor.id, e.valor]));
+    productos.setData((prev) => prev.map((p) => guardados.get(p.id) ?? p));
+    avisarLote(toast, lote, { hecho: (n) => (n === 1 ? '1 producto desactivado' : `${n} productos desactivados`), accion: 'desactivar' }, (p) => p.codigo);
+    reemplazar(lote.fallos.map((f) => f.item.id)); // los que fallaron quedan seleccionados para reintentar
+    setBulkBusy(null);
+  };
+
+  const eliminarSeleccion = async () => {
+    setBulkBusy('eliminar');
+    const lote = await enLote(seleccionados, (p) => productoService.eliminar(p.id));
+    const eliminados = new Set(lote.exitos.map((e) => e.item.id));
+    productos.setData((prev) => prev.filter((p) => !eliminados.has(p.id)));
+    // 409: tiene stock o movimientos (RN-01). Esas filas se conservan y siguen seleccionadas.
+    avisarLote(toast, lote, { hecho: (n) => (n === 1 ? '1 producto eliminado' : `${n} productos eliminados`), accion: 'eliminar' }, (p) => p.codigo);
+    reemplazar(lote.fallos.map((f) => f.item.id));
+    setBulkBusy(null);
+    setBulkConfirmOpen(false);
+  };
+  const conStockSeleccionados = stock ? seleccionados.filter((p) => stock.has(p.id)).length : 0;
 
   const loading = productos.loading || categorias.loading;
   const errorCarga = productos.error || categorias.error;
@@ -228,6 +275,27 @@ export default function ProductosPage() {
         />
       </div>
 
+      {seleccionados.length > 0 && (
+        <BulkBar count={seleccionados.length} noun={['producto seleccionado', 'productos seleccionados']} onClear={() => reemplazar([])}>
+          {activosSeleccionados.length > 0 && (
+            <Button
+              variant="secondary"
+              size="sm"
+              icon={CircleOff}
+              loading={bulkBusy === 'desactivar'}
+              loadingText="Desactivando"
+              disabled={bulkBusy !== null}
+              onClick={desactivarSeleccion}
+            >
+              Desactivar ({activosSeleccionados.length})
+            </Button>
+          )}
+          <Button variant="danger" size="sm" icon={Trash2} disabled={bulkBusy !== null} onClick={() => setBulkConfirmOpen(true)}>
+            Eliminar
+          </Button>
+        </BulkBar>
+      )}
+
       {loading ? (
         <TableSkeleton columns={7} rows={5} label="Cargando productos" />
       ) : pagina.totalItems === 0 ? (
@@ -268,6 +336,16 @@ export default function ProductosPage() {
             setConfirmOpen(true);
           }}
           busyId={loadingDetailId}
+          sort={orden}
+          onSortChange={(o) => {
+            setOrden(o);
+            setPage(1);
+          }}
+          selection={{
+            isSelected: (p) => seleccion.has(p.id),
+            onToggle: (filas, on) => alternar(filas.map((p) => p.id), on),
+            label: (p) => p.nombre,
+          }}
           footer={
             <>
               <Pagination
@@ -295,6 +373,7 @@ export default function ProductosPage() {
       <Modal
         open={formOpen}
         raw
+        guardChanges
         size="lg"
         title={editing ? `Editar ${editing.nombre}` : 'Nuevo producto'}
         description={editing ? `Código ${editing.codigo}` : 'El producto pertenece a una categoría activa.'}
@@ -324,6 +403,19 @@ export default function ProductosPage() {
         confirming={deleting}
         onConfirm={confirmDelete}
         onCancel={() => setConfirmOpen(false)}
+      />
+
+      <ConfirmDialog
+        open={bulkConfirmOpen}
+        title={`Eliminar ${seleccionados.length === 1 ? '1 producto' : `${seleccionados.length} productos`}`}
+        message={
+          conStockSeleccionados > 0
+            ? `${conStockSeleccionados} de ellos tienen stock registrado: el sistema no los eliminará y seguirán seleccionados. El resto se eliminará y no se puede deshacer.`
+            : 'Esta acción no se puede deshacer.'
+        }
+        confirming={bulkBusy === 'eliminar'}
+        onConfirm={eliminarSeleccion}
+        onCancel={() => setBulkConfirmOpen(false)}
       />
     </section>
   );

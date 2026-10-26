@@ -2,6 +2,7 @@ package com.stockflow.inventory.application.service;
 
 import com.stockflow.inventory.domain.model.Existencia;
 import com.stockflow.inventory.domain.model.MovimientoKardex;
+import com.stockflow.inventory.domain.model.MovimientosSemana;
 import com.stockflow.inventory.domain.model.Pagina;
 import com.stockflow.inventory.domain.port.in.ConsultarInventarioUseCase;
 import com.stockflow.inventory.domain.port.out.InventarioConsultaPort;
@@ -13,6 +14,8 @@ import com.stockflow.shared.domain.exception.DatoInvalidoException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.List;
 
 /**
@@ -23,6 +26,7 @@ import java.util.List;
 public class InventarioConsultaService implements ConsultarInventarioUseCase {
 
     static final int TAMANO_MAXIMO = 100;
+    static final int SEMANAS_MAXIMO = 52;
 
     private final InventarioConsultaPort consultaPort;
     private final ConsultarProductoUseCase consultarProducto;
@@ -51,16 +55,32 @@ public class InventarioConsultaService implements ConsultarInventarioUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public Pagina<MovimientoKardex> consultarKardex(Long productoId, int pagina, int tamano) {
+    public Pagina<MovimientoKardex> consultarKardex(Long productoId, Instant desde, Instant hasta, int pagina, int tamano) {
         if (pagina < 0) {
             throw new DatoInvalidoException("La página empieza en 0");
         }
         if (tamano < 1 || tamano > TAMANO_MAXIMO) {
             throw new DatoInvalidoException("El tamaño de página debe estar entre 1 y " + TAMANO_MAXIMO);
         }
+        if (desde != null && hasta != null && !desde.isBefore(hasta)) {
+            throw new DatoInvalidoException("La fecha 'desde' debe ser anterior a 'hasta'");
+        }
         var producto = consultarProducto.buscarPorId(productoId)
                 .orElseThrow(() -> new ProductoNoEncontradoException(productoId));
         // vw_kardex identifica al producto por su código (único, RN-06)
-        return consultaPort.buscarKardex(producto.getCodigo(), pagina, tamano);
+        return consultaPort.buscarKardex(producto.getCodigo(), desde, hasta, pagina, tamano);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MovimientosSemana> resumenSemanal(int semanas, String zona) {
+        if (semanas < 1 || semanas > SEMANAS_MAXIMO) {
+            throw new DatoInvalidoException("Las semanas deben estar entre 1 y " + SEMANAS_MAXIMO);
+        }
+        // Sólo ids IANA: un desfase como "+05:00" PostgreSQL lo interpreta con el signo invertido (POSIX)
+        if (!ZoneId.getAvailableZoneIds().contains(zona)) {
+            throw new DatoInvalidoException("Zona horaria desconocida: " + zona);
+        }
+        return consultaPort.contarMovimientosPorSemana(semanas, zona);
     }
 }

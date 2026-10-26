@@ -1,0 +1,3032 @@
+{
+  "androidstudio/stockflow-mobile/app.json": {
+    "mtime": 1792457678.3695948,
+    "seen": 1792517435.3733156,
+    "ast_hash": "3b2a44d64d4d71eb9a767307e020f1dc",
+    "semantic_hash": "3b2a44d64d4d71eb9a767307e020f1dc"
+  },
+  "androidstudio/stockflow-mobile/package.json": {
+    "mtime": 1792457678.3693104,
+    "seen": 1792517435.3733227,
+    "ast_hash": "e1751efe15884c2cbbaf90a2e0ad94cc",
+    "semantic_hash": "e1751efe15884c2cbbaf90a2e0ad94cc"
+  },
+  "androidstudio/stockflow-mobile/src/app/+not-found.tsx": {
+    "mtime": 1792457754.7432742,
+    "seen": 1792517435.3733258,
+    "ast_hash": "1ecda2c5fa500bc9efbe0a25659a8e24",
+    "semantic_hash": "1ecda2c5fa500bc9efbe0a25659a8e24"
+  },
+  "androidstudio/stockflow-mobile/src/app/_layout.tsx": {
+    "mtime": 1792457753.6849144,
+    "seen": 1792517435.3733313,
+    "ast_hash": "842a2a956547b30d98a04667f41ee9df",
+    "semantic_hash": "842a2a956547b30d98a04667f41ee9df"
+  },
+  "androidstudio/stockflow-mobile/src/app/ayuda.tsx": {
+    "mtime": 1792457754.599916,
+    "seen": 1792517435.3733323,
+    "ast_hash": "5d20f8d01d3947bc3d039c16dab034ab",
+    "semantic_hash": "5d20f8d01d3947bc3d039c16dab034ab"
+  },
+  "androidstudio/stockflow-mobile/src/app/categorias/[id].tsx": {
+    "mtime": 1792457754.1629152,
+    "seen": 1792517435.3733332,
+    "ast_hash": "437976fcef1f25d88522f7d669a252c6",
+    "semantic_hash": "437976fcef1f25d88522f7d669a252c6"
+  },
+  "androidstudio/stockflow-mobile/src/app/categorias/index.tsx": {
+    "mtime": 1792457753.9834347,
+    "seen": 1792517435.3733346,
+    "ast_hash": "0602f22f1b64d176ab12c40e97d4c54d",
+    "semantic_hash": "0602f22f1b64d176ab12c40e97d4c54d"
+  },
+  "androidstudio/stockflow-mobile/src/app/index.tsx": {
+    "mtime": 1792457753.8259146,
+    "seen": 1792517435.3733356,
+    "ast_hash": "bb6d3064a72b5d7d9c5225e445fff8e7",
+    "semantic_hash": "bb6d3064a72b5d7d9c5225e445fff8e7"
+  },
+  "androidstudio/stockflow-mobile/src/app/productos/[id].tsx": {
+    "mtime": 1792457754.4609156,
+    "seen": 1792517435.3733366,
+    "ast_hash": "3646d0679d28ee7013dfeb447a679175",
+    "semantic_hash": "3646d0679d28ee7013dfeb447a679175"
+  },
+  "androidstudio/stockflow-mobile/src/app/productos/index.tsx": {
+    "mtime": 1792457754.3209896,
+    "seen": 1792517435.3733375,
+    "ast_hash": "2de7ce3ba7d105eb59bbacd99d685bcf",
+    "semantic_hash": "2de7ce3ba7d105eb59bbacd99d685bcf"
+  },
+  "androidstudio/stockflow-mobile/src/components/CategoriaCard.tsx": {
+    "mtime": 1792456824.5784774,
+    "seen": 1792517435.3733387,
+    "ast_hash": "2b4a93d6201c853f3dc034f5b67bd30d",
+    "semantic_hash": "2b4a93d6201c853f3dc034f5b67bd30d"
+  },
+  "androidstudio/stockflow-mobile/src/components/EmptyState.tsx": {
+    "mtime": 1792456824.829413,
+    "seen": 1792517435.37334,
+    "ast_hash": "e7dfbf590f42c3fe870207a7335eaecf",
+    "semantic_hash": "e7dfbf590f42c3fe870207a7335eaecf"
+  },
+  "androidstudio/stockflow-mobile/src/components/MetricCard.tsx": {
+    "mtime": 1792456954.2277112,
+    "seen": 1792517435.3733408,
+    "ast_hash": "db8725a4fa27e2fc7f5e81c18c9dd03f",
+    "semantic_hash": "db8725a4fa27e2fc7f5e81c18c9dd03f"
+  },
+  "androidstudio/stockflow-mobile/src/components/ProductoCard.tsx": {
+    "mtime": 1792456824.7054129,
+    "seen": 1792517435.373342,
+    "ast_hash": "45649899bb0af2a0f044a0be02a723dc",
+    "semantic_hash": "45649899bb0af2a0f044a0be02a723dc"
+  },
+  "androidstudio/stockflow-mobile/src/components/ProductoNavegable.tsx": {
+    "mtime": 1792457699.6158218,
+    "seen": 1792517435.373343,
+    "ast_hash": "bd2cd70e5883b28c0999391e6452aa19",
+    "semantic_hash": "bd2cd70e5883b28c0999391e6452aa19"
+  },
+  "androidstudio/stockflow-mobile/src/components/ReturnButton.tsx": {
+    "mtime": 1792457699.4838216,
+    "seen": 1792517435.3733437,
+    "ast_hash": "b88ab608f4592475e51392c33b7f41b3",
+    "semantic_hash": "b88ab608f4592475e51392c33b7f41b3"
+  },
+  "androidstudio/stockflow-mobile/src/components/TabSelector.tsx": {
+    "mtime": 1792456824.447906,
+    "seen": 1792517435.3733444,
+    "ast_hash": "f444380b6549974148fde735e1c73613",
+    "semantic_hash": "f444380b6549974148fde735e1c73613"
+  },
+  "androidstudio/stockflow-mobile/src/data/demoData.ts": {
+    "mtime": 1792458352.6432316,
+    "seen": 1792517435.3733456,
+    "ast_hash": "dee2d157bc002da188c2cf4b19dc83e2",
+    "semantic_hash": "dee2d157bc002da188c2cf4b19dc83e2"
+  },
+  "androidstudio/stockflow-mobile/src/models/inventario.ts": {
+    "mtime": 1792456799.0363758,
+    "seen": 1792517435.3733466,
+    "ast_hash": "aec468383a59c6e2585c1dedeaaa2810",
+    "semantic_hash": "aec468383a59c6e2585c1dedeaaa2810"
+  },
+  "androidstudio/stockflow-mobile/src/theme/palette.ts": {
+    "mtime": 1792456990.618396,
+    "seen": 1792517435.3733473,
+    "ast_hash": "f0f1c7c21cb11cb465ca368d35de4536",
+    "semantic_hash": "f0f1c7c21cb11cb465ca368d35de4536"
+  },
+  "androidstudio/stockflow-mobile/src/utils/routeParams.ts": {
+    "mtime": 1792457699.3208213,
+    "seen": 1792517435.3733482,
+    "ast_hash": "cdbf0595927d59db7e8c62157e786eaa",
+    "semantic_hash": "cdbf0595927d59db7e8c62157e786eaa"
+  },
+  "androidstudio/stockflow-mobile/tsconfig.json": {
+    "mtime": 1792457775.8699522,
+    "seen": 1792517435.3733492,
+    "ast_hash": "85da5c0bf8f1b929693562bbd7fd9018",
+    "semantic_hash": "85da5c0bf8f1b929693562bbd7fd9018"
+  },
+  "datagrip/00_admin_crear_usuario_y_base.sql": {
+    "mtime": 1791556122.6333323,
+    "seen": 1792517435.3733501,
+    "ast_hash": "1f6490bb021ef92f3ae979068bfd2198",
+    "semantic_hash": "1f6490bb021ef92f3ae979068bfd2198"
+  },
+  "datagrip/03_verificacion_y_pruebas.sql": {
+    "mtime": 1792248597.7310302,
+    "seen": 1792517435.3733513,
+    "ast_hash": "db13ee54b4c801f32f997626fdc1d744",
+    "semantic_hash": "db13ee54b4c801f32f997626fdc1d744"
+  },
+  "docs/guias/generar_guia_ejecucion.py": {
+    "mtime": 1792460112.1359477,
+    "seen": 1792517435.3733523,
+    "ast_hash": "c4addc2bc86e47193028244cabfc0157",
+    "semantic_hash": "c4addc2bc86e47193028244cabfc0157"
+  },
+  "docs/parciales/generar_diagrama.py": {
+    "mtime": 1792450486.764393,
+    "seen": 1792517435.373353,
+    "ast_hash": "9216e69855164b40fa6af7fd2de44efd",
+    "semantic_hash": "9216e69855164b40fa6af7fd2de44efd"
+  },
+  "docs/parciales/generar_pdf.py": {
+    "mtime": 1792248597.7316926,
+    "seen": 1792517435.373354,
+    "ast_hash": "fc2e82bb3488b16b3ca040745d8b6e0e",
+    "semantic_hash": "fc2e82bb3488b16b3ca040745d8b6e0e"
+  },
+  "intellij/stockflow-backend-lab/pom.xml": {
+    "mtime": 1791515681.226303,
+    "seen": 1792517435.373355,
+    "ast_hash": "f981e7c77d22b45a20b5f57c24344985",
+    "semantic_hash": "f981e7c77d22b45a20b5f57c24344985"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/Main.java": {
+    "mtime": 1791515681.226353,
+    "seen": 1792517435.373356,
+    "ast_hash": "e3135ee46126e37a30c4bd2faf51ffa0",
+    "semantic_hash": "e3135ee46126e37a30c4bd2faf51ffa0"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/application/CategoriaService.java": {
+    "mtime": 1791515681.2263954,
+    "seen": 1792517435.3733568,
+    "ast_hash": "26e32543761aa3513cfbbd2be7d19723",
+    "semantic_hash": "26e32543761aa3513cfbbd2be7d19723"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/domain/Categoria.java": {
+    "mtime": 1791515681.2263954,
+    "seen": 1792517435.3733578,
+    "ast_hash": "96814eb20c9f067923c4f0c715c73223",
+    "semantic_hash": "96814eb20c9f067923c4f0c715c73223"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/domain/CategoriaResumen.java": {
+    "mtime": 1791515681.226472,
+    "seen": 1792517435.3733585,
+    "ast_hash": "8d745e491860068381c0bb556efeaf74",
+    "semantic_hash": "8d745e491860068381c0bb556efeaf74"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/domain/exception/CategoriaNoEncontradaException.java": {
+    "mtime": 1791515681.226472,
+    "seen": 1792517435.3733597,
+    "ast_hash": "9cce3baae621a65aed1890eee5ffce83",
+    "semantic_hash": "9cce3baae621a65aed1890eee5ffce83"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/domain/exception/CodigoCategoriaDuplicadoException.java": {
+    "mtime": 1791515681.2265055,
+    "seen": 1792517435.3733604,
+    "ast_hash": "17feb5acbe894d340266ef070e96f584",
+    "semantic_hash": "17feb5acbe894d340266ef070e96f584"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/domain/exception/CodigoProductoRepetidoEnCategoriaException.java": {
+    "mtime": 1791515681.2265055,
+    "seen": 1792517435.3733613,
+    "ast_hash": "115f8c48545970b0d1d4a9a35f4cada2",
+    "semantic_hash": "115f8c48545970b0d1d4a9a35f4cada2"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/domain/port/CategoriaRepository.java": {
+    "mtime": 1791515681.2265055,
+    "seen": 1792517435.3733625,
+    "ast_hash": "1888c7dae712d4234054dd3d19e8d227",
+    "semantic_hash": "1888c7dae712d4234054dd3d19e8d227"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/category/infrastructure/memory/CategoriaRepositoryEnMemoria.java": {
+    "mtime": 1791515681.2265677,
+    "seen": 1792517435.3733633,
+    "ast_hash": "9de29d44d2c355f4c3015a6618710792",
+    "semantic_hash": "9de29d44d2c355f4c3015a6618710792"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/product/application/command/RegistrarProductoCommand.java": {
+    "mtime": 1791515681.2265995,
+    "seen": 1792517435.3733666,
+    "ast_hash": "a94dd1d859849a3a293c37ce13702909",
+    "semantic_hash": "a94dd1d859849a3a293c37ce13702909"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/product/domain/Producto.java": {
+    "mtime": 1791515681.2265995,
+    "seen": 1792517435.3733675,
+    "ast_hash": "d967384f67cf5115c5d56515e7f875ff",
+    "semantic_hash": "d967384f67cf5115c5d56515e7f875ff"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/product/domain/UnidadMedida.java": {
+    "mtime": 1791515681.2266676,
+    "seen": 1792517435.3733685,
+    "ast_hash": "7b205cf858cff712c0bd8d93d8dbd043",
+    "semantic_hash": "7b205cf858cff712c0bd8d93d8dbd043"
+  },
+  "intellij/stockflow-backend-lab/src/main/java/com/stockflow/product/domain/exception/StockMinimoInvalidoException.java": {
+    "mtime": 1791515681.2266676,
+    "seen": 1792517435.3733697,
+    "ast_hash": "b1ed414693791032a89f76724be18cd0",
+    "semantic_hash": "b1ed414693791032a89f76724be18cd0"
+  },
+  "intellij/stockflow-backend/pom.xml": {
+    "mtime": 1792248597.7434208,
+    "seen": 1792517435.3733706,
+    "ast_hash": "e1206023929d9726b51331e470b1060d",
+    "semantic_hash": "e1206023929d9726b51331e470b1060d"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/StockFlowApplication.java": {
+    "mtime": 1791515681.2268865,
+    "seen": 1792517435.3733716,
+    "ast_hash": "7b1e0b85a5702ffa28dc13fa6f8d4a7f",
+    "semantic_hash": "7b1e0b85a5702ffa28dc13fa6f8d4a7f"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/application/CategoriaDemoService.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733733,
+    "ast_hash": "a8e35c2c8690158a21b5c30e972bdee6",
+    "semantic_hash": "a8e35c2c8690158a21b5c30e972bdee6"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/application/service/CategoriaService.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733742,
+    "ast_hash": "6ba6a1f9c8d13131ee2f158a68aab61e",
+    "semantic_hash": "6ba6a1f9c8d13131ee2f158a68aab61e"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/exception/CategoriaConProductosException.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.373375,
+    "ast_hash": "75ced8208fd304f2f75a201092889990",
+    "semantic_hash": "75ced8208fd304f2f75a201092889990"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/exception/CategoriaDuplicadaException.java": {
+    "mtime": 1791515681.2270122,
+    "seen": 1792517435.373376,
+    "ast_hash": "38af3b2ffab692bc37a95b7f159b62a6",
+    "semantic_hash": "38af3b2ffab692bc37a95b7f159b62a6"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/exception/CategoriaInactivaException.java": {
+    "mtime": 1791515681.2270122,
+    "seen": 1792517435.373377,
+    "ast_hash": "fe1b60b4658dda18474fb25dabd7b8c2",
+    "semantic_hash": "fe1b60b4658dda18474fb25dabd7b8c2"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/exception/CategoriaNoEncontradaException.java": {
+    "mtime": 1791515681.2270122,
+    "seen": 1792517435.3733778,
+    "ast_hash": "21392b2f82e9631a5e0d15bb322c55b6",
+    "semantic_hash": "21392b2f82e9631a5e0d15bb322c55b6"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/model/Categoria.java": {
+    "mtime": 1792248597.7434208,
+    "seen": 1792517435.3733785,
+    "ast_hash": "e98eedfddc101126a36e818ba524c957",
+    "semantic_hash": "e98eedfddc101126a36e818ba524c957"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/port/in/ActualizarCategoriaUseCase.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733795,
+    "ast_hash": "42a5ef95bbc46f282ff87e1ab35c4d00",
+    "semantic_hash": "42a5ef95bbc46f282ff87e1ab35c4d00"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/port/in/ConsultarCategoriaUseCase.java": {
+    "mtime": 1791515681.2271197,
+    "seen": 1792517435.3733804,
+    "ast_hash": "20ceedd3e5139b47ae01426b161feccb",
+    "semantic_hash": "20ceedd3e5139b47ae01426b161feccb"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/port/in/EliminarCategoriaUseCase.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733811,
+    "ast_hash": "250223bbaa2c01e4517142ad28091006",
+    "semantic_hash": "250223bbaa2c01e4517142ad28091006"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/port/in/RegistrarCategoriaUseCase.java": {
+    "mtime": 1791515681.2271197,
+    "seen": 1792517435.373382,
+    "ast_hash": "9a1017988a79794071a9d97ef3557876",
+    "semantic_hash": "9a1017988a79794071a9d97ef3557876"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/domain/port/out/CategoriaRepositoryPort.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733828,
+    "ast_hash": "7a590fa46c605b7729f71ec80fa27c12",
+    "semantic_hash": "7a590fa46c605b7729f71ec80fa27c12"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/CategoriaController.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733838,
+    "ast_hash": "85d72f8c078cc0464881b2886e56213b",
+    "semantic_hash": "85d72f8c078cc0464881b2886e56213b"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/CategoriaDemoController.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733845,
+    "ast_hash": "2f66a8eab824d435e29998f275b434d2",
+    "semantic_hash": "2f66a8eab824d435e29998f275b434d2"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/dto/ActualizarCategoriaRequest.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733854,
+    "ast_hash": "5ddb34e3b96032c140272b136b287163",
+    "semantic_hash": "5ddb34e3b96032c140272b136b287163"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/dto/CategoriaDemoResponse.java": {
+    "mtime": 1791515681.227296,
+    "seen": 1792517435.3733861,
+    "ast_hash": "22fd8ed88f17aca7a3efc030dd090fc4",
+    "semantic_hash": "22fd8ed88f17aca7a3efc030dd090fc4"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/dto/CategoriaResponse.java": {
+    "mtime": 1791515681.227296,
+    "seen": 1792517435.3733873,
+    "ast_hash": "1883caf4543774214f341acc2c8be6ac",
+    "semantic_hash": "1883caf4543774214f341acc2c8be6ac"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/dto/CrearCategoriaRequest.java": {
+    "mtime": 1791515681.227296,
+    "seen": 1792517435.373388,
+    "ast_hash": "3f9610219f02ffbd454d68c242f73b12",
+    "semantic_hash": "3f9610219f02ffbd454d68c242f73b12"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/in/web/mapper/CategoriaWebMapper.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733888,
+    "ast_hash": "7aac5beae0beb0a8ffdb8482b4135bec",
+    "semantic_hash": "7aac5beae0beb0a8ffdb8482b4135bec"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/out/persistence/CategoriaPersistenceAdapter.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733897,
+    "ast_hash": "33ba84172bd2bfc2624cf1e0439ecd5d",
+    "semantic_hash": "33ba84172bd2bfc2624cf1e0439ecd5d"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/out/persistence/entity/CategoriaJpaEntity.java": {
+    "mtime": 1792248597.7434208,
+    "seen": 1792517435.3733907,
+    "ast_hash": "f54c5d43d6faaf4ded94df6d1e5e3b5a",
+    "semantic_hash": "f54c5d43d6faaf4ded94df6d1e5e3b5a"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/out/persistence/mapper/CategoriaPersistenceMapper.java": {
+    "mtime": 1791515681.2274134,
+    "seen": 1792517435.3733914,
+    "ast_hash": "6f66706d4d41a1479f95ebb46a86ad1b",
+    "semantic_hash": "6f66706d4d41a1479f95ebb46a86ad1b"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/category/infrastructure/adapter/out/persistence/repository/SpringDataCategoriaRepository.java": {
+    "mtime": 1791556122.6440082,
+    "seen": 1792517435.3733923,
+    "ast_hash": "d3575f6b4132aa93ab2c07765bc6fc7b",
+    "semantic_hash": "d3575f6b4132aa93ab2c07765bc6fc7b"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/application/service/InventarioConsultaService.java": {
+    "mtime": 1792248597.744006,
+    "seen": 1792517435.373393,
+    "ast_hash": "7dcf78b34162589d04544202a0aa8b8e",
+    "semantic_hash": "7dcf78b34162589d04544202a0aa8b8e"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/domain/model/Existencia.java": {
+    "mtime": 1792248597.7440674,
+    "seen": 1792517435.3733943,
+    "ast_hash": "aa9bb400b568d772dff09f2dc5da3622",
+    "semantic_hash": "aa9bb400b568d772dff09f2dc5da3622"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/domain/model/MovimientoKardex.java": {
+    "mtime": 1792248597.7440972,
+    "seen": 1792517435.3734024,
+    "ast_hash": "879f3f7827e3aef2ee3bc0d85010ee5d",
+    "semantic_hash": "879f3f7827e3aef2ee3bc0d85010ee5d"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/domain/model/Pagina.java": {
+    "mtime": 1792248597.7440972,
+    "seen": 1792517435.373403,
+    "ast_hash": "5e9d03b864d71ce836099705dc78953e",
+    "semantic_hash": "5e9d03b864d71ce836099705dc78953e"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/domain/port/in/ConsultarInventarioUseCase.java": {
+    "mtime": 1792248597.7441406,
+    "seen": 1792517435.3734043,
+    "ast_hash": "2802e91408fbc8c2cea1a363e5ab4e26",
+    "semantic_hash": "2802e91408fbc8c2cea1a363e5ab4e26"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/domain/port/out/InventarioConsultaPort.java": {
+    "mtime": 1792248597.7441406,
+    "seen": 1792517435.3734052,
+    "ast_hash": "13b1cea40e18f7204600c50bee73b567",
+    "semantic_hash": "13b1cea40e18f7204600c50bee73b567"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/in/web/InventarioController.java": {
+    "mtime": 1792248597.7442317,
+    "seen": 1792517435.3734062,
+    "ast_hash": "bc63d6cb1c1533b45a22b2f426775593",
+    "semantic_hash": "bc63d6cb1c1533b45a22b2f426775593"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/in/web/dto/ExistenciaResponse.java": {
+    "mtime": 1792248597.7442696,
+    "seen": 1792517435.3734105,
+    "ast_hash": "c56d8a4fb00b8e561d08816a35b7a72b",
+    "semantic_hash": "c56d8a4fb00b8e561d08816a35b7a72b"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/in/web/dto/MovimientoKardexResponse.java": {
+    "mtime": 1792248597.7442932,
+    "seen": 1792517435.3734114,
+    "ast_hash": "72c5295f465382543a8d50cabbfe55c1",
+    "semantic_hash": "72c5295f465382543a8d50cabbfe55c1"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/in/web/dto/PaginaResponse.java": {
+    "mtime": 1792248597.7442932,
+    "seen": 1792517435.3734124,
+    "ast_hash": "f850e1534b83ec1896a952ef28c98277",
+    "semantic_hash": "f850e1534b83ec1896a952ef28c98277"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/in/web/mapper/InventarioWebMapper.java": {
+    "mtime": 1792248597.7442932,
+    "seen": 1792517435.373413,
+    "ast_hash": "16b43e13d48004de136abbfbf0912464",
+    "semantic_hash": "16b43e13d48004de136abbfbf0912464"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/out/persistence/InventarioConsultaAdapter.java": {
+    "mtime": 1792248597.7443655,
+    "seen": 1792517435.373414,
+    "ast_hash": "1e8287c901f8dd064e08a6078b3e7762",
+    "semantic_hash": "1e8287c901f8dd064e08a6078b3e7762"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/out/persistence/entity/StockJpaEntity.java": {
+    "mtime": 1792248597.7444012,
+    "seen": 1792517435.3734157,
+    "ast_hash": "a35757e3703a1a8c4a025c6d9972d0a0",
+    "semantic_hash": "a35757e3703a1a8c4a025c6d9972d0a0"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/inventory/infrastructure/adapter/out/persistence/repository/SpringDataStockRepository.java": {
+    "mtime": 1792248597.7444012,
+    "seen": 1792517435.3734174,
+    "ast_hash": "f74cccd5af2ffe0b32e5adbb78ac6357",
+    "semantic_hash": "f74cccd5af2ffe0b32e5adbb78ac6357"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/application/service/UbicacionService.java": {
+    "mtime": 1792248597.7444863,
+    "seen": 1792517435.3734186,
+    "ast_hash": "7e70c8c6c2436465d45939dbb53509cd",
+    "semantic_hash": "7e70c8c6c2436465d45939dbb53509cd"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/exception/AlmacenCentralDuplicadoException.java": {
+    "mtime": 1792248597.7445462,
+    "seen": 1792517435.37342,
+    "ast_hash": "443b4cd869ea7742d52bdfbbfeaffe10",
+    "semantic_hash": "443b4cd869ea7742d52bdfbbfeaffe10"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/exception/CodigoUbicacionDuplicadoException.java": {
+    "mtime": 1792248597.7445724,
+    "seen": 1792517435.3734214,
+    "ast_hash": "4580859c06979626632daaeec0e6d977",
+    "semantic_hash": "4580859c06979626632daaeec0e6d977"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/exception/UbicacionNoEncontradaException.java": {
+    "mtime": 1792248597.7445724,
+    "seen": 1792517435.3734226,
+    "ast_hash": "a26ea3a1c6a1745600ce8985de13a07e",
+    "semantic_hash": "a26ea3a1c6a1745600ce8985de13a07e"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/model/TipoUbicacion.java": {
+    "mtime": 1792248597.7445724,
+    "seen": 1792517435.3734238,
+    "ast_hash": "a7c3c4a32a3ad0fc845bfabb76dc9fe2",
+    "semantic_hash": "a7c3c4a32a3ad0fc845bfabb76dc9fe2"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/model/Ubicacion.java": {
+    "mtime": 1792248597.7446518,
+    "seen": 1792517435.3734255,
+    "ast_hash": "205e260ae83418aa63a447b250188463",
+    "semantic_hash": "205e260ae83418aa63a447b250188463"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/port/in/ConsultarUbicacionUseCase.java": {
+    "mtime": 1792248597.7447047,
+    "seen": 1792517435.3734279,
+    "ast_hash": "64098b810de4b89e82a5eaae71c5da9c",
+    "semantic_hash": "64098b810de4b89e82a5eaae71c5da9c"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/port/in/RegistrarUbicacionUseCase.java": {
+    "mtime": 1792248597.7447495,
+    "seen": 1792517435.3734298,
+    "ast_hash": "a75b78bfd12c50a89b21605aa0257cbd",
+    "semantic_hash": "a75b78bfd12c50a89b21605aa0257cbd"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/domain/port/out/UbicacionRepositoryPort.java": {
+    "mtime": 1792248597.7447495,
+    "seen": 1792517435.373431,
+    "ast_hash": "e7ffb3086e91963db3c8c261388bccea",
+    "semantic_hash": "e7ffb3086e91963db3c8c261388bccea"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/in/web/UbicacionController.java": {
+    "mtime": 1792248597.7448747,
+    "seen": 1792517435.3734326,
+    "ast_hash": "0cf17ddb9ca864be92d508c17b02de2c",
+    "semantic_hash": "0cf17ddb9ca864be92d508c17b02de2c"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/in/web/dto/CrearUbicacionRequest.java": {
+    "mtime": 1792248597.7449422,
+    "seen": 1792517435.373434,
+    "ast_hash": "3fb8967e3e13268fc8c05556e5a6dd28",
+    "semantic_hash": "3fb8967e3e13268fc8c05556e5a6dd28"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/in/web/dto/UbicacionResponse.java": {
+    "mtime": 1792248597.745003,
+    "seen": 1792517435.3734355,
+    "ast_hash": "0434310e1d04f0dcceb05a8f447d9d78",
+    "semantic_hash": "0434310e1d04f0dcceb05a8f447d9d78"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/in/web/mapper/UbicacionWebMapper.java": {
+    "mtime": 1792248597.745003,
+    "seen": 1792517435.373437,
+    "ast_hash": "078e96374307363ab4884e3bb4cf127a",
+    "semantic_hash": "078e96374307363ab4884e3bb4cf127a"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/out/persistence/UbicacionPersistenceAdapter.java": {
+    "mtime": 1792248597.7451103,
+    "seen": 1792517435.3734384,
+    "ast_hash": "f757c8198fb6a14445b0dece43b23cc4",
+    "semantic_hash": "f757c8198fb6a14445b0dece43b23cc4"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/out/persistence/entity/UbicacionJpaEntity.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.37344,
+    "ast_hash": "4100bfbb4c486646a20307a721aa27fa",
+    "semantic_hash": "4100bfbb4c486646a20307a721aa27fa"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/out/persistence/mapper/UbicacionPersistenceMapper.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.3734417,
+    "ast_hash": "a6be772203a89975400545c3d447756f",
+    "semantic_hash": "a6be772203a89975400545c3d447756f"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/location/infrastructure/adapter/out/persistence/repository/SpringDataUbicacionRepository.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.3734431,
+    "ast_hash": "566d698e61fc09c99da999871d5bb426",
+    "semantic_hash": "566d698e61fc09c99da999871d5bb426"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/application/service/ProductoService.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.373444,
+    "ast_hash": "57429911fdfa8e89a01ee83f942d2db5",
+    "semantic_hash": "57429911fdfa8e89a01ee83f942d2db5"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/exception/CodigoProductoDuplicadoException.java": {
+    "mtime": 1791515681.2275665,
+    "seen": 1792517435.3734453,
+    "ast_hash": "5fe45544b456ec92230771afa0382119",
+    "semantic_hash": "5fe45544b456ec92230771afa0382119"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/exception/ProductoEnUsoException.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.3734462,
+    "ast_hash": "610ecb4f582f66dffe328ed8c0124855",
+    "semantic_hash": "610ecb4f582f66dffe328ed8c0124855"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/exception/ProductoNoEncontradoException.java": {
+    "mtime": 1791515681.2275848,
+    "seen": 1792517435.3734484,
+    "ast_hash": "ce108f8a5173f5fc3ef07b7de07d66b5",
+    "semantic_hash": "ce108f8a5173f5fc3ef07b7de07d66b5"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/exception/StockMinimoInvalidoException.java": {
+    "mtime": 1791515681.2275848,
+    "seen": 1792517435.3734493,
+    "ast_hash": "8447c72f86a73849acd7f285212d8d60",
+    "semantic_hash": "8447c72f86a73849acd7f285212d8d60"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/model/Producto.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.3734503,
+    "ast_hash": "9a53a4e7aa21f947bdedfab00e40e4cd",
+    "semantic_hash": "9a53a4e7aa21f947bdedfab00e40e4cd"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/model/UnidadMedida.java": {
+    "mtime": 1791515681.2276218,
+    "seen": 1792517435.3734515,
+    "ast_hash": "c3e4860315488fe926a7fc7bae4a84a2",
+    "semantic_hash": "c3e4860315488fe926a7fc7bae4a84a2"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/port/in/ActualizarProductoUseCase.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.3734522,
+    "ast_hash": "cdb976199b37eacaf524741650492075",
+    "semantic_hash": "cdb976199b37eacaf524741650492075"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/port/in/ConsultarProductoUseCase.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.3734534,
+    "ast_hash": "62ee58649b35aaef7b127ed389aa5d26",
+    "semantic_hash": "62ee58649b35aaef7b127ed389aa5d26"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/port/in/EliminarProductoUseCase.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.373454,
+    "ast_hash": "7f40f8a2fa114d9ab9f9ae9dcf22bfcf",
+    "semantic_hash": "7f40f8a2fa114d9ab9f9ae9dcf22bfcf"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/port/in/RegistrarProductoUseCase.java": {
+    "mtime": 1791515681.2276614,
+    "seen": 1792517435.373455,
+    "ast_hash": "3f474b822057416b6fb0dc5ce2f204ea",
+    "semantic_hash": "3f474b822057416b6fb0dc5ce2f204ea"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/domain/port/out/ProductoRepositoryPort.java": {
+    "mtime": 1792248597.7451854,
+    "seen": 1792517435.3734558,
+    "ast_hash": "2be58bab5d1fe435af44261b37f13f5c",
+    "semantic_hash": "2be58bab5d1fe435af44261b37f13f5c"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/in/web/ProductoController.java": {
+    "mtime": 1792248597.745421,
+    "seen": 1792517435.373457,
+    "ast_hash": "6876c5ebd8b99037a6e21d0d0e2f94c6",
+    "semantic_hash": "6876c5ebd8b99037a6e21d0d0e2f94c6"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/in/web/dto/ActualizarProductoRequest.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.3734577,
+    "ast_hash": "551733e617d350140f47168a5831e28c",
+    "semantic_hash": "551733e617d350140f47168a5831e28c"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/in/web/dto/CrearProductoRequest.java": {
+    "mtime": 1791515681.2277975,
+    "seen": 1792517435.3734584,
+    "ast_hash": "762ccfe5986ef2580e5bfb3a90628802",
+    "semantic_hash": "762ccfe5986ef2580e5bfb3a90628802"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/in/web/dto/ProductoResponse.java": {
+    "mtime": 1791515681.2277975,
+    "seen": 1792517435.373459,
+    "ast_hash": "a40167701ff9b5e0c60da0e71512e350",
+    "semantic_hash": "a40167701ff9b5e0c60da0e71512e350"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/in/web/mapper/ProductoWebMapper.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.3734603,
+    "ast_hash": "798c9b8a19fdffbe26a7d71a893098ce",
+    "semantic_hash": "798c9b8a19fdffbe26a7d71a893098ce"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/out/persistence/ProductoPersistenceAdapter.java": {
+    "mtime": 1792248597.745421,
+    "seen": 1792517435.373461,
+    "ast_hash": "bf9fef681fdcc9e3f925bf92d7062bca",
+    "semantic_hash": "bf9fef681fdcc9e3f925bf92d7062bca"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/out/persistence/entity/ProductoJpaEntity.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.3734617,
+    "ast_hash": "fcfb006bb3f59f4c38f147293f363d61",
+    "semantic_hash": "fcfb006bb3f59f4c38f147293f363d61"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/out/persistence/mapper/ProductoPersistenceMapper.java": {
+    "mtime": 1791515681.2278595,
+    "seen": 1792517435.3734627,
+    "ast_hash": "171417415fbfe732d142462867628f1e",
+    "semantic_hash": "171417415fbfe732d142462867628f1e"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/product/infrastructure/adapter/out/persistence/repository/SpringDataProductoRepository.java": {
+    "mtime": 1792248597.8094208,
+    "seen": 1792517435.3734636,
+    "ast_hash": "dd0f1c17d3d5bb477331ce33125436e5",
+    "semantic_hash": "dd0f1c17d3d5bb477331ce33125436e5"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/application/ProjectInfoService.java": {
+    "mtime": 1791515681.2279277,
+    "seen": 1792517435.3734643,
+    "ast_hash": "cc9b180d2cd5a0334db69dcc394ede6a",
+    "semantic_hash": "cc9b180d2cd5a0334db69dcc394ede6a"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/domain/exception/ConflictoNegocioException.java": {
+    "mtime": 1791515681.2279568,
+    "seen": 1792517435.3734653,
+    "ast_hash": "c40403f8999fe61f1774ee942f2a0f57",
+    "semantic_hash": "c40403f8999fe61f1774ee942f2a0f57"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/domain/exception/DatoInvalidoException.java": {
+    "mtime": 1792248597.745421,
+    "seen": 1792517435.3734663,
+    "ast_hash": "145dcee76c9aecdbebe6bbcb42be4ec8",
+    "semantic_hash": "145dcee76c9aecdbebe6bbcb42be4ec8"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/domain/exception/RecursoNoEncontradoException.java": {
+    "mtime": 1791515681.2279732,
+    "seen": 1792517435.3734674,
+    "ast_hash": "64f34bb9e8d61c501e4eeb84ede57834",
+    "semantic_hash": "64f34bb9e8d61c501e4eeb84ede57834"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/domain/exception/ReglaNegocioException.java": {
+    "mtime": 1791515681.2279732,
+    "seen": 1792517435.3734682,
+    "ast_hash": "c904227702b4dc49a7d9236dc84e8134",
+    "semantic_hash": "c904227702b4dc49a7d9236dc84e8134"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/web/ApiErrorResponse.java": {
+    "mtime": 1791515681.2279732,
+    "seen": 1792517435.373469,
+    "ast_hash": "18d9dd1203c79355a91bb1b236e136bf",
+    "semantic_hash": "18d9dd1203c79355a91bb1b236e136bf"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/web/CorsConfig.java": {
+    "mtime": 1791556122.645919,
+    "seen": 1792517435.3734703,
+    "ast_hash": "7adcd0307b151a124bf0b420f1ce9e5b",
+    "semantic_hash": "7adcd0307b151a124bf0b420f1ce9e5b"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/web/GlobalExceptionHandler.java": {
+    "mtime": 1791515681.228017,
+    "seen": 1792517435.3734713,
+    "ast_hash": "c7779dbd5fa18637f2739ea5fedec923",
+    "semantic_hash": "c7779dbd5fa18637f2739ea5fedec923"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/web/HealthController.java": {
+    "mtime": 1791515681.228017,
+    "seen": 1792517435.3734722,
+    "ast_hash": "b5d102cd46fab6417a1efe6c84603d44",
+    "semantic_hash": "b5d102cd46fab6417a1efe6c84603d44"
+  },
+  "intellij/stockflow-backend/src/main/java/com/stockflow/shared/web/OpenApiConfig.java": {
+    "mtime": 1792248597.745421,
+    "seen": 1792517435.373473,
+    "ast_hash": "6b6e344572cfa5e37e3873dea3e3238d",
+    "semantic_hash": "6b6e344572cfa5e37e3873dea3e3238d"
+  },
+  "intellij/stockflow-backend/src/main/resources/db/migration/V1__creacion_completa_stockflow.sql": {
+    "mtime": 1791556122.646488,
+    "seen": 1792517435.3734741,
+    "ast_hash": "fb3b90bfca14f7dc727232c3df43ba3d",
+    "semantic_hash": "fb3b90bfca14f7dc727232c3df43ba3d"
+  },
+  "intellij/stockflow-backend/src/main/resources/db/migration/V2__datos_semilla.sql": {
+    "mtime": 1791556122.6465738,
+    "seen": 1792517435.373475,
+    "ast_hash": "8d3ef990ba3eabb5e085948b522eaea6",
+    "semantic_hash": "8d3ef990ba3eabb5e085948b522eaea6"
+  },
+  "intellij/stockflow-backend/src/main/resources/db/migration/V3__proteger_historico_y_alertas.sql": {
+    "mtime": 1792248597.745421,
+    "seen": 1792517435.373476,
+    "ast_hash": "f123320112fcf455d3c0b9247401a3c9",
+    "semantic_hash": "f123320112fcf455d3c0b9247401a3c9"
+  },
+  "intellij/stockflow-backend/src/test/java/com/stockflow/category/application/service/CategoriaServiceTest.java": {
+    "mtime": 1791556122.6466596,
+    "seen": 1792517435.373477,
+    "ast_hash": "5d705ae1d8131e9280b34af1e7745e35",
+    "semantic_hash": "5d705ae1d8131e9280b34af1e7745e35"
+  },
+  "intellij/stockflow-backend/src/test/java/com/stockflow/integration/PersistenciaPostgresTest.java": {
+    "mtime": 1792248597.745421,
+    "seen": 1792517435.3734791,
+    "ast_hash": "9d441d8356f445ac3359629f3e07bfaa",
+    "semantic_hash": "9d441d8356f445ac3359629f3e07bfaa"
+  },
+  "intellij/stockflow-backend/src/test/java/com/stockflow/location/application/service/UbicacionServiceTest.java": {
+    "mtime": 1792248597.746137,
+    "seen": 1792517435.37348,
+    "ast_hash": "94c0e0bea5dba496e87aa90c3daa9275",
+    "semantic_hash": "94c0e0bea5dba496e87aa90c3daa9275"
+  },
+  "intellij/stockflow-backend/src/test/java/com/stockflow/product/application/service/ProductoServiceTest.java": {
+    "mtime": 1792248597.8094208,
+    "seen": 1792517435.373481,
+    "ast_hash": "539a42ac3637d8e20c7ce0b7ea62817f",
+    "semantic_hash": "539a42ac3637d8e20c7ce0b7ea62817f"
+  },
+  "intellij/stockflow-backend/src/test/java/com/stockflow/product/domain/model/ProductoTest.java": {
+    "mtime": 1792248597.746391,
+    "seen": 1792517435.373482,
+    "ast_hash": "81412e884e2f14a21dfa1dc8be8e5f0f",
+    "semantic_hash": "81412e884e2f14a21dfa1dc8be8e5f0f"
+  },
+  "intellij/stockflow-backend/src/test/java/com/stockflow/product/infrastructure/adapter/in/web/ProductoControllerTest.java": {
+    "mtime": 1792248597.7464905,
+    "seen": 1792517435.3734827,
+    "ast_hash": "e04b4ffb11f272ef6a9a2dbd93fc0146",
+    "semantic_hash": "e04b4ffb11f272ef6a9a2dbd93fc0146"
+  },
+  "webstorm/stockflow-frontend/.oxlintrc.json": {
+    "mtime": 1792248597.758421,
+    "seen": 1792517435.373485,
+    "ast_hash": "029f4905006c1fffd96bc863e2d98d3e",
+    "semantic_hash": "029f4905006c1fffd96bc863e2d98d3e"
+  },
+  "webstorm/stockflow-frontend/package.json": {
+    "mtime": 1792248597.7594209,
+    "seen": 1792517435.373486,
+    "ast_hash": "0198506071caad2f55f0de955643e86e",
+    "semantic_hash": "0198506071caad2f55f0de955643e86e"
+  },
+  "webstorm/stockflow-frontend/src/api/PaginaResponse.ts": {
+    "mtime": 1792248597.7597606,
+    "seen": 1792517435.3734868,
+    "ast_hash": "93d127fde5874631981e1b3017ad4053",
+    "semantic_hash": "93d127fde5874631981e1b3017ad4053"
+  },
+  "webstorm/stockflow-frontend/src/api/apiClient.test.ts": {
+    "mtime": 1792248597.7597866,
+    "seen": 1792517435.373488,
+    "ast_hash": "0907c7ec8cd144f9abdafb247cc7325b",
+    "semantic_hash": "0907c7ec8cd144f9abdafb247cc7325b"
+  },
+  "webstorm/stockflow-frontend/src/api/apiClient.ts": {
+    "mtime": 1792248597.7597866,
+    "seen": 1792517435.373489,
+    "ast_hash": "31a24b6149f49f2ca4729ed53f74d5eb",
+    "semantic_hash": "31a24b6149f49f2ca4729ed53f74d5eb"
+  },
+  "webstorm/stockflow-frontend/src/api/describirError.ts": {
+    "mtime": 1792248597.7597866,
+    "seen": 1792517435.3734896,
+    "ast_hash": "0ad52e22f6de64bf6325a03e5d53e697",
+    "semantic_hash": "0ad52e22f6de64bf6325a03e5d53e697"
+  },
+  "webstorm/stockflow-frontend/src/api/healthService.ts": {
+    "mtime": 1792248597.7597866,
+    "seen": 1792517435.3734903,
+    "ast_hash": "25961cd8492fea14472142c09e675a73",
+    "semantic_hash": "25961cd8492fea14472142c09e675a73"
+  },
+  "webstorm/stockflow-frontend/src/app/App.tsx": {
+    "mtime": 1792248597.7597866,
+    "seen": 1792517435.3734915,
+    "ast_hash": "be8210e3641173a4e3093768a18c2f80",
+    "semantic_hash": "be8210e3641173a4e3093768a18c2f80"
+  },
+  "webstorm/stockflow-frontend/src/app/AppErrorBoundary.tsx": {
+    "mtime": 1792248597.7599065,
+    "seen": 1792517435.3734922,
+    "ast_hash": "55e323630c7040b99f76b7386f1be8ba",
+    "semantic_hash": "55e323630c7040b99f76b7386f1be8ba"
+  },
+  "webstorm/stockflow-frontend/src/app/navigation.ts": {
+    "mtime": 1792248597.7599065,
+    "seen": 1792517435.373493,
+    "ast_hash": "582fdf8a8ab36b2b5268b13a46eba7f1",
+    "semantic_hash": "582fdf8a8ab36b2b5268b13a46eba7f1"
+  },
+  "webstorm/stockflow-frontend/src/app/theme/ThemeProvider.tsx": {
+    "mtime": 1792248597.7599065,
+    "seen": 1792517435.373494,
+    "ast_hash": "d292a7f76c116de3513a1d5a05d18c58",
+    "semantic_hash": "d292a7f76c116de3513a1d5a05d18c58"
+  },
+  "webstorm/stockflow-frontend/src/app/theme/themeContext.ts": {
+    "mtime": 1792248597.7599773,
+    "seen": 1792517435.3734949,
+    "ast_hash": "ebc2268060f13afbfdbe25722a58c2c9",
+    "semantic_hash": "ebc2268060f13afbfdbe25722a58c2c9"
+  },
+  "webstorm/stockflow-frontend/src/app/theme/useTheme.ts": {
+    "mtime": 1792248597.7599773,
+    "seen": 1792517435.3734958,
+    "ast_hash": "cae377ee29c42576937d71295086af3f",
+    "semantic_hash": "cae377ee29c42576937d71295086af3f"
+  },
+  "webstorm/stockflow-frontend/src/components/common/Breadcrumbs.tsx": {
+    "mtime": 1792248597.760021,
+    "seen": 1792517435.3734968,
+    "ast_hash": "38ecd4dc0649898849894e52402f59e5",
+    "semantic_hash": "38ecd4dc0649898849894e52402f59e5"
+  },
+  "webstorm/stockflow-frontend/src/components/common/Header.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3734975,
+    "ast_hash": "8daf6ef2281cf188a27e17b11f296b84",
+    "semantic_hash": "8daf6ef2281cf188a27e17b11f296b84"
+  },
+  "webstorm/stockflow-frontend/src/components/common/HeaderSearch.test.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3734987,
+    "ast_hash": "7b944be2376ea70c47eeb9c4950c19ce",
+    "semantic_hash": "7b944be2376ea70c47eeb9c4950c19ce"
+  },
+  "webstorm/stockflow-frontend/src/components/common/HeaderSearch.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3734996,
+    "ast_hash": "bfb7f277e113ef93766e44bc5220dac0",
+    "semantic_hash": "bfb7f277e113ef93766e44bc5220dac0"
+  },
+  "webstorm/stockflow-frontend/src/components/common/Logo.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735003,
+    "ast_hash": "be9eccebd91da52b33b41a83ec31758d",
+    "semantic_hash": "be9eccebd91da52b33b41a83ec31758d"
+  },
+  "webstorm/stockflow-frontend/src/components/common/NotificationsMenu.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735015,
+    "ast_hash": "5588b32e8cbad20a9ecb41ee52bcc57a",
+    "semantic_hash": "5588b32e8cbad20a9ecb41ee52bcc57a"
+  },
+  "webstorm/stockflow-frontend/src/components/common/Sidebar.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735025,
+    "ast_hash": "0e0005fe1dcef153e03ce69051e49717",
+    "semantic_hash": "0e0005fe1dcef153e03ce69051e49717"
+  },
+  "webstorm/stockflow-frontend/src/components/common/ThemeMenu.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735034,
+    "ast_hash": "5ab41d585aae8081c0a13144e1323332",
+    "semantic_hash": "5ab41d585aae8081c0a13144e1323332"
+  },
+  "webstorm/stockflow-frontend/src/components/common/ThemeSelector.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735042,
+    "ast_hash": "00ecb31b0a688a53d5b9f916f168466b",
+    "semantic_hash": "00ecb31b0a688a53d5b9f916f168466b"
+  },
+  "webstorm/stockflow-frontend/src/components/common/UserMenu.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735054,
+    "ast_hash": "1a39d724859a7680d2b8025a13735436",
+    "semantic_hash": "1a39d724859a7680d2b8025a13735436"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Alert.tsx": {
+    "mtime": 1792248597.7600455,
+    "seen": 1792517435.3735063,
+    "ast_hash": "a0d9f10ddbc53dac32ce6885a65cf981",
+    "semantic_hash": "a0d9f10ddbc53dac32ce6885a65cf981"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Badge.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735073,
+    "ast_hash": "06969dfd74fbfb256ff23fb1dcf07168",
+    "semantic_hash": "06969dfd74fbfb256ff23fb1dcf07168"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/BarList.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735082,
+    "ast_hash": "436512ea1dfa43a5086321a680459a79",
+    "semantic_hash": "436512ea1dfa43a5086321a680459a79"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Button.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735092,
+    "ast_hash": "7f6d8d670a8476fba6c22b7192045c49",
+    "semantic_hash": "7f6d8d670a8476fba6c22b7192045c49"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Card.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.37351,
+    "ast_hash": "3d503693a115ecd5ae5be0995f9eba18",
+    "semantic_hash": "3d503693a115ecd5ae5be0995f9eba18"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Checkbox.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735108,
+    "ast_hash": "88ceb07ded53d00a610dd71555a9ed92",
+    "semantic_hash": "88ceb07ded53d00a610dd71555a9ed92"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/ConfirmDialog.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735118,
+    "ast_hash": "560e4200d1166b296f3339700850a81e",
+    "semantic_hash": "560e4200d1166b296f3339700850a81e"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/DataTable.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735127,
+    "ast_hash": "48687e861d55eff76abb6e87e4b06f00",
+    "semantic_hash": "48687e861d55eff76abb6e87e4b06f00"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/DemoBadge.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735135,
+    "ast_hash": "9a9ea29e5f923c3ca0c7560e5de6a08d",
+    "semantic_hash": "9a9ea29e5f923c3ca0c7560e5de6a08d"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Dropdown.test.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735142,
+    "ast_hash": "953a3cd208aba9bd488107e3e6a8abf0",
+    "semantic_hash": "953a3cd208aba9bd488107e3e6a8abf0"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Dropdown.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735154,
+    "ast_hash": "a0e68f4ca8209e133d88e549d6f59aa6",
+    "semantic_hash": "a0e68f4ca8209e133d88e549d6f59aa6"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/EmptyState.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735175,
+    "ast_hash": "ee4bf7173d0fb73d79deefe7c89928ab",
+    "semantic_hash": "ee4bf7173d0fb73d79deefe7c89928ab"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Field.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735182,
+    "ast_hash": "72978719e6781573ad4963cb1db7464a",
+    "semantic_hash": "72978719e6781573ad4963cb1db7464a"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/FloatingLayer.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735194,
+    "ast_hash": "ea1cde2785950d1c6359fbe1677c49c5",
+    "semantic_hash": "ea1cde2785950d1c6359fbe1677c49c5"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/LoadingSkeleton.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735201,
+    "ast_hash": "6aa24d48825a9e26f6cc75eb55c002c0",
+    "semantic_hash": "6aa24d48825a9e26f6cc75eb55c002c0"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Meter.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.373521,
+    "ast_hash": "3f4fb863d642a092c875ab47e4f85512",
+    "semantic_hash": "3f4fb863d642a092c875ab47e4f85512"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Modal.test.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735223,
+    "ast_hash": "74b96f3afd092ef43e6f2443d7e0c374",
+    "semantic_hash": "74b96f3afd092ef43e6f2443d7e0c374"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Modal.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.373523,
+    "ast_hash": "f077e6bb05e17866c83276e6599cbddf",
+    "semantic_hash": "f077e6bb05e17866c83276e6599cbddf"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/PageHeader.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735237,
+    "ast_hash": "95eaf6cac9534658ce0c1a77a6caac35",
+    "semantic_hash": "95eaf6cac9534658ce0c1a77a6caac35"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Pagination.test.tsx": {
+    "mtime": 1792248597.76026,
+    "seen": 1792517435.3735247,
+    "ast_hash": "67fc98259f4f884978b74378331b12b5",
+    "semantic_hash": "67fc98259f4f884978b74378331b12b5"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Pagination.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735256,
+    "ast_hash": "064813202305279548860b27a88687e9",
+    "semantic_hash": "064813202305279548860b27a88687e9"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/PasswordInput.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735266,
+    "ast_hash": "04582080d61511371743687018cd03b8",
+    "semantic_hash": "04582080d61511371743687018cd03b8"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Popover.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735273,
+    "ast_hash": "5a492d324db43d6002360d37eb1c9dc4",
+    "semantic_hash": "5a492d324db43d6002360d37eb1c9dc4"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/RowActions.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.373528,
+    "ast_hash": "927b0861cc5c8f774c6fc65228072a93",
+    "semantic_hash": "927b0861cc5c8f774c6fc65228072a93"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/SearchInput.test.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735292,
+    "ast_hash": "632c8345ad6eb6729a668bd6d5c041b4",
+    "semantic_hash": "632c8345ad6eb6729a668bd6d5c041b4"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/SearchInput.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.37353,
+    "ast_hash": "208ca6235e3b4281bf21cb477d83e455",
+    "semantic_hash": "208ca6235e3b4281bf21cb477d83e455"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/SegmentedControl.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735309,
+    "ast_hash": "6e6590bb6b618876e9847c682f84767a",
+    "semantic_hash": "6e6590bb6b618876e9847c682f84767a"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/SelectFilter.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735316,
+    "ast_hash": "dd3c58ad68a50041f43c7ae873c0a510",
+    "semantic_hash": "dd3c58ad68a50041f43c7ae873c0a510"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Spinner.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735328,
+    "ast_hash": "02f2fcf03943dc1aedfefa8834fc6df2",
+    "semantic_hash": "02f2fcf03943dc1aedfefa8834fc6df2"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/StatCard.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735337,
+    "ast_hash": "e1b243c792c8543f9906319046c3e227",
+    "semantic_hash": "e1b243c792c8543f9906319046c3e227"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/StatusBadge.test.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735344,
+    "ast_hash": "39126a0bd139da8b51bb002ed81669ae",
+    "semantic_hash": "39126a0bd139da8b51bb002ed81669ae"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/StatusBadge.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735354,
+    "ast_hash": "78e3bbf4598af9d1e00080ff545a87fd",
+    "semantic_hash": "78e3bbf4598af9d1e00080ff545a87fd"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/StatusBar.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735363,
+    "ast_hash": "96fbf410a2397f5fee8cd911ef288aad",
+    "semantic_hash": "96fbf410a2397f5fee8cd911ef288aad"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Switch.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.373537,
+    "ast_hash": "31d48a60837dbdc342f6f9c7917e7e4e",
+    "semantic_hash": "31d48a60837dbdc342f6f9c7917e7e4e"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Tabs.test.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.373538,
+    "ast_hash": "33deadf7fa986b5392b2ed826d2d8833",
+    "semantic_hash": "33deadf7fa986b5392b2ed826d2d8833"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Tabs.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.373539,
+    "ast_hash": "b1a9b266c73ffa2218e635c4f3d6e971",
+    "semantic_hash": "b1a9b266c73ffa2218e635c4f3d6e971"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/Tooltip.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.37354,
+    "ast_hash": "486eac35ebd33106420a9bd0f771c40a",
+    "semantic_hash": "486eac35ebd33106420a9bd0f771c40a"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/UnavailableButton.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735406,
+    "ast_hash": "7e71e95b1e7ef2e1170038c1d967f3d8",
+    "semantic_hash": "7e71e95b1e7ef2e1170038c1d967f3d8"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/toast/ToastProvider.test.tsx": {
+    "mtime": 1792248597.7604208,
+    "seen": 1792517435.3735416,
+    "ast_hash": "42412da743ed2f483a9a56428cb7d504",
+    "semantic_hash": "42412da743ed2f483a9a56428cb7d504"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/toast/ToastProvider.tsx": {
+    "mtime": 1792248597.7611578,
+    "seen": 1792517435.3735423,
+    "ast_hash": "bfbc1df434488f91632e3edb93cb0e6d",
+    "semantic_hash": "bfbc1df434488f91632e3edb93cb0e6d"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/toast/toastContext.ts": {
+    "mtime": 1792248597.7611578,
+    "seen": 1792517435.3735435,
+    "ast_hash": "5e5b15d9ad185822c84d586c7896226f",
+    "semantic_hash": "5e5b15d9ad185822c84d586c7896226f"
+  },
+  "webstorm/stockflow-frontend/src/components/ui/toast/useToast.ts": {
+    "mtime": 1792248597.7611578,
+    "seen": 1792517435.3735442,
+    "ast_hash": "df7e1d74265630c59121d3e5d23f3c5f",
+    "semantic_hash": "df7e1d74265630c59121d3e5d23f3c5f"
+  },
+  "webstorm/stockflow-frontend/src/config/env.ts": {
+    "mtime": 1792248597.7611578,
+    "seen": 1792517435.373545,
+    "ast_hash": "b8a7b145b1ef9020af51aec3b71623a7",
+    "semantic_hash": "b8a7b145b1ef9020af51aec3b71623a7"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/DemoSessionProvider.tsx": {
+    "mtime": 1792248597.7612586,
+    "seen": 1792517435.373546,
+    "ast_hash": "84d8bdb2fc75d63050df1b121e8fe874",
+    "semantic_hash": "84d8bdb2fc75d63050df1b121e8fe874"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/demoSessionContext.ts": {
+    "mtime": 1792248597.7612872,
+    "seen": 1792517435.3735468,
+    "ast_hash": "0df08516fa01fabd4cb0454c8ece7137",
+    "semantic_hash": "0df08516fa01fabd4cb0454c8ece7137"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/models/DemoSession.ts": {
+    "mtime": 1792248597.7612872,
+    "seen": 1792517435.3735476,
+    "ast_hash": "150d2ee594be92ce87ff626d6d2856d7",
+    "semantic_hash": "150d2ee594be92ce87ff626d6d2856d7"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/pages/LoginPage.test.tsx": {
+    "mtime": 1792248597.7612872,
+    "seen": 1792517435.3735483,
+    "ast_hash": "2bbe6529f832bd021767499db2aba46d",
+    "semantic_hash": "2bbe6529f832bd021767499db2aba46d"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/pages/LoginPage.tsx": {
+    "mtime": 1792248597.7613683,
+    "seen": 1792517435.3735492,
+    "ast_hash": "4a1d83650873d8793f7566df78b4b574",
+    "semantic_hash": "4a1d83650873d8793f7566df78b4b574"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/pages/PerfilPage.test.tsx": {
+    "mtime": 1792248597.7613683,
+    "seen": 1792517435.3735502,
+    "ast_hash": "4729ebcea92ec04e6a63de5ee63f3588",
+    "semantic_hash": "4729ebcea92ec04e6a63de5ee63f3588"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/pages/PerfilPage.tsx": {
+    "mtime": 1792248597.7613683,
+    "seen": 1792517435.373551,
+    "ast_hash": "ad5702110c3e1e8f49d088d1f8e7616b",
+    "semantic_hash": "ad5702110c3e1e8f49d088d1f8e7616b"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/useDemoSession.ts": {
+    "mtime": 1792248597.7613683,
+    "seen": 1792517435.3735518,
+    "ast_hash": "496935be626bb2d2174457154535237f",
+    "semantic_hash": "496935be626bb2d2174457154535237f"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/utils/loginValidation.test.ts": {
+    "mtime": 1792248597.7613683,
+    "seen": 1792517435.3735528,
+    "ast_hash": "a714d0fa8d8e09cc5f4e209256259373",
+    "semantic_hash": "a714d0fa8d8e09cc5f4e209256259373"
+  },
+  "webstorm/stockflow-frontend/src/features/auth/utils/loginValidation.ts": {
+    "mtime": 1792248597.7615118,
+    "seen": 1792517435.3735538,
+    "ast_hash": "1c5c043338fef9ecd24e8653f135969e",
+    "semantic_hash": "1c5c043338fef9ecd24e8653f135969e"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/components/CategoriaForm.tsx": {
+    "mtime": 1792248597.7615452,
+    "seen": 1792517435.3735545,
+    "ast_hash": "f4d3d2a2057bf080f9128883231dd3ca",
+    "semantic_hash": "f4d3d2a2057bf080f9128883231dd3ca"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/components/CategoriaTable.tsx": {
+    "mtime": 1792248597.761654,
+    "seen": 1792517435.3735554,
+    "ast_hash": "3c8557a4d9d7968547e616f715bb4c0b",
+    "semantic_hash": "3c8557a4d9d7968547e616f715bb4c0b"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/data/categorias.mock.ts": {
+    "mtime": 1792248597.761654,
+    "seen": 1792517435.3735561,
+    "ast_hash": "bb4bef294123067044e246fddd9f2dec",
+    "semantic_hash": "bb4bef294123067044e246fddd9f2dec"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/hooks/useCategorias.ts": {
+    "mtime": 1792248597.761654,
+    "seen": 1792517435.373557,
+    "ast_hash": "cd94dda5874860146bf74043290940fc",
+    "semantic_hash": "cd94dda5874860146bf74043290940fc"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/models/Categoria.ts": {
+    "mtime": 1792248597.761654,
+    "seen": 1792517435.373558,
+    "ast_hash": "e98a180e31fd8a3311cf5f3c53f22cd3",
+    "semantic_hash": "e98a180e31fd8a3311cf5f3c53f22cd3"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/pages/CategoriasPage.test.tsx": {
+    "mtime": 1792248597.761654,
+    "seen": 1792517435.3735588,
+    "ast_hash": "3add9a272540b874ea2473faec77d782",
+    "semantic_hash": "3add9a272540b874ea2473faec77d782"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/pages/CategoriasPage.tsx": {
+    "mtime": 1792248597.7618191,
+    "seen": 1792517435.3735597,
+    "ast_hash": "5c21ea960d6a5868d79824d0cf008166",
+    "semantic_hash": "5c21ea960d6a5868d79824d0cf008166"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/services/categoriaService.ts": {
+    "mtime": 1792248597.7618191,
+    "seen": 1792517435.3735607,
+    "ast_hash": "3bfd06f83052cded1b5778cec3659562",
+    "semantic_hash": "3bfd06f83052cded1b5778cec3659562"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/types/CategoriaFormData.ts": {
+    "mtime": 1792248597.7618191,
+    "seen": 1792517435.3735616,
+    "ast_hash": "41ab66d60529960cd96cf87f7d36e14c",
+    "semantic_hash": "41ab66d60529960cd96cf87f7d36e14c"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/types/CategoriaRequests.ts": {
+    "mtime": 1792248597.7619693,
+    "seen": 1792517435.3735623,
+    "ast_hash": "52ddc6226842db7d49f11167785ea268",
+    "semantic_hash": "52ddc6226842db7d49f11167785ea268"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/utils/categoriaValidation.test.ts": {
+    "mtime": 1792248597.7619693,
+    "seen": 1792517435.3735633,
+    "ast_hash": "ad5d3ec186ccc9e0dd60195ed95917e3",
+    "semantic_hash": "ad5d3ec186ccc9e0dd60195ed95917e3"
+  },
+  "webstorm/stockflow-frontend/src/features/categorias/utils/categoriaValidation.ts": {
+    "mtime": 1792248597.7620084,
+    "seen": 1792517435.3735642,
+    "ast_hash": "7a322a2f7b36da4f5f45df32f2664ef0",
+    "semantic_hash": "7a322a2f7b36da4f5f45df32f2664ef0"
+  },
+  "webstorm/stockflow-frontend/src/features/configuracion/pages/ConfiguracionPage.test.tsx": {
+    "mtime": 1792248597.7620564,
+    "seen": 1792517435.373565,
+    "ast_hash": "3de83144f9bea119e37119ce23a20da4",
+    "semantic_hash": "3de83144f9bea119e37119ce23a20da4"
+  },
+  "webstorm/stockflow-frontend/src/features/configuracion/pages/ConfiguracionPage.tsx": {
+    "mtime": 1792248597.7621076,
+    "seen": 1792517435.373566,
+    "ast_hash": "45e8dcd3924215d5c7c63eff1a8a6d56",
+    "semantic_hash": "45e8dcd3924215d5c7c63eff1a8a6d56"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/components/CoberturaList.tsx": {
+    "mtime": 1792248597.762165,
+    "seen": 1792517435.3735666,
+    "ast_hash": "34382a3a966425f069f56f209d0674f7",
+    "semantic_hash": "34382a3a966425f069f56f209d0674f7"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/components/SaludInventario.tsx": {
+    "mtime": 1792248597.7621922,
+    "seen": 1792517435.3735678,
+    "ast_hash": "17d932b82483362f907c7d9576f2f763",
+    "semantic_hash": "17d932b82483362f907c7d9576f2f763"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/hooks/useKardex.test.ts": {
+    "mtime": 1792250038.6858037,
+    "seen": 1792517435.3735685,
+    "ast_hash": "3062717b669d65f75ce30bbb64d9caa7",
+    "semantic_hash": "3062717b669d65f75ce30bbb64d9caa7"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/hooks/useKardex.ts": {
+    "mtime": 1792250038.6859224,
+    "seen": 1792517435.3735695,
+    "ast_hash": "290099902c4f44ab1366ea6596831d29",
+    "semantic_hash": "290099902c4f44ab1366ea6596831d29"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/hooks/useResumenInventario.ts": {
+    "mtime": 1792248597.7622442,
+    "seen": 1792517435.3735702,
+    "ast_hash": "cbb3c1ce95fa1302b347ab507d65273c",
+    "semantic_hash": "cbb3c1ce95fa1302b347ab507d65273c"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/models/Existencia.ts": {
+    "mtime": 1792248597.7622442,
+    "seen": 1792517435.3735714,
+    "ast_hash": "5ded90eabc514d3e630a68c6e791e92f",
+    "semantic_hash": "5ded90eabc514d3e630a68c6e791e92f"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/models/MovimientoKardex.ts": {
+    "mtime": 1792248597.7622898,
+    "seen": 1792517435.373572,
+    "ast_hash": "c54bd52d92d1b18b99cbb0a6e8a1a976",
+    "semantic_hash": "c54bd52d92d1b18b99cbb0a6e8a1a976"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/pages/ExistenciasPage.tsx": {
+    "mtime": 1792248597.7622898,
+    "seen": 1792517435.373573,
+    "ast_hash": "05d4bcb77635dad610c15d2389989ea1",
+    "semantic_hash": "05d4bcb77635dad610c15d2389989ea1"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/pages/InventarioPages.test.tsx": {
+    "mtime": 1792248597.76237,
+    "seen": 1792517435.3735747,
+    "ast_hash": "8f3b6b8b6300c45e29eb5939ba759194",
+    "semantic_hash": "8f3b6b8b6300c45e29eb5939ba759194"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/pages/MovimientosPage.tsx": {
+    "mtime": 1792248597.76237,
+    "seen": 1792517435.3735754,
+    "ast_hash": "64eaa4f6a8717327b6fe85d142811553",
+    "semantic_hash": "64eaa4f6a8717327b6fe85d142811553"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/services/inventarioService.test.ts": {
+    "mtime": 1792250038.6859224,
+    "seen": 1792517435.3735764,
+    "ast_hash": "5bd2dfed8d88fc8cad8280663cddf236",
+    "semantic_hash": "5bd2dfed8d88fc8cad8280663cddf236"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/services/inventarioService.ts": {
+    "mtime": 1792248597.76237,
+    "seen": 1792517435.373577,
+    "ast_hash": "3f75033458646205dbd749b1f1b4d333",
+    "semantic_hash": "3f75033458646205dbd749b1f1b4d333"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/utils/estadoVisual.ts": {
+    "mtime": 1792248597.76237,
+    "seen": 1792517435.3735783,
+    "ast_hash": "8f7bf0f93ef5a37c7b456f9fc4096313",
+    "semantic_hash": "8f7bf0f93ef5a37c7b456f9fc4096313"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/utils/indicadores.test.ts": {
+    "mtime": 1792248597.7624962,
+    "seen": 1792517435.373579,
+    "ast_hash": "ae87e43d83bb39625ddcd036ff6e43ae",
+    "semantic_hash": "ae87e43d83bb39625ddcd036ff6e43ae"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/utils/indicadores.ts": {
+    "mtime": 1792248597.7624962,
+    "seen": 1792517435.37358,
+    "ast_hash": "c3bd1d75ad32a6eefb8abfd28e26972b",
+    "semantic_hash": "c3bd1d75ad32a6eefb8abfd28e26972b"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/utils/stockPorProducto.test.ts": {
+    "mtime": 1792248597.7624962,
+    "seen": 1792517435.3735807,
+    "ast_hash": "c9214fc3ef8d1af5e5691f223069c7e9",
+    "semantic_hash": "c9214fc3ef8d1af5e5691f223069c7e9"
+  },
+  "webstorm/stockflow-frontend/src/features/inventario/utils/stockPorProducto.ts": {
+    "mtime": 1792248597.7624962,
+    "seen": 1792517435.3735816,
+    "ast_hash": "affecb5e4d5737968e74ee8b44a974e4",
+    "semantic_hash": "affecb5e4d5737968e74ee8b44a974e4"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/components/ProductoForm.tsx": {
+    "mtime": 1792248597.762598,
+    "seen": 1792517435.3735826,
+    "ast_hash": "6ccfd04c69326027e0428a61343476ce",
+    "semantic_hash": "6ccfd04c69326027e0428a61343476ce"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/components/ProductoTable.tsx": {
+    "mtime": 1792248597.7626266,
+    "seen": 1792517435.3735833,
+    "ast_hash": "0e97dd162b9e7f813c1504b4b647ed1c",
+    "semantic_hash": "0e97dd162b9e7f813c1504b4b647ed1c"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/data/productos.mock.ts": {
+    "mtime": 1792248597.7626266,
+    "seen": 1792517435.373584,
+    "ast_hash": "69471c0a0177491caf3ebb08d5aea647",
+    "semantic_hash": "69471c0a0177491caf3ebb08d5aea647"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/hooks/useProductos.ts": {
+    "mtime": 1792248597.7626266,
+    "seen": 1792517435.3735852,
+    "ast_hash": "d4ec28c71da83eea0ca47704c70484bd",
+    "semantic_hash": "d4ec28c71da83eea0ca47704c70484bd"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/models/Producto.ts": {
+    "mtime": 1792248597.7626266,
+    "seen": 1792517435.3735862,
+    "ast_hash": "99b436c38f6e09b9353b37f58018c2eb",
+    "semantic_hash": "99b436c38f6e09b9353b37f58018c2eb"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/pages/ProductosPage.test.tsx": {
+    "mtime": 1792248597.7626266,
+    "seen": 1792517435.373587,
+    "ast_hash": "4dfde5b6ebd4d7fc0cff8c5390c74c27",
+    "semantic_hash": "4dfde5b6ebd4d7fc0cff8c5390c74c27"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/pages/ProductosPage.tsx": {
+    "mtime": 1792248597.7627661,
+    "seen": 1792517435.3735883,
+    "ast_hash": "e1044453e1316b111ea7feea0d7aeb47",
+    "semantic_hash": "e1044453e1316b111ea7feea0d7aeb47"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/services/productoService.ts": {
+    "mtime": 1792248597.7627661,
+    "seen": 1792517435.373589,
+    "ast_hash": "a6fc4bca8a213d5ce5d5958ca90e6a6e",
+    "semantic_hash": "a6fc4bca8a213d5ce5d5958ca90e6a6e"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/types/ProductoFormData.ts": {
+    "mtime": 1792248597.7627661,
+    "seen": 1792517435.37359,
+    "ast_hash": "3dddbe74ede9aa9e8f53185b8988b499",
+    "semantic_hash": "3dddbe74ede9aa9e8f53185b8988b499"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/types/ProductoRequests.ts": {
+    "mtime": 1792248597.762831,
+    "seen": 1792517435.3735907,
+    "ast_hash": "1b1231f901af03ee1b70027e77f2defe",
+    "semantic_hash": "1b1231f901af03ee1b70027e77f2defe"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/utils/productoValidation.test.ts": {
+    "mtime": 1792248597.762831,
+    "seen": 1792517435.3735917,
+    "ast_hash": "1dce5f63870c6c9e1278ca900318f28f",
+    "semantic_hash": "1dce5f63870c6c9e1278ca900318f28f"
+  },
+  "webstorm/stockflow-frontend/src/features/productos/utils/productoValidation.ts": {
+    "mtime": 1792248597.7628798,
+    "seen": 1792517435.3735926,
+    "ast_hash": "2cc299a1c7b15d05f7fc038d2e598662",
+    "semantic_hash": "2cc299a1c7b15d05f7fc038d2e598662"
+  },
+  "webstorm/stockflow-frontend/src/features/reportes/pages/ReportesPage.test.tsx": {
+    "mtime": 1792248597.7629821,
+    "seen": 1792517435.3735933,
+    "ast_hash": "e6daf0909e496dd08a23acc0a0743f8b",
+    "semantic_hash": "e6daf0909e496dd08a23acc0a0743f8b"
+  },
+  "webstorm/stockflow-frontend/src/features/reportes/pages/ReportesPage.tsx": {
+    "mtime": 1792248597.7630854,
+    "seen": 1792517435.373594,
+    "ast_hash": "7920ce4028f8894d9cabf7de8cce8cae",
+    "semantic_hash": "7920ce4028f8894d9cabf7de8cce8cae"
+  },
+  "webstorm/stockflow-frontend/src/features/reportes/utils/csv.test.ts": {
+    "mtime": 1792248597.7630854,
+    "seen": 1792517435.3735952,
+    "ast_hash": "b0d0536a5b36dd2da3bcb797a8b860b9",
+    "semantic_hash": "b0d0536a5b36dd2da3bcb797a8b860b9"
+  },
+  "webstorm/stockflow-frontend/src/features/reportes/utils/csv.ts": {
+    "mtime": 1792248597.7632937,
+    "seen": 1792517435.373596,
+    "ast_hash": "a8f7c80e96e0455824e737049b906935",
+    "semantic_hash": "a8f7c80e96e0455824e737049b906935"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/components/UbicacionForm.tsx": {
+    "mtime": 1792248597.7634172,
+    "seen": 1792517435.3735967,
+    "ast_hash": "ad5b9ce141940d0e7fbb2398a5e8242d",
+    "semantic_hash": "ad5b9ce141940d0e7fbb2398a5e8242d"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/models/Ubicacion.ts": {
+    "mtime": 1792248597.7634172,
+    "seen": 1792517435.3735976,
+    "ast_hash": "e92809c4cf386143b6c7c7fa006876c1",
+    "semantic_hash": "e92809c4cf386143b6c7c7fa006876c1"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/pages/AlmacenesPage.test.tsx": {
+    "mtime": 1792248597.7634208,
+    "seen": 1792517435.3735988,
+    "ast_hash": "07123ec8aa9b188f0b5088404a8dedaf",
+    "semantic_hash": "07123ec8aa9b188f0b5088404a8dedaf"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/pages/AlmacenesPage.tsx": {
+    "mtime": 1792248597.7638018,
+    "seen": 1792517435.3735995,
+    "ast_hash": "c24bce1318b89536b94744a7a79b4cf0",
+    "semantic_hash": "c24bce1318b89536b94744a7a79b4cf0"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/services/ubicacionService.ts": {
+    "mtime": 1792248597.7638018,
+    "seen": 1792517435.3736005,
+    "ast_hash": "8de7e6edfef5228e0efd1d31db460c58",
+    "semantic_hash": "8de7e6edfef5228e0efd1d31db460c58"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/utils/ubicacionValidation.test.ts": {
+    "mtime": 1792248597.7638018,
+    "seen": 1792517435.3736014,
+    "ast_hash": "10f79e2b0a82f1772289bae33a655f9f",
+    "semantic_hash": "10f79e2b0a82f1772289bae33a655f9f"
+  },
+  "webstorm/stockflow-frontend/src/features/ubicaciones/utils/ubicacionValidation.ts": {
+    "mtime": 1792248597.7640986,
+    "seen": 1792517435.3736024,
+    "ast_hash": "bce2644d1ab6252abb032c978ff128e6",
+    "semantic_hash": "bce2644d1ab6252abb032c978ff128e6"
+  },
+  "webstorm/stockflow-frontend/src/features/usuarios/data/usuarios.demo.ts": {
+    "mtime": 1792248597.7642047,
+    "seen": 1792517435.373603,
+    "ast_hash": "ee5e72e3c732f283531e35678e6bbbd0",
+    "semantic_hash": "ee5e72e3c732f283531e35678e6bbbd0"
+  },
+  "webstorm/stockflow-frontend/src/features/usuarios/models/Usuario.ts": {
+    "mtime": 1792248597.7642047,
+    "seen": 1792517435.373604,
+    "ast_hash": "e7c5ebc4a0f08a6eff1489b5bb2799c9",
+    "semantic_hash": "e7c5ebc4a0f08a6eff1489b5bb2799c9"
+  },
+  "webstorm/stockflow-frontend/src/features/usuarios/pages/UsuariosPage.test.tsx": {
+    "mtime": 1792248597.7642047,
+    "seen": 1792517435.3736048,
+    "ast_hash": "e51ff1910a8a5b9faa4aee1ac42e7279",
+    "semantic_hash": "e51ff1910a8a5b9faa4aee1ac42e7279"
+  },
+  "webstorm/stockflow-frontend/src/features/usuarios/pages/UsuariosPage.tsx": {
+    "mtime": 1792248597.7644687,
+    "seen": 1792517435.3736057,
+    "ast_hash": "0db485f33780461fa533cbb49bb8a5f6",
+    "semantic_hash": "0db485f33780461fa533cbb49bb8a5f6"
+  },
+  "webstorm/stockflow-frontend/src/layouts/MainLayout.tsx": {
+    "mtime": 1792248597.7644687,
+    "seen": 1792517435.3736067,
+    "ast_hash": "aa66731dd4cf6334de7c357ede3b3d06",
+    "semantic_hash": "aa66731dd4cf6334de7c357ede3b3d06"
+  },
+  "webstorm/stockflow-frontend/src/main.tsx": {
+    "mtime": 1792248597.7644687,
+    "seen": 1792517435.3736076,
+    "ast_hash": "9b527d1a0b4eba0ac2b3aa0dc5e5857e",
+    "semantic_hash": "9b527d1a0b4eba0ac2b3aa0dc5e5857e"
+  },
+  "webstorm/stockflow-frontend/src/pages/DashboardPage.tsx": {
+    "mtime": 1792248597.7644687,
+    "seen": 1792517435.3736084,
+    "ast_hash": "acb8f48f451f805aaecdd95f53813c09",
+    "semantic_hash": "acb8f48f451f805aaecdd95f53813c09"
+  },
+  "webstorm/stockflow-frontend/src/pages/InicioPage.test.tsx": {
+    "mtime": 1792248597.7648437,
+    "seen": 1792517435.3736095,
+    "ast_hash": "c02400d825bc367f80d6633f43f5cc65",
+    "semantic_hash": "c02400d825bc367f80d6633f43f5cc65"
+  },
+  "webstorm/stockflow-frontend/src/pages/InicioPage.tsx": {
+    "mtime": 1792248597.7648437,
+    "seen": 1792517435.3736103,
+    "ast_hash": "df6e2030e62ae31c2a962943cf3d5efe",
+    "semantic_hash": "df6e2030e62ae31c2a962943cf3d5efe"
+  },
+  "webstorm/stockflow-frontend/src/pages/NotFoundPage.tsx": {
+    "mtime": 1792248597.7648437,
+    "seen": 1792517435.373611,
+    "ast_hash": "96caa6333e582447683a1c8203cf2013",
+    "semantic_hash": "96caa6333e582447683a1c8203cf2013"
+  },
+  "webstorm/stockflow-frontend/src/routes/AppRouter.tsx": {
+    "mtime": 1792248597.7648437,
+    "seen": 1792517435.373612,
+    "ast_hash": "51b76c9477f7e0ff1b3028f883a47452",
+    "semantic_hash": "51b76c9477f7e0ff1b3028f883a47452"
+  },
+  "webstorm/stockflow-frontend/src/shared/hooks/useAnchoredPosition.ts": {
+    "mtime": 1792248597.7651749,
+    "seen": 1792517435.3736129,
+    "ast_hash": "3840a61a62caf28381384fd19024782c",
+    "semantic_hash": "3840a61a62caf28381384fd19024782c"
+  },
+  "webstorm/stockflow-frontend/src/shared/hooks/useAsyncList.test.ts": {
+    "mtime": 1792250038.6859224,
+    "seen": 1792517435.3736136,
+    "ast_hash": "717e881a23edf80cdad2c7a24d3ebb86",
+    "semantic_hash": "717e881a23edf80cdad2c7a24d3ebb86"
+  },
+  "webstorm/stockflow-frontend/src/shared/hooks/useAsyncList.ts": {
+    "mtime": 1792250038.6860723,
+    "seen": 1792517435.3736145,
+    "ast_hash": "6b94940b3f8c9ac1ddbc2230170e31f2",
+    "semantic_hash": "6b94940b3f8c9ac1ddbc2230170e31f2"
+  },
+  "webstorm/stockflow-frontend/src/shared/utils/formato.ts": {
+    "mtime": 1792248597.7652516,
+    "seen": 1792517435.3736153,
+    "ast_hash": "04c1b71e14023d8fe477d108255ba958",
+    "semantic_hash": "04c1b71e14023d8fe477d108255ba958"
+  },
+  "webstorm/stockflow-frontend/src/shared/utils/isAbortError.ts": {
+    "mtime": 1792248597.7653885,
+    "seen": 1792517435.3736162,
+    "ast_hash": "8dc11aa3fc4fae880825e4d116149707",
+    "semantic_hash": "8dc11aa3fc4fae880825e4d116149707"
+  },
+  "webstorm/stockflow-frontend/src/shared/utils/paginar.test.ts": {
+    "mtime": 1792248597.7653885,
+    "seen": 1792517435.3736172,
+    "ast_hash": "942eeefbc1b86b4e5ab2d9f5748e8f51",
+    "semantic_hash": "942eeefbc1b86b4e5ab2d9f5748e8f51"
+  },
+  "webstorm/stockflow-frontend/src/shared/utils/paginar.ts": {
+    "mtime": 1792248597.765421,
+    "seen": 1792517435.373618,
+    "ast_hash": "c903174b9c648f6fe175918c2ce8f05a",
+    "semantic_hash": "c903174b9c648f6fe175918c2ce8f05a"
+  },
+  "webstorm/stockflow-frontend/src/shared/utils/storage.ts": {
+    "mtime": 1792248597.765421,
+    "seen": 1792517435.3736188,
+    "ast_hash": "c9b0e2a22484ce2e4f6ab4ce39a15519",
+    "semantic_hash": "c9b0e2a22484ce2e4f6ab4ce39a15519"
+  },
+  "webstorm/stockflow-frontend/src/test/fixtures.ts": {
+    "mtime": 1792248597.7658298,
+    "seen": 1792517435.3736198,
+    "ast_hash": "995cb5cbee53c9325a31a7c3c65b1c3c",
+    "semantic_hash": "995cb5cbee53c9325a31a7c3c65b1c3c"
+  },
+  "webstorm/stockflow-frontend/src/test/renderWithProviders.tsx": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.3736205,
+    "ast_hash": "fd9a9061920b0717364d9c51d9d93c11",
+    "semantic_hash": "fd9a9061920b0717364d9c51d9d93c11"
+  },
+  "webstorm/stockflow-frontend/src/test/setup.ts": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.3736215,
+    "ast_hash": "51d2af82743c2fb2933f0bd4eb0fe268",
+    "semantic_hash": "51d2af82743c2fb2933f0bd4eb0fe268"
+  },
+  "webstorm/stockflow-frontend/src/vite-env.d.ts": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.3736222,
+    "ast_hash": "e35ff2b875bdfd1224d1a85264809bc6",
+    "semantic_hash": "e35ff2b875bdfd1224d1a85264809bc6"
+  },
+  "webstorm/stockflow-frontend/tsconfig.app.json": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.3736234,
+    "ast_hash": "5f2dafd737dea8a4ddcbb10f5113ac5a",
+    "semantic_hash": "5f2dafd737dea8a4ddcbb10f5113ac5a"
+  },
+  "webstorm/stockflow-frontend/tsconfig.json": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.373624,
+    "ast_hash": "a3d39fa780ebff65444de257f291ce6c",
+    "semantic_hash": "a3d39fa780ebff65444de257f291ce6c"
+  },
+  "webstorm/stockflow-frontend/tsconfig.node.json": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.3736248,
+    "ast_hash": "f9cb81ddcea69ffdab672fc8c48dca66",
+    "semantic_hash": "f9cb81ddcea69ffdab672fc8c48dca66"
+  },
+  "webstorm/stockflow-frontend/vite.config.ts": {
+    "mtime": 1792248597.7664275,
+    "seen": 1792517435.3736258,
+    "ast_hash": "4b177c6571339966975843adeb880476",
+    "semantic_hash": "4b177c6571339966975843adeb880476"
+  },
+  ".postman/resources.yaml": {
+    "mtime": 1792248597.7134209,
+    "seen": 1792517435.3736267,
+    "ast_hash": "b147718da4145fd5c6de37d495f7d425",
+    "semantic_hash": "b147718da4145fd5c6de37d495f7d425"
+  },
+  "README.md": {
+    "mtime": 1792458959.5587926,
+    "seen": 1792517435.3736274,
+    "ast_hash": "1d96b1c2beda8b34352db18ca1f0e38f",
+    "semantic_hash": "1d96b1c2beda8b34352db18ca1f0e38f"
+  },
+  "androidstudio/stockflow-mobile/AGENTS.md": {
+    "mtime": 1792455143.1376166,
+    "seen": 1792517435.3736284,
+    "ast_hash": "233d1484702a528f5dcb4333cd01bb43",
+    "semantic_hash": "233d1484702a528f5dcb4333cd01bb43"
+  },
+  "androidstudio/stockflow-mobile/README.md": {
+    "mtime": 1792455357.6688428,
+    "seen": 1792517435.373629,
+    "ast_hash": "8eabefbb0e3ef066eb657bb356a31dce",
+    "semantic_hash": "8eabefbb0e3ef066eb657bb356a31dce"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-01/01_03_versiones_y_adb.txt": {
+    "mtime": 1792455274.5371428,
+    "seen": 1792517435.37363,
+    "ast_hash": "cd49679c767f153e95beadc3246ab75e",
+    "semantic_hash": "cd49679c767f153e95beadc3246ab75e"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/paso24_error_typescript.txt": {
+    "mtime": 1792456955.0126011,
+    "seen": 1792517435.373631,
+    "ast_hash": "0261e374a6e858d11c62cb8680d27a13",
+    "semantic_hash": "0261e374a6e858d11c62cb8680d27a13"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/a14_tsc.txt": {
+    "mtime": 1792458394.2650099,
+    "seen": 1792517435.3736317,
+    "ast_hash": "8693040c16e8a1f6540a215eed893d96",
+    "semantic_hash": "8693040c16e8a1f6540a215eed893d96"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/recorrido_texto.txt": {
+    "mtime": 1792458393.3270082,
+    "seen": 1792517435.3736327,
+    "ast_hash": "87ab0a447a3fda57712b3aa6d4025d3b",
+    "semantic_hash": "87ab0a447a3fda57712b3aa6d4025d3b"
+  },
+  "androidstudio/stockflow-mobile/docs/guia-01.md": {
+    "mtime": 1792455357.5128434,
+    "seen": 1792517435.3736336,
+    "ast_hash": "0bc88e13ab17506b22f2f0d62091edb2",
+    "semantic_hash": "0bc88e13ab17506b22f2f0d62091edb2"
+  },
+  "androidstudio/stockflow-mobile/docs/guia-02.md": {
+    "mtime": 1792457017.156657,
+    "seen": 1792517435.3736346,
+    "ast_hash": "979424256b97441325bdb3e75fd44f1e",
+    "semantic_hash": "979424256b97441325bdb3e75fd44f1e"
+  },
+  "androidstudio/stockflow-mobile/docs/guia-03.md": {
+    "mtime": 1792458394.35801,
+    "seen": 1792517435.3736353,
+    "ast_hash": "200f1c7152ce3b10ba3ca717b6e59009",
+    "semantic_hash": "200f1c7152ce3b10ba3ca717b6e59009"
+  },
+  "docker-compose.yml": {
+    "mtime": 1791556122.6333323,
+    "seen": 1792517435.3736362,
+    "ast_hash": "09f470ecd9f1eafcd7277f4e09409654",
+    "semantic_hash": "09f470ecd9f1eafcd7277f4e09409654"
+  },
+  "docs/01-vision/glossary-v0.1.md": {
+    "mtime": 1791515681.2259316,
+    "seen": 1792517435.3736372,
+    "ast_hash": "898bec45261bc9536afce0be6a0d7052",
+    "semantic_hash": "898bec45261bc9536afce0be6a0d7052"
+  },
+  "docs/01-vision/vision-v0.1.md": {
+    "mtime": 1791515681.2259648,
+    "seen": 1792517435.3736382,
+    "ast_hash": "01d359c53e198d5bc76afe094efe7290",
+    "semantic_hash": "01d359c53e198d5bc76afe094efe7290"
+  },
+  "docs/02-requirements/backlog-v0.1.md": {
+    "mtime": 1792248597.7310302,
+    "seen": 1792517435.3736389,
+    "ast_hash": "83d0f8b33665f4b533b401280b880c69",
+    "semantic_hash": "83d0f8b33665f4b533b401280b880c69"
+  },
+  "docs/02-requirements/mapa-historias-v0.1.md": {
+    "mtime": 1792248597.7310302,
+    "seen": 1792517435.3736396,
+    "ast_hash": "7557990385255e7b9a94ca54822d924b",
+    "semantic_hash": "7557990385255e7b9a94ca54822d924b"
+  },
+  "docs/02-requirements/requisitos-v0.1.md": {
+    "mtime": 1792250038.6758935,
+    "seen": 1792517435.3736408,
+    "ast_hash": "226a59a79697fbd90bcc5e323e105821",
+    "semantic_hash": "226a59a79697fbd90bcc5e323e105821"
+  },
+  "docs/03-decisions/ADR-001-monolito-modular-hexagonal.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.3736415,
+    "ast_hash": "bc596a491d0d2e867f60bc80ed07e428",
+    "semantic_hash": "bc596a491d0d2e867f60bc80ed07e428"
+  },
+  "docs/03-decisions/ADR-002-migraciones-flyway-y-validate.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.3736422,
+    "ast_hash": "fdafd890daf4f6af50337c88e9de6e2a",
+    "semantic_hash": "fdafd890daf4f6af50337c88e9de6e2a"
+  },
+  "docs/03-decisions/ADR-003-relacion-1n-y-lado-inverso.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.3736432,
+    "ast_hash": "6463320a6db8662a7e8d64612e45f606",
+    "semantic_hash": "6463320a6db8662a7e8d64612e45f606"
+  },
+  "docs/03-decisions/ADR-004-delete-protegido-por-fk.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.373644,
+    "ast_hash": "a4be1d03f11dd39486827d1186f4bc97",
+    "semantic_hash": "a4be1d03f11dd39486827d1186f4bc97"
+  },
+  "docs/03-decisions/ADR-005-stock-solo-por-movimientos.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.3736448,
+    "ast_hash": "492c38a2d910b82f87a0d557a5e30a66",
+    "semantic_hash": "492c38a2d910b82f87a0d557a5e30a66"
+  },
+  "docs/03-decisions/ADR-006-contrato-de-errores.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.373646,
+    "ast_hash": "e124534debdaad37953295d953bbd274",
+    "semantic_hash": "e124534debdaad37953295d953bbd274"
+  },
+  "docs/03-decisions/ADR-007-atender-solicitud-como-salida.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.3736472,
+    "ast_hash": "ac25165d166c2568f957a05fa1204155",
+    "semantic_hash": "ac25165d166c2568f957a05fa1204155"
+  },
+  "docs/03-decisions/ADR-008-convenciones-git.md": {
+    "mtime": 1792248597.731277,
+    "seen": 1792517435.373648,
+    "ast_hash": "922195f2458a32965344d579b46c44fe",
+    "semantic_hash": "922195f2458a32965344d579b46c44fe"
+  },
+  "docs/03-decisions/README.md": {
+    "mtime": 1792248597.7315738,
+    "seen": 1792517435.373649,
+    "ast_hash": "ffecad054186d4eb88402d1841c09d38",
+    "semantic_hash": "ffecad054186d4eb88402d1841c09d38"
+  },
+  "docs/04-model/convenciones-bd-v0.1.md": {
+    "mtime": 1791515681.2259648,
+    "seen": 1792517435.3736496,
+    "ast_hash": "ce784538384ceb2aa012ce344fe77a63",
+    "semantic_hash": "ce784538384ceb2aa012ce344fe77a63"
+  },
+  "docs/04-model/decisiones-integridad-v0.1.md": {
+    "mtime": 1791515681.2260766,
+    "seen": 1792517435.3736506,
+    "ast_hash": "82a4221f873545914796ee7920001edc",
+    "semantic_hash": "82a4221f873545914796ee7920001edc"
+  },
+  "docs/04-model/der-logico-v0.1.md": {
+    "mtime": 1791515681.2260766,
+    "seen": 1792517435.3736513,
+    "ast_hash": "f700e8cfd49e3b623c6394cf101a30ea",
+    "semantic_hash": "f700e8cfd49e3b623c6394cf101a30ea"
+  },
+  "docs/04-model/diccionario-datos-v0.1.md": {
+    "mtime": 1791515681.2260766,
+    "seen": 1792517435.3736522,
+    "ast_hash": "b5f551969b4f8e16ce18caa2f3162f9b",
+    "semantic_hash": "b5f551969b4f8e16ce18caa2f3162f9b"
+  },
+  "docs/04-model/model-conceptual-v0.1.md": {
+    "mtime": 1791515681.2260766,
+    "seen": 1792517435.373653,
+    "ast_hash": "628b8eb0e69f962a8352c8a7f55adb2b",
+    "semantic_hash": "628b8eb0e69f962a8352c8a7f55adb2b"
+  },
+  "docs/04-model/model-relational-v0.1.md": {
+    "mtime": 1791515681.2260766,
+    "seen": 1792517435.3736537,
+    "ast_hash": "560fe1ea88c161cdaaf55462118d5cfb",
+    "semantic_hash": "560fe1ea88c161cdaaf55462118d5cfb"
+  },
+  "docs/04-model/modelo-fisico-v0.1.md": {
+    "mtime": 1791556122.6338146,
+    "seen": 1792517435.3736548,
+    "ast_hash": "c2a2b5db0e1de6179da89843dff6f719",
+    "semantic_hash": "c2a2b5db0e1de6179da89843dff6f719"
+  },
+  "docs/04-model/plan-migracion-v1.md": {
+    "mtime": 1791515681.2260766,
+    "seen": 1792517435.3736556,
+    "ast_hash": "555704ec873fc5f923205af52316fff2",
+    "semantic_hash": "555704ec873fc5f923205af52316fff2"
+  },
+  "docs/ENTREGA.md": {
+    "mtime": 1792248597.8094208,
+    "seen": 1792517435.3736565,
+    "ast_hash": "5e9309ba62030a4fd81feb1651ebcd39",
+    "semantic_hash": "5e9309ba62030a4fd81feb1651ebcd39"
+  },
+  "docs/parciales/respuestas-2do-parcial.html": {
+    "mtime": 1792250038.6768935,
+    "seen": 1792517435.3736572,
+    "ast_hash": "d08f96417646788c25809065d89323b8",
+    "semantic_hash": "d08f96417646788c25809065d89323b8"
+  },
+  "intellij/stockflow-backend-lab/README.md": {
+    "mtime": 1791515681.2262776,
+    "seen": 1792517435.3736584,
+    "ast_hash": "8eeb840ce3dc689dbf5c1efbbb15f7b5",
+    "semantic_hash": "8eeb840ce3dc689dbf5c1efbbb15f7b5"
+  },
+  "intellij/stockflow-backend/README.md": {
+    "mtime": 1792248597.8094208,
+    "seen": 1792517435.3736591,
+    "ast_hash": "a57f45d17adf82e83478c0c47ed91c12",
+    "semantic_hash": "a57f45d17adf82e83478c0c47ed91c12"
+  },
+  "intellij/stockflow-backend/src/main/resources/application.yml": {
+    "mtime": 1792247894.3037274,
+    "seen": 1792517435.37366,
+    "ast_hash": "0d67ea55ae2763e47e76a673a568832d",
+    "semantic_hash": "0d67ea55ae2763e47e76a673a568832d"
+  },
+  "postman/collections/StockFlow - Pruebas completas/.resources/definition.yaml": {
+    "mtime": 1792248597.7467349,
+    "seen": 1792517435.373661,
+    "ast_hash": "3b42e63cbdfbe2ae0058b8369525e98a",
+    "semantic_hash": "3b42e63cbdfbe2ae0058b8369525e98a"
+  },
+  "postman/collections/StockFlow - Pruebas completas/00 Health y documentacion/.resources/definition.yaml": {
+    "mtime": 1792248597.7468367,
+    "seen": 1792517435.373662,
+    "ast_hash": "d2f440b7168fb57eafac22e0cef6663e",
+    "semantic_hash": "d2f440b7168fb57eafac22e0cef6663e"
+  },
+  "postman/collections/StockFlow - Pruebas completas/00 Health y documentacion/01 200 Health.request.yaml": {
+    "mtime": 1792248597.7468367,
+    "seen": 1792517435.3736627,
+    "ast_hash": "58e568cdfa1def789d5b428a3a8818ad",
+    "semantic_hash": "58e568cdfa1def789d5b428a3a8818ad"
+  },
+  "postman/collections/StockFlow - Pruebas completas/00 Health y documentacion/02 200 Demo de la entidad padre (Cap 03).request.yaml": {
+    "mtime": 1792248597.7468367,
+    "seen": 1792517435.3736634,
+    "ast_hash": "ff796c8b79ca0366487f61766ce1fedf",
+    "semantic_hash": "ff796c8b79ca0366487f61766ce1fedf"
+  },
+  "postman/collections/StockFlow - Pruebas completas/00 Health y documentacion/03 200 Especificacion OpenAPI (Swagger).request.yaml": {
+    "mtime": 1792248597.7468367,
+    "seen": 1792517435.3736646,
+    "ast_hash": "08b5c279d1ee25388c17002d12932c54",
+    "semantic_hash": "08b5c279d1ee25388c17002d12932c54"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/.resources/definition.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736656,
+    "ast_hash": "fc24a661344edcce877de0b8af1cfe7f",
+    "semantic_hash": "fc24a661344edcce877de0b8af1cfe7f"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/01 201 Crear categoria valida.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736663,
+    "ast_hash": "4ec1ebab61cf21c57e0361174dcd32bf",
+    "semantic_hash": "4ec1ebab61cf21c57e0361174dcd32bf"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/02 400 Campos obligatorios vacios.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736672,
+    "ast_hash": "415c3cfcd7800968e6826e91f1749c3b",
+    "semantic_hash": "415c3cfcd7800968e6826e91f1749c3b"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/03 400 Codigo con formato invalido.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736684,
+    "ast_hash": "7a11d1e6b69aafbc0d25075de2480af2",
+    "semantic_hash": "7a11d1e6b69aafbc0d25075de2480af2"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/04 409 Codigo repetido (CAT-OFI existe en la semilla).request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736725,
+    "ast_hash": "e1628d869b82d043e59f01c34c83259f",
+    "semantic_hash": "e1628d869b82d043e59f01c34c83259f"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/05 200 Listar categorias.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736732,
+    "ast_hash": "dce86153d58ee45ee5b89f134185210e",
+    "semantic_hash": "dce86153d58ee45ee5b89f134185210e"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/06 200 Listar con filtro nombre=limpieza.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736742,
+    "ast_hash": "f5138f872a9596154550021fc8ebea96",
+    "semantic_hash": "f5138f872a9596154550021fc8ebea96"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/07 200 Buscar por id existente.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.373675,
+    "ast_hash": "b50643281f462cb85100e702af94cec0",
+    "semantic_hash": "b50643281f462cb85100e702af94cec0"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/08 404 Buscar por id inexistente.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736758,
+    "ast_hash": "fcbd6ecefd50cb61374000c29171732c",
+    "semantic_hash": "fcbd6ecefd50cb61374000c29171732c"
+  },
+  "postman/collections/StockFlow - Pruebas completas/01 Categorias (padre)/09 400 Id con tipo invalido.request.yaml": {
+    "mtime": 1792248597.7471993,
+    "seen": 1792517435.3736768,
+    "ast_hash": "60625688d3e99713503f7dfb84728461",
+    "semantic_hash": "60625688d3e99713503f7dfb84728461"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/.resources/definition.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736775,
+    "ast_hash": "97111b34910221abd592a9006a1157de",
+    "semantic_hash": "97111b34910221abd592a9006a1157de"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/01 201 Registrar producto en una categoria existente.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736787,
+    "ast_hash": "9c8f3a0ab4707e5ae631b08f3c10bd54",
+    "semantic_hash": "9c8f3a0ab4707e5ae631b08f3c10bd54"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/02 200 Consultar producto por id.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736794,
+    "ast_hash": "b4dac28446d2d18bbe06ebbc7d07599a",
+    "semantic_hash": "b4dac28446d2d18bbe06ebbc7d07599a"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/02b 200 Listar todos los productos.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736804,
+    "ast_hash": "cab54e7f93b98ef250efb93e9e87535b",
+    "semantic_hash": "cab54e7f93b98ef250efb93e9e87535b"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/03 200 Listar productos de una categoria.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.373681,
+    "ast_hash": "21e18e84904f3c0b3882d8c593b60fdb",
+    "semantic_hash": "21e18e84904f3c0b3882d8c593b60fdb"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/04 404 Registrar con categoria inexistente.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736823,
+    "ast_hash": "0949fd8aa5d94f83fe8fdc9c2b4851d0",
+    "semantic_hash": "0949fd8aa5d94f83fe8fdc9c2b4851d0"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/05 409 Codigo de producto duplicado (RN-06).request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.373683,
+    "ast_hash": "ba5d8a432d88ec98430a9fc8449222cd",
+    "semantic_hash": "ba5d8a432d88ec98430a9fc8449222cd"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/06 400 Unidad de medida fuera del enum.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736837,
+    "ast_hash": "8117dcccc7efbab21225f106449dd33e",
+    "semantic_hash": "8117dcccc7efbab21225f106449dd33e"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/07 400 Stock minimo negativo (RN-07).request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736846,
+    "ast_hash": "dcb5812aba7718c1cd8d515306d42bbc",
+    "semantic_hash": "dcb5812aba7718c1cd8d515306d42bbc"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/08 400 Precio negativo.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736856,
+    "ast_hash": "1710167606337a9875c9357fff8475f3",
+    "semantic_hash": "1710167606337a9875c9357fff8475f3"
+  },
+  "postman/collections/StockFlow - Pruebas completas/02 Productos (hijo)/09 404 Productos de una categoria inexistente.request.yaml": {
+    "mtime": 1792248597.7474213,
+    "seen": 1792517435.3736863,
+    "ast_hash": "defe9616b6ebe4aadd9237a927a6495e",
+    "semantic_hash": "defe9616b6ebe4aadd9237a927a6495e"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/.resources/definition.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.373687,
+    "ast_hash": "83436f6a858bec9ac4a28455acce6d9b",
+    "semantic_hash": "83436f6a858bec9ac4a28455acce6d9b"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/01 200 Listar ubicaciones.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.373688,
+    "ast_hash": "498ea4bcad71bbd2887bdcfccc89477b",
+    "semantic_hash": "498ea4bcad71bbd2887bdcfccc89477b"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/02 200 Filtrar por tipo DEPOSITO.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.373689,
+    "ast_hash": "d9971fa8942a696022e32a51527f3d92",
+    "semantic_hash": "d9971fa8942a696022e32a51527f3d92"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/03 400 Tipo inexistente.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.3736897,
+    "ast_hash": "a38ca16331ee17c3a41d4ea9b70d3c8c",
+    "semantic_hash": "a38ca16331ee17c3a41d4ea9b70d3c8c"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/04 200 Buscar por id.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.3736906,
+    "ast_hash": "64aea968651085e91f0975d329376a88",
+    "semantic_hash": "64aea968651085e91f0975d329376a88"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/05 404 Buscar inexistente.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.3736913,
+    "ast_hash": "272b2fdaa07a22e1582c53875c4fb222",
+    "semantic_hash": "272b2fdaa07a22e1582c53875c4fb222"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/06 201 Registrar un deposito.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.3736925,
+    "ast_hash": "ca969da8b79a8a284f0500f2623338bd",
+    "semantic_hash": "ca969da8b79a8a284f0500f2623338bd"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/07 409 Codigo de ubicacion repetido.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.3736935,
+    "ast_hash": "9cab9c7f6c61d591679d4670c9706fcf",
+    "semantic_hash": "9cab9c7f6c61d591679d4670c9706fcf"
+  },
+  "postman/collections/StockFlow - Pruebas completas/03 Ubicaciones/08 409 Un unico almacen central activo.request.yaml": {
+    "mtime": 1792248597.747631,
+    "seen": 1792517435.3736942,
+    "ast_hash": "3fd1545a9b186ab7fb3f2ed7dbb80f87",
+    "semantic_hash": "3fd1545a9b186ab7fb3f2ed7dbb80f87"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/.resources/definition.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.373695,
+    "ast_hash": "0bd5f2113c93b502995e062ea6242ec5",
+    "semantic_hash": "0bd5f2113c93b502995e062ea6242ec5"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/01 200 Existencias de todo el inventario.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.373696,
+    "ast_hash": "c43b1411f2ad041c550f8c1165d066dd",
+    "semantic_hash": "c43b1411f2ad041c550f8c1165d066dd"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/02 200 Existencias de un producto.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.3736968,
+    "ast_hash": "d3c91acdc0805999308d2365017fec6e",
+    "semantic_hash": "d3c91acdc0805999308d2365017fec6e"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/03 200 Existencias de una ubicacion.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.3736975,
+    "ast_hash": "940f638776ced3cd9b8e8a28a4ea9fad",
+    "semantic_hash": "940f638776ced3cd9b8e8a28a4ea9fad"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/04 200 Alertas existencias en o bajo el minimo.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.3736985,
+    "ast_hash": "33de42745e003e12e684c63e1e0f78eb",
+    "semantic_hash": "33de42745e003e12e684c63e1e0f78eb"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/05 404 Filtro con un producto inexistente.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.3736997,
+    "ast_hash": "d0325210bf14ace04812bceae1a1898f",
+    "semantic_hash": "d0325210bf14ace04812bceae1a1898f"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/06 200 Kardex paginado de un producto.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.3737004,
+    "ast_hash": "eec14d525cb5276195321c6ada210602",
+    "semantic_hash": "eec14d525cb5276195321c6ada210602"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/07 200 Kardex de a 1 movimiento por pagina.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.373701,
+    "ast_hash": "1a7aabcefa04dd11dc1238a313833374",
+    "semantic_hash": "1a7aabcefa04dd11dc1238a313833374"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/08 404 Kardex de un producto inexistente.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.373702,
+    "ast_hash": "a318540dc4d0592af8e02cccb0509b3a",
+    "semantic_hash": "a318540dc4d0592af8e02cccb0509b3a"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/09 422 Tamano de pagina fuera de rango.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.373703,
+    "ast_hash": "1d20334dcd90663f9bcf692c48d3d020",
+    "semantic_hash": "1d20334dcd90663f9bcf692c48d3d020"
+  },
+  "postman/collections/StockFlow - Pruebas completas/04 Inventario (stock y kardex)/10 400 Pagina no numerica.request.yaml": {
+    "mtime": 1792248597.747795,
+    "seen": 1792517435.3737037,
+    "ast_hash": "48497a3dccb016f576e401016a50d832",
+    "semantic_hash": "48497a3dccb016f576e401016a50d832"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/.resources/definition.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737047,
+    "ast_hash": "ae8dcca8470e1ff03f3d8878669b860b",
+    "semantic_hash": "ae8dcca8470e1ff03f3d8878669b860b"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/01 200 PUT categoria conservando su codigo y nombre.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737054,
+    "ast_hash": "318e4beebe2d2eed50abf7d9c4ebfbe5",
+    "semantic_hash": "318e4beebe2d2eed50abf7d9c4ebfbe5"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/02 200 Mismo PUT otra vez (idempotente).request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737063,
+    "ast_hash": "6fd6d9ef8ce40ec86e8e3904985d1d9e",
+    "semantic_hash": "6fd6d9ef8ce40ec86e8e3904985d1d9e"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/03 400 PUT sin el campo activo.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737073,
+    "ast_hash": "c2ee4dfe779a54927c36ff01f5c34ebb",
+    "semantic_hash": "c2ee4dfe779a54927c36ff01f5c34ebb"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/04 404 PUT sobre un id inexistente (no crea).request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.373708,
+    "ast_hash": "e0f1d2f30734ee49fd811bd5a793bab9",
+    "semantic_hash": "e0f1d2f30734ee49fd811bd5a793bab9"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/05 409 PUT con el codigo de otra categoria.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737087,
+    "ast_hash": "e8b0256f6d04be5e581197fdec2433b5",
+    "semantic_hash": "e8b0256f6d04be5e581197fdec2433b5"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/06 200 PUT producto cambia a la categoria 2.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.37371,
+    "ast_hash": "cd705a5b92af4dcb4eb4cbc08f31d564",
+    "semantic_hash": "cd705a5b92af4dcb4eb4cbc08f31d564"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/07 404 PUT producto hacia una categoria inexistente.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737106,
+    "ast_hash": "c4994fd10c22d1856ec7cae89ce35ce0",
+    "semantic_hash": "c4994fd10c22d1856ec7cae89ce35ce0"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/08 409 PUT producto con el codigo de otro (RN-06).request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737116,
+    "ast_hash": "ca174211703fa9c211e8b41ee1a69c00",
+    "semantic_hash": "ca174211703fa9c211e8b41ee1a69c00"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/09 200 Desactivar la categoria creada (activo = false).request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737123,
+    "ast_hash": "9ce5c1fe977e79c661ac82d2b593b943",
+    "semantic_hash": "9ce5c1fe977e79c661ac82d2b593b943"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/10 422 Mover el producto a esa categoria inactiva.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737133,
+    "ast_hash": "f2769fd6ac7fada4b58fd06b778ec4e0",
+    "semantic_hash": "f2769fd6ac7fada4b58fd06b778ec4e0"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/11 409 DELETE de un producto con stock (PRD-OFI-001).request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737142,
+    "ast_hash": "3c733c134f9e08008e06ae69b2d90c0c",
+    "semantic_hash": "3c733c134f9e08008e06ae69b2d90c0c"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/12 409 DELETE de una categoria con productos (CAT-OFI).request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.373715,
+    "ast_hash": "c5bf2bf48fb7de402e97786c116da0e0",
+    "semantic_hash": "c5bf2bf48fb7de402e97786c116da0e0"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/13 204 DELETE del producto creado.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737159,
+    "ast_hash": "94b438dfb34ad31fe6df8033e2a726c4",
+    "semantic_hash": "94b438dfb34ad31fe6df8033e2a726c4"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/14 204 DELETE de la categoria creada.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737168,
+    "ast_hash": "7a9557c9736209e5dc81ca3ce43acf2a",
+    "semantic_hash": "7a9557c9736209e5dc81ca3ce43acf2a"
+  },
+  "postman/collections/StockFlow - Pruebas completas/05 PUT y DELETE/15 404 El mismo DELETE otra vez.request.yaml": {
+    "mtime": 1792248597.7479932,
+    "seen": 1792517435.3737175,
+    "ast_hash": "e0d2f6d11da781c626299bf22ddb1c48",
+    "semantic_hash": "e0d2f6d11da781c626299bf22ddb1c48"
+  },
+  "postman/collections/StockFlow - Pruebas completas/06 CORS/.resources/definition.yaml": {
+    "mtime": 1792248597.7482605,
+    "seen": 1792517435.3737185,
+    "ast_hash": "7276c114f72754e5c26f48274b3ffdfd",
+    "semantic_hash": "7276c114f72754e5c26f48274b3ffdfd"
+  },
+  "postman/collections/StockFlow - Pruebas completas/06 CORS/01 200 Preflight desde React (localhost 5173).request.yaml": {
+    "mtime": 1792248597.7482605,
+    "seen": 1792517435.3737195,
+    "ast_hash": "d987c566837d2a3167a6bda1acec014f",
+    "semantic_hash": "d987c566837d2a3167a6bda1acec014f"
+  },
+  "postman/collections/StockFlow - Pruebas completas/06 CORS/02 403 Preflight desde un origen no permitido.request.yaml": {
+    "mtime": 1792248597.7482605,
+    "seen": 1792517435.3737204,
+    "ast_hash": "f576d659f1213280bb5d34a426bcb1d8",
+    "semantic_hash": "f576d659f1213280bb5d34a426bcb1d8"
+  },
+  "postman/collections/StockFlow API (PA-06)/.resources/definition.yaml": {
+    "mtime": 1792248597.7483187,
+    "seen": 1792517435.3737214,
+    "ast_hash": "2d7b44019ff04204e86485f615f45412",
+    "semantic_hash": "2d7b44019ff04204e86485f615f45412"
+  },
+  "postman/collections/StockFlow API (PA-06)/New Request.request.yaml": {
+    "mtime": 1792248597.7483187,
+    "seen": 1792517435.373722,
+    "ast_hash": "aa3de115b1e0f55dec1a48fc2ac75baa",
+    "semantic_hash": "aa3de115b1e0f55dec1a48fc2ac75baa"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/.resources/definition.yaml": {
+    "mtime": 1792248597.7483673,
+    "seen": 1792517435.3737228,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/.resources/crear 2.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.748416,
+    "seen": 1792517435.373724,
+    "ast_hash": "13df8831b864a55a99880ae1f056fd4e",
+    "semantic_hash": "13df8831b864a55a99880ae1f056fd4e"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/.resources/definition.yaml": {
+    "mtime": 1792248597.748416,
+    "seen": 1792517435.3737247,
+    "ast_hash": "2a2ec0593fbd53c20a6ee12aafa353c5",
+    "semantic_hash": "2a2ec0593fbd53c20a6ee12aafa353c5"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/.resources/listar 1.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7484689,
+    "seen": 1792517435.3737254,
+    "ast_hash": "349eb095ad14ae6e194ed544e04b70b4",
+    "semantic_hash": "349eb095ad14ae6e194ed544e04b70b4"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/crear 2.request.yaml": {
+    "mtime": 1792248597.7484689,
+    "seen": 1792517435.3737264,
+    "ast_hash": "f4b5c9b32d4e829b9ee29fe10182a85d",
+    "semantic_hash": "f4b5c9b32d4e829b9ee29fe10182a85d"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/demo/.resources/definition.yaml": {
+    "mtime": 1792248597.7485378,
+    "seen": 1792517435.3737273,
+    "ast_hash": "2a2ec0593fbd53c20a6ee12aafa353c5",
+    "semantic_hash": "2a2ec0593fbd53c20a6ee12aafa353c5"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/demo/.resources/demo.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.748566,
+    "seen": 1792517435.373728,
+    "ast_hash": "e1bb44d36f7f55bcf9f3759d5d05b00f",
+    "semantic_hash": "e1bb44d36f7f55bcf9f3759d5d05b00f"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/demo/demo.request.yaml": {
+    "mtime": 1792248597.748566,
+    "seen": 1792517435.3737288,
+    "ast_hash": "c48a10fff5e22195fa9a19adee19d050",
+    "semantic_hash": "c48a10fff5e22195fa9a19adee19d050"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/listar 1.request.yaml": {
+    "mtime": 1792248597.748566,
+    "seen": 1792517435.37373,
+    "ast_hash": "13fa786cb1dc1aa9b1d74009f8d140bf",
+    "semantic_hash": "13fa786cb1dc1aa9b1d74009f8d140bf"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/.resources/actualizar 1.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7486906,
+    "seen": 1792517435.3737311,
+    "ast_hash": "e5660434a4a61b06ba8c451d239117f9",
+    "semantic_hash": "e5660434a4a61b06ba8c451d239117f9"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/.resources/buscar Por Id 1.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7487366,
+    "seen": 1792517435.3737319,
+    "ast_hash": "71c031c6a22a02dae26b49f2854f2859",
+    "semantic_hash": "71c031c6a22a02dae26b49f2854f2859"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/.resources/definition.yaml": {
+    "mtime": 1792248597.7487366,
+    "seen": 1792517435.3737328,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/.resources/eliminar 1.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7487826,
+    "seen": 1792517435.373734,
+    "ast_hash": "5dca17feb022cba2d8ffbe87e0991f02",
+    "semantic_hash": "5dca17feb022cba2d8ffbe87e0991f02"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/actualizar 1.request.yaml": {
+    "mtime": 1792248597.7487826,
+    "seen": 1792517435.3737347,
+    "ast_hash": "e465587b90ec602e2a768fb4030cbb8a",
+    "semantic_hash": "e465587b90ec602e2a768fb4030cbb8a"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/buscar Por Id 1.request.yaml": {
+    "mtime": 1792248597.7487826,
+    "seen": 1792517435.3737354,
+    "ast_hash": "21172eebaf2e97a42f6d6afb2f81a2db",
+    "semantic_hash": "21172eebaf2e97a42f6d6afb2f81a2db"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/categorias/{id}/eliminar 1.request.yaml": {
+    "mtime": 1792248597.7487826,
+    "seen": 1792517435.3737364,
+    "ast_hash": "72847881e08137097aa5855391189847",
+    "semantic_hash": "72847881e08137097aa5855391189847"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/health/.resources/definition.yaml": {
+    "mtime": 1792248597.7488663,
+    "seen": 1792517435.3737373,
+    "ast_hash": "2fe92c7ec5d7ac211136d41859fcdb83",
+    "semantic_hash": "2fe92c7ec5d7ac211136d41859fcdb83"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/health/.resources/health.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7488985,
+    "seen": 1792517435.3737383,
+    "ast_hash": "68f039501fc037e61eaf74841bbbcf48",
+    "semantic_hash": "68f039501fc037e61eaf74841bbbcf48"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/health/health.request.yaml": {
+    "mtime": 1792248597.7488985,
+    "seen": 1792517435.373739,
+    "ast_hash": "bbe7e60e6063a6715d17ef7aa790a79c",
+    "semantic_hash": "bbe7e60e6063a6715d17ef7aa790a79c"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/.resources/definition.yaml": {
+    "mtime": 1792248597.7489781,
+    "seen": 1792517435.37374,
+    "ast_hash": "b18f3b805290e5753140389a96b25a31",
+    "semantic_hash": "b18f3b805290e5753140389a96b25a31"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/kardex/.resources/definition.yaml": {
+    "mtime": 1792248597.7490196,
+    "seen": 1792517435.373741,
+    "ast_hash": "2a2ec0593fbd53c20a6ee12aafa353c5",
+    "semantic_hash": "2a2ec0593fbd53c20a6ee12aafa353c5"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/kardex/{productoId}/.resources/definition.yaml": {
+    "mtime": 1792248597.749057,
+    "seen": 1792517435.3737416,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/kardex/{productoId}/.resources/kardex.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7490911,
+    "seen": 1792517435.3737426,
+    "ast_hash": "731885c05110ccdb94b15767e29581f7",
+    "semantic_hash": "731885c05110ccdb94b15767e29581f7"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/kardex/{productoId}/kardex.request.yaml": {
+    "mtime": 1792248597.7490911,
+    "seen": 1792517435.3737435,
+    "ast_hash": "636eaa99f4f84d10c7aa57d3786f7329",
+    "semantic_hash": "636eaa99f4f84d10c7aa57d3786f7329"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/stock/.resources/definition.yaml": {
+    "mtime": 1792248597.7491822,
+    "seen": 1792517435.3737445,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/stock/.resources/stock.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.749205,
+    "seen": 1792517435.3737452,
+    "ast_hash": "37109ceb19ef173bb8b4f96d4d99bd82",
+    "semantic_hash": "37109ceb19ef173bb8b4f96d4d99bd82"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/inventario/stock/stock.request.yaml": {
+    "mtime": 1792248597.749205,
+    "seen": 1792517435.3737462,
+    "ast_hash": "11c1c05091d5e75182f589e733a9385e",
+    "semantic_hash": "11c1c05091d5e75182f589e733a9385e"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/.resources/crear 1.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7492855,
+    "seen": 1792517435.3737469,
+    "ast_hash": "b7bbfb939f9dbb732f6a4c4123948af8",
+    "semantic_hash": "b7bbfb939f9dbb732f6a4c4123948af8"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/.resources/definition.yaml": {
+    "mtime": 1792248597.7492855,
+    "seen": 1792517435.373748,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/categoria/.resources/definition.yaml": {
+    "mtime": 1792248597.7493281,
+    "seen": 1792517435.373749,
+    "ast_hash": "2a2ec0593fbd53c20a6ee12aafa353c5",
+    "semantic_hash": "2a2ec0593fbd53c20a6ee12aafa353c5"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/categoria/{categoriaId}/.resources/definition.yaml": {
+    "mtime": 1792248597.7493572,
+    "seen": 1792517435.3737497,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/categoria/{categoriaId}/.resources/listar Por Categoria.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.749379,
+    "seen": 1792517435.3737504,
+    "ast_hash": "c8b41a01daadb45a573c8f1ad1b7f3bc",
+    "semantic_hash": "c8b41a01daadb45a573c8f1ad1b7f3bc"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/categoria/{categoriaId}/listar Por Categoria.request.yaml": {
+    "mtime": 1792248597.749379,
+    "seen": 1792517435.3737516,
+    "ast_hash": "f47a0644bd7f89722ba22e4d86e7f522",
+    "semantic_hash": "f47a0644bd7f89722ba22e4d86e7f522"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/crear 1.request.yaml": {
+    "mtime": 1792248597.749379,
+    "seen": 1792517435.3737526,
+    "ast_hash": "bc3bcdb860ba5c074dc73923a692d846",
+    "semantic_hash": "bc3bcdb860ba5c074dc73923a692d846"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/.resources/actualizar.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7494526,
+    "seen": 1792517435.3737533,
+    "ast_hash": "341592de4e2495a35cb27cd3864cbaa1",
+    "semantic_hash": "341592de4e2495a35cb27cd3864cbaa1"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/.resources/buscar Por Id.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7494931,
+    "seen": 1792517435.373754,
+    "ast_hash": "66b8362da913a1652a84486d8595e1d6",
+    "semantic_hash": "66b8362da913a1652a84486d8595e1d6"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/.resources/definition.yaml": {
+    "mtime": 1792248597.7494931,
+    "seen": 1792517435.3737552,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/.resources/eliminar.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7495341,
+    "seen": 1792517435.373756,
+    "ast_hash": "d80a939502fcbfbf4f9c4c449b77f5fc",
+    "semantic_hash": "d80a939502fcbfbf4f9c4c449b77f5fc"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/actualizar.request.yaml": {
+    "mtime": 1792248597.7495341,
+    "seen": 1792517435.3737566,
+    "ast_hash": "9fbf825b96054194412f0832dbcd2ca3",
+    "semantic_hash": "9fbf825b96054194412f0832dbcd2ca3"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/buscar Por Id.request.yaml": {
+    "mtime": 1792248597.7495341,
+    "seen": 1792517435.3737574,
+    "ast_hash": "e8bdf1f63c8822f8fd66c8943021c3d3",
+    "semantic_hash": "e8bdf1f63c8822f8fd66c8943021c3d3"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/productos/{id}/eliminar.request.yaml": {
+    "mtime": 1792248597.7495341,
+    "seen": 1792517435.3737586,
+    "ast_hash": "5bdbb96ea2968945d1d1b266c24a099c",
+    "semantic_hash": "5bdbb96ea2968945d1d1b266c24a099c"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/.resources/crear.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7496285,
+    "seen": 1792517435.3737593,
+    "ast_hash": "5b93eaa801f39b76b6c1cd63b67e3a0c",
+    "semantic_hash": "5b93eaa801f39b76b6c1cd63b67e3a0c"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/.resources/definition.yaml": {
+    "mtime": 1792248597.7496285,
+    "seen": 1792517435.37376,
+    "ast_hash": "428408c476f8b64f8f5d4052733d1f27",
+    "semantic_hash": "428408c476f8b64f8f5d4052733d1f27"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/.resources/listar.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7496839,
+    "seen": 1792517435.3737607,
+    "ast_hash": "d2c797e68dcce00e5765ff9989cd76ee",
+    "semantic_hash": "d2c797e68dcce00e5765ff9989cd76ee"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/crear.request.yaml": {
+    "mtime": 1792248597.7496839,
+    "seen": 1792517435.3737617,
+    "ast_hash": "2469b19b944f96fdee6a3cbf418d4880",
+    "semantic_hash": "2469b19b944f96fdee6a3cbf418d4880"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/listar.request.yaml": {
+    "mtime": 1792248597.7496839,
+    "seen": 1792517435.3737626,
+    "ast_hash": "1f06639babbf9738ab2784889a490353",
+    "semantic_hash": "1f06639babbf9738ab2784889a490353"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/{id}/.resources/buscar Por Id 2.resources/examples/OK.example.yaml": {
+    "mtime": 1792248597.7497559,
+    "seen": 1792517435.3737633,
+    "ast_hash": "b5f1752a5e25138c2a206cd4466b8cec",
+    "semantic_hash": "b5f1752a5e25138c2a206cd4466b8cec"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/{id}/.resources/definition.yaml": {
+    "mtime": 1792248597.7497559,
+    "seen": 1792517435.3737643,
+    "ast_hash": "c59ed1f45f68b7dd9596539734483f56",
+    "semantic_hash": "c59ed1f45f68b7dd9596539734483f56"
+  },
+  "postman/collections/StockFlow API (PA-06)/api/ubicaciones/{id}/buscar Por Id 2.request.yaml": {
+    "mtime": 1792248597.7497559,
+    "seen": 1792517435.3737652,
+    "ast_hash": "b84586a016e9af96364df3d75d3f4265",
+    "semantic_hash": "b84586a016e9af96364df3d75d3f4265"
+  },
+  "postman/collections/StockFlow Local/.resources/definition.yaml": {
+    "mtime": 1792248597.7498176,
+    "seen": 1792517435.373766,
+    "ast_hash": "b4d56bc9ab5ded1ad2593e836022ccfc",
+    "semantic_hash": "b4d56bc9ab5ded1ad2593e836022ccfc"
+  },
+  "postman/collections/StockFlow Local/New Request-1.request.yaml": {
+    "mtime": 1792248597.7498176,
+    "seen": 1792517435.3737667,
+    "ast_hash": "5305580d126e882a296c4d83dc6550b8",
+    "semantic_hash": "5305580d126e882a296c4d83dc6550b8"
+  },
+  "postman/globals/workspace.globals.yaml": {
+    "mtime": 1792248597.7498176,
+    "seen": 1792517435.3737676,
+    "ast_hash": "1f31f0e4d6a7b594d17c1e596c93528c",
+    "semantic_hash": "1f31f0e4d6a7b594d17c1e596c93528c"
+  },
+  "webstorm/stockflow-frontend/README.md": {
+    "mtime": 1792250038.6858037,
+    "seen": 1792517435.3737688,
+    "ast_hash": "88bc11fe48cb6b4e7f9de020a4585510",
+    "semantic_hash": "88bc11fe48cb6b4e7f9de020a4585510"
+  },
+  "webstorm/stockflow-frontend/docs/REDISENO-FRONTEND.md": {
+    "mtime": 1792248597.758421,
+    "seen": 1792517435.3737695,
+    "ast_hash": "07de5d81bee2fc3f022bd4560e7a2467",
+    "semantic_hash": "07de5d81bee2fc3f022bd4560e7a2467"
+  },
+  "webstorm/stockflow-frontend/index.html": {
+    "mtime": 1792248597.7593782,
+    "seen": 1792517435.3737702,
+    "ast_hash": "013c70a985bab265057cea415deaaed3",
+    "semantic_hash": "013c70a985bab265057cea415deaaed3"
+  },
+  "LIBROS-AYUDA/Git_y_Github/Git_y_GitHub_Desde_Cero_-_2da_Ed_-_Brais_Moure.pdf": {
+    "mtime": 1791515681.2116237,
+    "seen": 1792517435.3737712,
+    "ast_hash": "1879e987067509e25a83cd7a1cf3e603",
+    "semantic_hash": "1879e987067509e25a83cd7a1cf3e603"
+  },
+  "Mapa conceptual Expo y async.pdf": {
+    "mtime": 1792248597.7304208,
+    "seen": 1792517435.3737721,
+    "ast_hash": "7c93fd770077604074b8493bdd7fcdb5",
+    "semantic_hash": "7c93fd770077604074b8493bdd7fcdb5"
+  },
+  "diagrama-flujo-2do-parcial.pdf": {
+    "mtime": 1792450487.503854,
+    "seen": 1792517435.373773,
+    "ast_hash": "ca117d97b10e74c87c4d033055630831",
+    "semantic_hash": "ca117d97b10e74c87c4d033055630831"
+  },
+  "guia-ejecucion-stockflow.pdf": {
+    "mtime": 1792460113.47195,
+    "seen": 1792517435.3737738,
+    "ast_hash": "823d59f83b10bc2f84b9e2eb395cf28c",
+    "semantic_hash": "823d59f83b10bc2f84b9e2eb395cf28c"
+  },
+  "guia-postman-stockflow.pdf": {
+    "mtime": 1792248597.7352881,
+    "seen": 1792517435.3737748,
+    "ast_hash": "7099cb38946df8be4746b1bd13646f92",
+    "semantic_hash": "7099cb38946df8be4746b1bd13646f92"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/MacOS/guia-ejecucion-stockflow-macos.pdf": {
+    "mtime": 1792460114.8629525,
+    "seen": 1792517435.3737757,
+    "ast_hash": "a8c422f0e741b8ff6f7fef47df4b8fed",
+    "semantic_hash": "a8c422f0e741b8ff6f7fef47df4b8fed"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/MacOS/guia-implementacion-frontend-stockflow-macos.pdf": {
+    "mtime": 1792248597.739421,
+    "seen": 1792517435.3737767,
+    "ast_hash": "c94e8d3a10cee6218f920b9e73156b5f",
+    "semantic_hash": "c94e8d3a10cee6218f920b9e73156b5f"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/MacOS/guia-postman-stockflow-macos.pdf": {
+    "mtime": 1792248597.7404208,
+    "seen": 1792517435.3737774,
+    "ast_hash": "9f937776339f18b8481f2741d79144fb",
+    "semantic_hash": "9f937776339f18b8481f2741d79144fb"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/Windows/guia-ejecucion-stockflow-windows.pdf": {
+    "mtime": 1792460116.2819548,
+    "seen": 1792517435.3737786,
+    "ast_hash": "65354388511e5a9aecd915b8040c1055",
+    "semantic_hash": "65354388511e5a9aecd915b8040c1055"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/Windows/guia-implementacion-frontend-stockflow-windows.pdf": {
+    "mtime": 1792248597.7415535,
+    "seen": 1792517435.3737795,
+    "ast_hash": "22a42e5cdae92e15e711802156771eaf",
+    "semantic_hash": "22a42e5cdae92e15e711802156771eaf"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/Windows/guia-postman-stockflow-windows.pdf": {
+    "mtime": 1792248597.742421,
+    "seen": 1792517435.3737803,
+    "ast_hash": "ec6d4a924b2f3f2b431b9f5fcaf1609a",
+    "semantic_hash": "ec6d4a924b2f3f2b431b9f5fcaf1609a"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/guia-ejecucion-stockflow.pdf": {
+    "mtime": 1792460113.5782862,
+    "seen": 1792517435.3737812,
+    "ast_hash": "823d59f83b10bc2f84b9e2eb395cf28c",
+    "semantic_hash": "823d59f83b10bc2f84b9e2eb395cf28c"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/guia-implementacion-frontend-stockflow.pdf": {
+    "mtime": 1792248597.742421,
+    "seen": 1792517435.373782,
+    "ast_hash": "ac0888fb8f0ac5896684243853cc377a",
+    "semantic_hash": "ac0888fb8f0ac5896684243853cc377a"
+  },
+  "guias-para-hacer-correr-StockFlow-xd/guia-postman-stockflow.pdf": {
+    "mtime": 1792248597.742421,
+    "seen": 1792517435.373783,
+    "ast_hash": "7099cb38946df8be4746b1bd13646f92",
+    "semantic_hash": "7099cb38946df8be4746b1bd13646f92"
+  },
+  "respuestas-1er-parcial.pdf": {
+    "mtime": 1792248597.7504208,
+    "seen": 1792517435.3737838,
+    "ast_hash": "4fe9e3545dad7b44973d4a00b9e482d3",
+    "semantic_hash": "4fe9e3545dad7b44973d4a00b9e482d3"
+  },
+  "respuestas-2do-parcial.pdf": {
+    "mtime": 1792250038.6838937,
+    "seen": 1792517435.3737848,
+    "ast_hash": "556829af9d40256bde09c93dbad69b7a",
+    "semantic_hash": "556829af9d40256bde09c93dbad69b7a"
+  },
+  "androidstudio/stockflow-mobile/assets/android-icon-background.png": {
+    "mtime": 1792455091.3195605,
+    "seen": 1792517435.3737855,
+    "ast_hash": "2d65569cc0e2afdcea0af9f9902d4173",
+    "semantic_hash": "2d65569cc0e2afdcea0af9f9902d4173"
+  },
+  "androidstudio/stockflow-mobile/assets/android-icon-foreground.png": {
+    "mtime": 1792455091.3202069,
+    "seen": 1792517435.3737867,
+    "ast_hash": "72e71a9c846c6aa4ae32476641a00e18",
+    "semantic_hash": "72e71a9c846c6aa4ae32476641a00e18"
+  },
+  "androidstudio/stockflow-mobile/assets/android-icon-monochrome.png": {
+    "mtime": 1792455091.3214118,
+    "seen": 1792517435.3737876,
+    "ast_hash": "1e097dab989759fc0b69440092ca22cd",
+    "semantic_hash": "1e097dab989759fc0b69440092ca22cd"
+  },
+  "androidstudio/stockflow-mobile/assets/favicon.png": {
+    "mtime": 1792455091.3218048,
+    "seen": 1792517435.3737884,
+    "ast_hash": "d9f444efbdfbe7931aa93beada07318a",
+    "semantic_hash": "d9f444efbdfbe7931aa93beada07318a"
+  },
+  "androidstudio/stockflow-mobile/assets/icon.png": {
+    "mtime": 1792455091.330803,
+    "seen": 1792517435.3737895,
+    "ast_hash": "cb975bba2216ce10a60e6c0ffe9941a2",
+    "semantic_hash": "cb975bba2216ce10a60e6c0ffe9941a2"
+  },
+  "androidstudio/stockflow-mobile/assets/splash-icon.png": {
+    "mtime": 1792455091.333082,
+    "seen": 1792517435.3737903,
+    "ast_hash": "97dae5a0e62ad8551d8a31897b425e63",
+    "semantic_hash": "97dae5a0e62ad8551d8a31897b425e63"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-01/05_expo_plantilla_inicial.png": {
+    "mtime": 1792455274.3872743,
+    "seen": 1792517435.373791,
+    "ast_hash": "12e25d98ec2b823b4d11ad2f669b1122",
+    "semantic_hash": "12e25d98ec2b823b4d11ad2f669b1122"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-01/05b_hola_stockflow.png": {
+    "mtime": 1792455293.5431151,
+    "seen": 1792517435.373792,
+    "ast_hash": "f27d1cccfdcb05b78d5756f168bd070f",
+    "semantic_hash": "f27d1cccfdcb05b78d5756f168bd070f"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-01/06_pantalla_categorias.png": {
+    "mtime": 1792455328.7405682,
+    "seen": 1792517435.373793,
+    "ast_hash": "d18864ba1e333e94ffce4175f34b66a8",
+    "semantic_hash": "d18864ba1e333e94ffce4175f34b66a8"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-01/07_pantalla_productos.png": {
+    "mtime": 1792455330.9695296,
+    "seen": 1792517435.3737938,
+    "ast_hash": "48a703acd7bf41c961668ebff870c494",
+    "semantic_hash": "48a703acd7bf41c961668ebff870c494"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/a08_acento_cambiado.png": {
+    "mtime": 1792456990.6168654,
+    "seen": 1792517435.3737946,
+    "ast_hash": "820903ece96b3f8b8dfd879bcdd10e65",
+    "semantic_hash": "820903ece96b3f8b8dfd879bcdd10e65"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/g2_a01.png": {
+    "mtime": 1792456953.485528,
+    "seen": 1792517435.3737955,
+    "ast_hash": "dd3b23ddde4a1da69bc73839e1e49c6e",
+    "semantic_hash": "dd3b23ddde4a1da69bc73839e1e49c6e"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/g2_a03.png": {
+    "mtime": 1792456953.4882586,
+    "seen": 1792517435.3737965,
+    "ast_hash": "df1b457366df91dda3b283cae56c66a9",
+    "semantic_hash": "df1b457366df91dda3b283cae56c66a9"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/g2_a04.png": {
+    "mtime": 1792456953.4910703,
+    "seen": 1792517435.3737974,
+    "ast_hash": "d3e0a8073cfe0fa9d087e250c890c5d8",
+    "semantic_hash": "d3e0a8073cfe0fa9d087e250c890c5d8"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/g2_a05.png": {
+    "mtime": 1792456953.4944265,
+    "seen": 1792517435.3737984,
+    "ast_hash": "3a13c2369f6e252d971a6a14aa91f130",
+    "semantic_hash": "3a13c2369f6e252d971a6a14aa91f130"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/g2_a06.png": {
+    "mtime": 1792456953.4974008,
+    "seen": 1792517435.373799,
+    "ast_hash": "a79483928f78feb66e4fcea583d566f3",
+    "semantic_hash": "a79483928f78feb66e4fcea583d566f3"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/g2_a07.png": {
+    "mtime": 1792456953.500555,
+    "seen": 1792517435.3738,
+    "ast_hash": "e877bb07635fb33753bcbf85d7f16d1b",
+    "semantic_hash": "e877bb07635fb33753bcbf85d7f16d1b"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-02/paso25_categoria_999.png": {
+    "mtime": 1792456971.579595,
+    "seen": 1792517435.373801,
+    "ast_hash": "acd065128eed01125ec1bff0d8b58a9e",
+    "semantic_hash": "acd065128eed01125ec1bff0d8b58a9e"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a01.png": {
+    "mtime": 1792458393.3025749,
+    "seen": 1792517435.3738017,
+    "ast_hash": "98ad5a3276a68cfaf4271ef522df3f90",
+    "semantic_hash": "98ad5a3276a68cfaf4271ef522df3f90"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a02.png": {
+    "mtime": 1792458393.3040242,
+    "seen": 1792517435.3738024,
+    "ast_hash": "b315856963d21cc1e907a88d50b263d9",
+    "semantic_hash": "b315856963d21cc1e907a88d50b263d9"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a03.png": {
+    "mtime": 1792458393.3056486,
+    "seen": 1792517435.3738036,
+    "ast_hash": "c5fc9881f3f8ee4004ca876b44f20539",
+    "semantic_hash": "c5fc9881f3f8ee4004ca876b44f20539"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a04.png": {
+    "mtime": 1792458393.3076184,
+    "seen": 1792517435.3738043,
+    "ast_hash": "ff1df983d68772f096738d9707f854dc",
+    "semantic_hash": "ff1df983d68772f096738d9707f854dc"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a05.png": {
+    "mtime": 1792458393.3090155,
+    "seen": 1792517435.373805,
+    "ast_hash": "efad6127de8dc91f96da254d95ac1f65",
+    "semantic_hash": "efad6127de8dc91f96da254d95ac1f65"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a06.png": {
+    "mtime": 1792458393.3102465,
+    "seen": 1792517435.373806,
+    "ast_hash": "f02e91fe653fa6a4cf09e216fd0d880d",
+    "semantic_hash": "f02e91fe653fa6a4cf09e216fd0d880d"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a07.png": {
+    "mtime": 1792458393.3117247,
+    "seen": 1792517435.373807,
+    "ast_hash": "141be23ee5ccd610a1061171ac69b3b3",
+    "semantic_hash": "141be23ee5ccd610a1061171ac69b3b3"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a08.png": {
+    "mtime": 1792458393.3131354,
+    "seen": 1792517435.373808,
+    "ast_hash": "ead48ae6da1bc8b74690ea2b25605c25",
+    "semantic_hash": "ead48ae6da1bc8b74690ea2b25605c25"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a09.png": {
+    "mtime": 1792458393.3150878,
+    "seen": 1792517435.3738086,
+    "ast_hash": "c5c135407c571c4442349e0aad558000",
+    "semantic_hash": "c5c135407c571c4442349e0aad558000"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a10.png": {
+    "mtime": 1792458393.316618,
+    "seen": 1792517435.3738096,
+    "ast_hash": "5757b907e0df07caad558c49fe95a594",
+    "semantic_hash": "5757b907e0df07caad558c49fe95a594"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a11.png": {
+    "mtime": 1792458393.3185077,
+    "seen": 1792517435.3738108,
+    "ast_hash": "2b3b6f24d982e2529141d881629be14e",
+    "semantic_hash": "2b3b6f24d982e2529141d881629be14e"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a12.png": {
+    "mtime": 1792458393.320202,
+    "seen": 1792517435.3738124,
+    "ast_hash": "5493a01414302f20316ec2154fcd2671",
+    "semantic_hash": "5493a01414302f20316ec2154fcd2671"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a13.png": {
+    "mtime": 1792458393.3221111,
+    "seen": 1792517435.3738134,
+    "ast_hash": "56fe3116a09a0e1228a3d37e700bf320",
+    "semantic_hash": "56fe3116a09a0e1228a3d37e700bf320"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a16_frio.png": {
+    "mtime": 1792458393.3230083,
+    "seen": 1792517435.3738143,
+    "ast_hash": "6da4749c92150519babee53de921a1d8",
+    "semantic_hash": "6da4749c92150519babee53de921a1d8"
+  },
+  "androidstudio/stockflow-mobile/docs/evidencias/guia-03/g3_a16_volver.png": {
+    "mtime": 1792458393.3258586,
+    "seen": 1792517435.3738153,
+    "ast_hash": "5b92394ff12775e9df8b4a435d0e8ebe",
+    "semantic_hash": "5b92394ff12775e9df8b4a435d0e8ebe"
+  },
+  "webstorm/stockflow-frontend/public/favicon.svg": {
+    "mtime": 1792248597.7594209,
+    "seen": 1792517435.373816,
+    "ast_hash": "85ee4377a907f66707c5b9860a6b89f9",
+    "semantic_hash": "85ee4377a907f66707c5b9860a6b89f9"
+  }
+}

@@ -1,4 +1,8 @@
+import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 import type { Key, ReactNode } from 'react';
+import { siguienteOrden, type Orden } from '../../shared/utils/ordenar';
+import { Checkbox } from './Checkbox';
+import { SelectFilter } from './SelectFilter';
 
 export interface Column<T> {
   key: string;
@@ -8,9 +12,11 @@ export interface Column<T> {
   align?: 'start' | 'end';
   /** En móvil cada fila es una tarjeta: 'primary' es su título (sin etiqueta) y 'hide' no se muestra. */
   mobile?: 'primary' | 'hide';
+  /** El encabezado ordena la tabla (la Page define con qué valor, ver shared/utils/ordenar). */
+  sortable?: boolean;
 }
 
-type DataTableProps<T> = {
+export type DataTableProps<T> = {
   rows: T[];
   columns: Column<T>[];
   rowKey: (row: T) => Key;
@@ -20,25 +26,87 @@ type DataTableProps<T> = {
   actions?: (row: T) => ReactNode;
   /** Pie dentro de la tarjeta (paginación). */
   footer?: ReactNode;
+  /** Orden actual. La tabla sólo lo muestra: la Page ordena TODAS las filas antes de paginar. */
+  sort?: Orden | null;
+  onSortChange?: (sort: Orden | null) => void;
+  /** Casillas para acciones masivas (primera columna). La Page guarda qué filas están seleccionadas. */
+  selection?: {
+    isSelected: (row: T) => boolean;
+    /** Filas que cambian y su nuevo estado (la casilla del encabezado manda todas las visibles). */
+    onToggle: (rows: T[], selected: boolean) => void;
+    /** Nombre de la fila para la casilla: "Seleccionar <label>". */
+    label: (row: T) => string;
+  };
 };
 
 /**
  * Tabla de datos. En pantallas pequeñas la MISMA tabla se reorganiza con CSS como lista de
  * tarjetas (data-label pone el nombre de la columna junto a cada valor): no se duplica el DOM.
  */
-export function DataTable<T>({ rows, columns, rowKey, caption, actions, footer }: DataTableProps<T>) {
+export function DataTable<T>({ rows, columns, rowKey, caption, actions, footer, sort = null, onSortChange, selection }: DataTableProps<T>) {
+  const marcadas = selection ? rows.filter(selection.isSelected).length : 0;
+  const ordenables = onSortChange ? columns.filter((col) => col.sortable) : [];
   return (
     <div className="table-card">
+      {/* En móvil el <thead> se oculta: este selector reemplaza a los encabezados ordenables */}
+      {onSortChange && ordenables.length > 0 && (
+        <div className="table-card__sort">
+          <SelectFilter
+            label="Ordenar por"
+            value={sort ? `${sort.key}:${sort.dir}` : ''}
+            options={[
+              { value: '', label: 'Sin orden' },
+              ...ordenables.flatMap((col) => [
+                { value: `${col.key}:asc`, label: `${col.header} · ascendente` },
+                { value: `${col.key}:desc`, label: `${col.header} · descendente` },
+              ]),
+            ]}
+            onChange={(v) => {
+              const i = v.lastIndexOf(':');
+              onSortChange(v ? { key: v.slice(0, i), dir: v.slice(i + 1) as Orden['dir'] } : null);
+            }}
+          />
+        </div>
+      )}
       <div className="table-responsive">
         <table className="data-table data-table--stack">
           <caption className="sr-only">{caption}</caption>
           <thead>
             <tr>
-              {columns.map((col) => (
-                <th key={col.key} scope="col" className={col.align === 'end' ? 'align-end' : undefined}>
-                  {col.header}
+              {selection && (
+                <th scope="col" className="data-table__select">
+                  <Checkbox
+                    label={<span className="sr-only">Seleccionar todas las filas visibles</span>}
+                    checked={rows.length > 0 && marcadas === rows.length}
+                    // indeterminate sólo existe como propiedad del DOM, no como atributo HTML
+                    ref={(el) => {
+                      if (el) el.indeterminate = marcadas > 0 && marcadas < rows.length;
+                    }}
+                    onChange={(e) => selection.onToggle(rows, e.target.checked)}
+                  />
                 </th>
-              ))}
+              )}
+              {columns.map((col) => {
+                const dir = sort?.key === col.key ? sort.dir : null;
+                const Icon = dir === 'asc' ? ArrowUp : dir === 'desc' ? ArrowDown : ChevronsUpDown;
+                return (
+                  <th
+                    key={col.key}
+                    scope="col"
+                    className={col.align === 'end' ? 'align-end' : undefined}
+                    aria-sort={dir === 'asc' ? 'ascending' : dir === 'desc' ? 'descending' : undefined}
+                  >
+                    {col.sortable && onSortChange ? (
+                      <button type="button" className="data-table__sort" onClick={() => onSortChange(siguienteOrden(sort, col.key))}>
+                        {col.header}
+                        <Icon size={14} aria-hidden="true" className="data-table__sort-icon" />
+                      </button>
+                    ) : (
+                      col.header
+                    )}
+                  </th>
+                );
+              })}
               {actions && (
                 <th scope="col" className="data-table__actions">
                   <span className="sr-only">Acciones</span>
@@ -48,7 +116,16 @@ export function DataTable<T>({ rows, columns, rowKey, caption, actions, footer }
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={rowKey(row)}>
+              <tr key={rowKey(row)} data-selected={selection?.isSelected(row) || undefined}>
+                {selection && (
+                  <td className="data-table__select" data-label="Seleccionar">
+                    <Checkbox
+                      label={<span className="sr-only">Seleccionar {selection.label(row)}</span>}
+                      checked={selection.isSelected(row)}
+                      onChange={(e) => selection.onToggle([row], e.target.checked)}
+                    />
+                  </td>
+                )}
                 {columns.map((col) => (
                   <td
                     key={col.key}

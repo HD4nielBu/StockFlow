@@ -57,12 +57,12 @@ describe('MovimientosPage', () => {
     });
     renderWithProviders(<MovimientosPage />, { route: '/movimientos?producto=1' });
     expect(await screen.findByText('Carga inicial')).toBeInTheDocument();
-    expect(inventarioService.kardex).toHaveBeenCalledWith(1, 0, 10, expect.any(AbortSignal)); // página 1 de la UI = 0 en la API
+    expect(inventarioService.kardex).toHaveBeenCalledWith(1, 0, 10, {}, expect.any(AbortSignal)); // página 1 de la UI = 0 en la API
     expect(await screen.findByText('Almacén central')).toBeInTheDocument();
     expect(screen.getByText('+120')).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole('button', { name: 'Siguiente' }));
-    expect(inventarioService.kardex).toHaveBeenLastCalledWith(1, 1, 10, expect.any(AbortSignal));
+    expect(inventarioService.kardex).toHaveBeenLastCalledWith(1, 1, 10, {}, expect.any(AbortSignal));
   });
 
   it('muestra el 404 del backend si el producto ya no existe', async () => {
@@ -70,5 +70,18 @@ describe('MovimientosPage', () => {
     renderWithProviders(<MovimientosPage />, { route: '/movimientos?producto=99' });
     expect(await screen.findByText('El registro ya no existe')).toBeInTheDocument();
     expect(screen.getByText(/No existe el producto con id: 99/)).toBeInTheDocument();
+  });
+
+  it('envía a la API el rango de fechas de la URL', async () => {
+    vi.mocked(inventarioService.kardex).mockResolvedValue({ contenido: [], pagina: 0, tamano: 10, totalElementos: 0, totalPaginas: 0 });
+    renderWithProviders(<MovimientosPage />, { route: '/movimientos?producto=1&desde=2026-10-01&hasta=2026-10-20' });
+    expect(await screen.findByText('Sin movimientos en estas fechas')).toBeInTheDocument();
+    expect(inventarioService.kardex).toHaveBeenCalledWith(1, 0, 10, { desde: '2026-10-01', hasta: '2026-10-20' }, expect.any(AbortSignal));
+  });
+
+  it('con «Hasta» anterior a «Desde» marca el campo y no llama a la API', async () => {
+    renderWithProviders(<MovimientosPage />, { route: '/movimientos?producto=1&desde=2026-10-20&hasta=2026-10-01' });
+    expect(await screen.findByText('Debe ser igual o posterior a «Desde»')).toBeInTheDocument();
+    expect(inventarioService.kardex).not.toHaveBeenCalled();
   });
 });

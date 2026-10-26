@@ -10,7 +10,8 @@
 
 /* ---------- G03/G10: métricas y tablas ---------- */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-.table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); }
+.table-card { overflow: hidden; }
+.table-card__sort { display: none; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); }
 /* position: relative para que los textos .sr-only (absolutos) queden recortados por el scroll y no estiren la página */
 .table-responsive { position: relative; overflow-x: auto; }
 .data-table { width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0; }
@@ -46,6 +47,30 @@
 
 /* ---------- Celdas de las tablas CRUD ---------- */
 .data-table .align-end { text-align: right; }
+/* Casillas de selección (acciones masivas) */
+.data-table th.data-table__select, .data-table td.data-table__select { width: 44px; padding-right: 0; }
+.data-table__select .checkbox { gap: 0; vertical-align: middle; }
+.data-table tbody tr[data-selected] { background: var(--accent-soft); }
+
+.bulk-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
+  padding: 8px var(--space-3) 8px var(--space-4);
+  background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: var(--radius-md);
+}
+.bulk-bar__count { color: var(--text); }
+.bulk-bar__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.bulk-bar__clear { margin-left: auto; }
+/* Encabezado ordenable: botón que hereda el aspecto del <th>; el icono indica el sentido actual */
+.data-table__sort {
+  display: inline-flex; align-items: center; gap: 4px; margin: -4px -6px; padding: 4px 6px;
+  border: 0; border-radius: var(--radius-xs); background: none; color: inherit; font-weight: inherit; cursor: pointer;
+}
+.data-table__sort-icon { flex-shrink: 0; opacity: 0.55; }
+.data-table th[aria-sort] { color: var(--text); }
+.data-table th[aria-sort] .data-table__sort-icon { opacity: 1; color: var(--accent-text); }
+@media (hover: hover) and (pointer: fine) {
+  .data-table__sort:hover { color: var(--text); background: var(--surface-2); }
+}
 .data-table th.data-table__actions, .data-table td.data-table__actions { width: 56px; padding-right: 10px; text-align: right; }
 .cell-stack { display: grid; gap: 2px; min-width: 0; }
 .cell-title { color: var(--text); font-weight: 550; }
@@ -76,6 +101,7 @@
   .segmented { width: 100%; }
   .segmented__option { flex: 1; justify-content: center; }
   .table-card__footer .field { width: 100%; }
+  .table-card__sort { display: block; }
 
   /* La tabla se reorganiza como lista de tarjetas: título + menú arriba, el resto como pares etiqueta/valor */
   .data-table--stack { min-width: 0; }
@@ -106,8 +132,7 @@
 .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); }
 .quick-action {
   display: flex; align-items: center; gap: var(--space-3); padding: 14px var(--space-4);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
-  color: inherit; text-decoration: none; box-shadow: var(--shadow-xs);
+  color: inherit; text-decoration: none;
   transition: border-color var(--dur-fast) ease, transform 120ms var(--ease-out);
 }
 .quick-action:active { transform: scale(0.985); }
@@ -175,7 +200,6 @@
 /* ---------- Perfil ---------- */
 .profile-hero {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding: var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .profile-hero__text { flex: 1; min-width: 0; }
 .profile-hero__text h2 { font-size: var(--text-lg); }
@@ -189,13 +213,19 @@
 .delta { font-weight: 550; color: var(--text-2); }
 .delta--in { color: var(--success-text); }
 .filters__product { flex: 1 1 320px; max-width: 480px; }
+.filters__date { flex: 0 1 170px; min-width: 150px; }
+/* Alineado con los campos (que tienen etiqueta encima) */
+.filters__clear { align-self: flex-end; }
+@media (max-width: 639.98px) {
+  /* Las dos fechas comparten una fila */
+  .filters__date { flex: 1 1 140px; min-width: 0; }
+}
 .is-refetching { opacity: 0.6; transition: opacity var(--dur-fade) ease; }
 
 /* ---------- Almacenes ---------- */
 .location-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
 .location-card {
   display: grid; gap: var(--space-3); align-content: start; padding: var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .location-card__head { display: flex; align-items: flex-start; gap: var(--space-3); }
 .location-card__icon { display: grid; place-items: center; flex-shrink: 0; width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--accent-text); }
@@ -216,7 +246,6 @@
 .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
 .report-card {
   display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-3); padding: var(--space-5);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
 }
 .report-card__icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--accent-text); }
 .report-card__text h2 { font-size: var(--text-md); }
@@ -247,7 +276,7 @@
 .definition-list > div:last-child { border-bottom: 0; padding-bottom: 0; }
 .definition-list dt { color: var(--text-muted); }
 .definition-list dd { margin: 0; color: var(--text); overflow-wrap: anywhere; }
-.definition-list code { padding: 2px 6px; border-radius: 4px; background: var(--surface-2); font-size: var(--text-sm); }
+.definition-list code { padding: 2px 6px; border-radius: var(--radius-xs); background: var(--surface-2); font-size: var(--text-sm); }
 .demo-fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .demo-note { display: flex; align-items: center; gap: 6px; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--text-muted); }
 
@@ -270,4 +299,29 @@
   /* Perfil: la etiqueta de sesión baja a su propia línea para que nombre y correo no se corten */
   .profile-hero__text { flex: 1 1 calc(100% - 80px); }
   .profile-hero > .badge { margin-left: 80px; }
+}
+
+/*
+ * Pantallas táctiles (teléfono y tablet). Al final del último archivo para ganar a los tamaños de arriba.
+ * - Objetivos de 44 px (Apple HIG / Material); con mouse se conserva la densidad compacta de 32-36 px.
+ * - Controles a 16 px: con menos, iOS hace zoom en la página al enfocar el campo.
+ */
+@media (pointer: coarse) {
+  .btn, .btn--sm { height: 44px; }
+  .btn--icon, .btn--sm.btn--icon { width: 44px; }
+  .icon-button, .page-header__info, .toast__close, .row-actions, .user-trigger--avatar { width: 44px; height: 44px; }
+  .control, .table-card__footer .control { height: 44px; font-size: 16px; }
+  .control--textarea { height: auto; }
+  .search-input__control, .password-input__control { padding-right: 46px; }
+  .search-input__clear, .password-input__toggle { right: 0; width: 44px; height: 44px; }
+  .pagination__button { min-width: 44px; height: 44px; }
+  .segmented__option, .menu__item, .header-search__option, .sidebar__link, .tabs__tab { height: 44px; }
+  .header-search__input { height: 44px; font-size: 16px; }
+  .data-table__select .checkbox { min-width: 44px; min-height: 44px; justify-content: center; }
+}
+@media (pointer: coarse) and (max-width: 639.98px) {
+  /* Búsqueda contraída a icono: caja de 44 px centrada en el header de 60 px */
+  .header-search { width: 44px; height: 44px; }
+  .header-search__icon { margin-left: 14px; }
+  .header-search__input { top: 8px; width: 44px; }
 }

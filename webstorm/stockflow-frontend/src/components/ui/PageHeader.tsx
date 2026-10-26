@@ -1,14 +1,14 @@
 import { Info } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DemoBadge } from './DemoBadge';
-import { Tooltip } from './Tooltip';
+import { Popover } from './Popover';
 
 type PageHeaderProps = {
   title: string;
   description?: ReactNode;
   /** Botones principales de la página ("Nueva categoría"). */
   actions?: ReactNode;
-  /** Referencia técnica/académica (RF, endpoint). Se consulta con el icono de información. */
+  /** Referencia técnica/académica (RF, endpoint). Se abre al tocar o hacer clic en el icono de información (en táctil no hay hover). */
   reference?: string;
   /** La página usa datos locales de demostración. */
   demo?: boolean;
@@ -23,11 +23,18 @@ export function PageHeader({ title, description, actions, reference, demo = fals
           <h1 className="page-header__title">{title}</h1>
           {demo && <DemoBadge />}
           {reference && (
-            <Tooltip content={reference} placement="bottom-start">
-              <button type="button" className="icon-button page-header__info" aria-label="Referencia técnica">
-                <Info size={16} aria-hidden="true" />
-              </button>
-            </Tooltip>
+            <Popover
+              label="Referencia técnica"
+              placement="bottom-start"
+              className="page-header__reference"
+              trigger={(props) => (
+                <button {...props} type="button" className="icon-button page-header__info" aria-label="Referencia técnica">
+                  <Info size={16} aria-hidden="true" />
+                </button>
+              )}
+            >
+              <p>{reference}</p>
+            </Popover>
           )}
         </div>
         {description && <p className="page-header__description">{description}</p>}

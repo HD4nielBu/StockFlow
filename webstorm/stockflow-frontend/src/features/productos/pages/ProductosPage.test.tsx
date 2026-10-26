@@ -67,4 +67,33 @@ describe('ProductosPage', () => {
     expect(await within(dialogo).findByText('La operación no cumple una regla del inventario')).toBeInTheDocument();
     expect(within(dialogo).getByText('La categoría 4 está inactiva y no admite productos nuevos')).toBeInTheDocument();
   });
+
+  it('elimina en lote: quita los que el backend aceptó y deja seleccionado el que rechazó con 409', async () => {
+    vi.mocked(productoService.eliminar).mockImplementation((id) =>
+      id === 2 ? Promise.reject(new ApiError(409, 'El producto tiene stock')) : Promise.resolve(),
+    );
+    renderWithProviders(<ProductosPage />);
+    await userEvent.click(await screen.findByRole('checkbox', { name: 'Seleccionar Bolígrafo azul' }));
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Seleccionar Detergente líquido 5L' }));
+    expect(screen.getByText('productos seleccionados')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Eliminar' }));
+    const dialogo = screen.getByRole('dialog', { name: 'Eliminar 2 productos' });
+    await userEvent.click(within(dialogo).getByRole('button', { name: 'Eliminar' }));
+
+    expect(await screen.findByText('1 producto eliminado')).toBeInTheDocument();
+    expect(screen.getByText('No se pudo eliminar: 1 de 2')).toBeInTheDocument();
+    expect(screen.queryByText('Detergente líquido 5L')).not.toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: 'Seleccionar Bolígrafo azul' })).toBeChecked();
+  });
+
+  it('desactiva en lote enviando el producto completo con activo=false', async () => {
+    vi.mocked(productoService.actualizar).mockImplementation((id, data) => Promise.resolve({ id, ...data }));
+    renderWithProviders(<ProductosPage />);
+    await userEvent.click(await screen.findByRole('checkbox', { name: 'Seleccionar Bolígrafo azul' }));
+    await userEvent.click(screen.getByRole('button', { name: /Desactivar/ }));
+
+    expect(productoService.actualizar).toHaveBeenCalledWith(2, expect.objectContaining({ codigo: 'PRD-OFI-002', activo: false }));
+    expect(await screen.findByText('1 producto desactivado')).toBeInTheDocument();
+  });
 });

@@ -2,11 +2,12 @@ import { Pencil, Trash2 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Badge } from '../../../components/ui/Badge';
 import { Skeleton } from '../../../components/ui/LoadingSkeleton';
-import { DataTable, type Column } from '../../../components/ui/DataTable';
+import { DataTable, type Column, type DataTableProps } from '../../../components/ui/DataTable';
 import { DropdownItem, DropdownSeparator } from '../../../components/ui/Dropdown';
 import { RowActions } from '../../../components/ui/RowActions';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 import { formatoCantidad, formatoPrecio } from '../../../shared/utils/formato';
+import type { Orden } from '../../../shared/utils/ordenar';
 import type { Categoria } from '../../categorias/models/Categoria';
 import type { StockProducto } from '../../inventario/utils/stockPorProducto';
 import { UNIDAD_LABEL, type Producto } from '../models/Producto';
@@ -22,6 +23,10 @@ interface ProductoTableProps {
   onDelete: (producto: Producto) => void;
   busyId?: number | null;
   footer?: ReactNode;
+  sort?: Orden | null;
+  onSortChange?: (sort: Orden | null) => void;
+  /** Casillas para acciones masivas. */
+  selection?: DataTableProps<Producto>['selection'];
 }
 
 function StockCell({ stock, loading }: { stock: StockProducto | undefined | null; loading: boolean }) {
@@ -36,12 +41,13 @@ function StockCell({ stock, loading }: { stock: StockProducto | undefined | null
   );
 }
 
-export default function ProductoTable({ productos, categoriasPorId, stock, stockLoading = false, onEdit, onDelete, busyId, footer }: ProductoTableProps) {
+export default function ProductoTable({ productos, categoriasPorId, stock, stockLoading = false, onEdit, onDelete, busyId, footer, sort, onSortChange, selection }: ProductoTableProps) {
   const columns: Column<Producto>[] = [
     {
       key: 'producto',
       header: 'Producto',
       mobile: 'primary',
+      sortable: true,
       cell: (p) => (
         <span className="cell-stack">
           <span className="cell-title">{p.nombre}</span>
@@ -52,6 +58,7 @@ export default function ProductoTable({ productos, categoriasPorId, stock, stock
     {
       key: 'categoria',
       header: 'Categoría',
+      sortable: true,
       cell: (p) => {
         const categoria = categoriasPorId.get(p.categoriaId);
         if (!categoria) return <span className="muted-cell">Categoría #{p.categoriaId}</span>;
@@ -64,12 +71,13 @@ export default function ProductoTable({ productos, categoriasPorId, stock, stock
       },
     },
     { key: 'unidad', header: 'Unidad', cell: (p) => UNIDAD_LABEL[p.unidadMedida] },
-    { key: 'stock', header: 'Stock', align: 'end', cell: (p) => <StockCell loading={stockLoading} stock={stock ? stock.get(p.id) : null} /> },
-    { key: 'minimo', header: 'Mínimo', align: 'end', cell: (p) => <span className="num">{formatoCantidad(p.stockMinimoDefault)}</span> },
+    { key: 'stock', header: 'Stock', align: 'end', sortable: true, cell: (p) => <StockCell loading={stockLoading} stock={stock ? stock.get(p.id) : null} /> },
+    { key: 'minimo', header: 'Mínimo', align: 'end', sortable: true, cell: (p) => <span className="num">{formatoCantidad(p.stockMinimoDefault)}</span> },
     {
       key: 'precio',
       header: 'Precio ref.',
       align: 'end',
+      sortable: true,
       cell: (p) =>
         p.precioReferencial === null ? <span className="muted-cell">—</span> : <span className="num">{formatoPrecio(p.precioReferencial)}</span>,
     },
@@ -83,6 +91,9 @@ export default function ProductoTable({ productos, categoriasPorId, stock, stock
       rowKey={(p) => p.id}
       caption="Productos del catálogo"
       footer={footer}
+      sort={sort}
+      onSortChange={onSortChange}
+      selection={selection}
       actions={(p) => (
         <RowActions name={p.nombre} busy={busyId === p.id}>
           <DropdownItem icon={Pencil} onSelect={() => onEdit(p)}>

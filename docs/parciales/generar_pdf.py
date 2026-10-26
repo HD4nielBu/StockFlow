@@ -16,9 +16,8 @@ import tempfile
 from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
-RAIZ = AQUI.parent.parent
 FUENTE = AQUI / "respuestas-2do-parcial.html"
-DESTINO = RAIZ / "respuestas-2do-parcial.pdf"
+DESTINO = AQUI / "respuestas-2do-parcial.pdf"
 
 # id del índice -> texto con el que empieza el título en el cuerpo del documento
 SECCIONES = {

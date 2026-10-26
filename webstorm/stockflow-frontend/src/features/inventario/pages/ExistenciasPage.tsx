@@ -17,6 +17,7 @@ import { SegmentedControl } from '../../../components/ui/SegmentedControl';
 import { SelectFilter } from '../../../components/ui/SelectFilter';
 import { useAsyncList } from '../../../shared/hooks/useAsyncList';
 import { formatoCantidad } from '../../../shared/utils/formato';
+import { ordenar, type Orden } from '../../../shared/utils/ordenar';
 import { normalizar, paginar } from '../../../shared/utils/paginar';
 import type { Existencia } from '../models/Existencia';
 import { inventarioService } from '../services/inventarioService';
@@ -38,6 +39,7 @@ export default function ExistenciasPage() {
   const { data: existencias, loading, error, reload } = useAsyncList(inventarioService.listarExistencias);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [orden, setOrden] = useState<Orden | null>(null);
 
   const estadoParam = params.get('estado');
   const estado = ESTADOS.includes(estadoParam as EstadoExistencia) ? (estadoParam as EstadoExistencia) : 'all';
@@ -64,9 +66,19 @@ export default function ExistenciasPage() {
   const cuenta = (est: EstadoExistencia) => base.filter((e) => estadoExistencia(e) === est).length;
   const filtradas = base
     .filter((e) => estado === 'all' || estadoExistencia(e) === estado)
-    // Lo más urgente primero: menor cobertura del mínimo
+    // Sin orden elegido: lo más urgente primero (menor cobertura del mínimo)
     .sort((a, b) => a.cantidad / (a.stockMinimo || 1) - b.cantidad / (b.stockMinimo || 1));
-  const pagina = paginar(filtradas, page, PAGE_SIZE);
+  const pagina = paginar(
+    ordenar(filtradas, orden, {
+      producto: (e) => e.producto,
+      ubicacion: (e) => e.ubicacion,
+      cantidad: (e) => e.cantidad,
+      minimo: (e) => e.stockMinimo,
+      cobertura: (e) => (e.stockMinimo > 0 ? e.cantidad / e.stockMinimo : null),
+    }),
+    page,
+    PAGE_SIZE,
+  );
   const hayFiltros = search !== '' || estado !== 'all' || ubicacion !== 'all';
 
   const columns: Column<Existencia>[] = [
@@ -74,6 +86,7 @@ export default function ExistenciasPage() {
       key: 'producto',
       header: 'Producto',
       mobile: 'primary',
+      sortable: true,
       cell: (e) => (
         <span className="cell-stack">
           <span className="cell-title">{e.producto}</span>
@@ -81,12 +94,13 @@ export default function ExistenciasPage() {
         </span>
       ),
     },
-    { key: 'ubicacion', header: 'Ubicación', cell: (e) => e.ubicacion },
-    { key: 'cantidad', header: 'Cantidad', align: 'end', cell: (e) => <span className="num cell-title">{formatoCantidad(e.cantidad)}</span> },
-    { key: 'minimo', header: 'Mínimo', align: 'end', cell: (e) => <span className="num">{formatoCantidad(e.stockMinimo)}</span> },
+    { key: 'ubicacion', header: 'Ubicación', sortable: true, cell: (e) => e.ubicacion },
+    { key: 'cantidad', header: 'Cantidad', align: 'end', sortable: true, cell: (e) => <span className="num cell-title">{formatoCantidad(e.cantidad)}</span> },
+    { key: 'minimo', header: 'Mínimo', align: 'end', sortable: true, cell: (e) => <span className="num">{formatoCantidad(e.stockMinimo)}</span> },
     {
       key: 'cobertura',
       header: 'Cobertura',
+      sortable: true,
       cell: (e) => {
         const ratio = e.stockMinimo > 0 ? e.cantidad / e.stockMinimo : null;
         if (ratio === null) return <span className="muted-cell">Sin mínimo</span>;
@@ -199,6 +213,11 @@ export default function ExistenciasPage() {
           columns={columns}
           rowKey={(e) => e.stockId}
           caption="Existencias por producto y ubicación"
+          sort={orden}
+          onSortChange={(o) => {
+            setOrden(o);
+            setPage(1);
+          }}
           actions={(e) => (
             <RowActions name={`${e.producto} en ${e.ubicacion}`}>
               <DropdownItem icon={ScrollText} onSelect={() => navigate(`/movimientos?producto=${e.productoId}`)}>
